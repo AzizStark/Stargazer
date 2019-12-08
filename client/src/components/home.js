@@ -36,7 +36,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
