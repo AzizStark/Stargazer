@@ -114,17 +114,19 @@ class Home extends Component {
             </div>
          
           </section>
-          {herobar('About','Know me')}
+          {herobar('ABOUT','Know me')}
+          
           <section className="hero is-link is-fullheight hero2" >
-            <div className="columns">
+            <div className="columns" style={{padding: '10%', paddingTop: 30}}>
               <div className="column  has-text-centered">
-                <img class="" src={azi}  style={{padding: '20%'}}/> 
+                <img  src={azi} style={{width: '75%', borderRadius: 6}}/> 
                 
                 </div>  
-              <div className="column is-three-fifths" style={{padding: '10%'}}>
-                <div className="content is-medium ">
-              Hello! 👋 I'm Aziz Rahman, I obviously love web 💻 and mobille apps development and have developed few websites and projects️, but I'm also passionate about design🎨.I spend my free time by listening to music 🎧, playing videogames and surfing the internet to explore the world.
-              </div>
+              <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0,}}>
+              <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1><div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: '80%', height: 6}}></div>
+                <div className="content is-large " style={{padding: 30, paddingLeft: 0, paddingRight:0}}>
+                  Hello! 👋 I'm Aziz Rahman, I obviously love web and mobile apps development and have developed few websites and projects️, but I'm also passionate about design🎨.I spend my free time by listening to music 🎧, playing videogames and surfing the internet to explore the world.
+                </div>
               </div>
             </div>  
           </section>
@@ -138,7 +140,7 @@ function herobar(head, subhead){
   return (<section className="hero is-primary">
 <div className="hero-body" style={{backgroundColor: '#142332'}}>
   <div className="container">
-    <h1 className="subheading" style={{fontSize: 'calc(18px + 2.5vw)'}}>
+    <h1 className="subheading" style={{fontSize: 'calc(22px + 2.2vw)', fontWeight: 400}}>
        {head}
     </h1>
     <h2 className="subtitle" style={{fontFamily: 'Nunito', fontWeight: 300}}>
