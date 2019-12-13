@@ -9,6 +9,7 @@ import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
 import Head from './header.png';
 import img1 from './img1.png';
+import azi from './aziz.png';
 
 
 
@@ -42,7 +43,7 @@ class Home extends Component {
           <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
           
-          <section className="hero is-link is-fullheight" style={{backgroundImage: `url(${Head})`, backgroundSize: 'cover'}}>
+          <section className="hero is-link is-fullheight" style={{/*backgroundImage: `url(${Head})`*/ backgroundSize: 'cover', backgroundColor: '#16222F'}}>
           <Navba></Navba>
             <div className="hero-body" >
           
@@ -66,9 +67,9 @@ class Home extends Component {
           </section>
          
           <section className="hero is-link is-fullheight hero2" >
-          {herobar('Portfolio')}
-            <div className="columns ">
-              <div className="column is-half" style={{padding:24}}>
+          {herobar('PORTFOLIO','My awesome works')}
+            <div className="columns " style={{padding: 10}}>
+              <div className="column is-half" style={{padding:10,paddingTop:0}}>
                   <div className="imghvr-blur" style={{display:'block',backgroundColor: "#00000000"}}>
                       <img src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
@@ -80,7 +81,7 @@ class Home extends Component {
                   </div>
               </div>
 
-              <div className="column is-half" style={{padding:24}}>
+              <div className="column is-half" style={{padding:10,paddingTop:0}}>
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%'}}>
                             <img  src={img1}  />
@@ -113,8 +114,19 @@ class Home extends Component {
             </div>
          
           </section>
+          {herobar('About','Know me')}
           <section className="hero is-link is-fullheight hero2" >
-        
+            <div className="columns">
+              <div className="column  has-text-centered">
+                <img class="" src={azi}  style={{padding: '20%'}}/> 
+                
+                </div>  
+              <div className="column is-three-fifths" style={{padding: '10%'}}>
+                <div className="content is-medium ">
+              Hello! 👋 I'm Aziz Rahman, I obviously love web 💻 and mobille apps development and have developed few websites and projects️, but I'm also passionate about design🎨.I spend my free time by listening to music 🎧, playing videogames and surfing the internet to explore the world.
+              </div>
+              </div>
+            </div>  
           </section>
 
       </div>
@@ -122,15 +134,15 @@ class Home extends Component {
   }
 }
 
-function herobar(head){ 
+function herobar(head, subhead){ 
   return (<section className="hero is-primary">
 <div className="hero-body" style={{backgroundColor: '#142332'}}>
   <div className="container">
     <h1 className="subheading" style={{fontSize: 'calc(18px + 2.5vw)'}}>
        {head}
     </h1>
-    <h2 className="subtitle">
-      My awesome works
+    <h2 className="subtitle" style={{fontFamily: 'Nunito', fontWeight: 300}}>
+      {subhead}
     </h2>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Polygon from "./Polygon.svg";
+import Polygon from "./Polygon.png";
 
 class Navba extends Component {
   render() {
@@ -10,8 +10,8 @@ class Navba extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            <img src={Polygon} width="112" height="28" alt="logo"/>
+          <a className="navbar-item" href="#" >
+            <img src={Polygon} width="90" height="60" alt="logo" />
           </a>
 
           <a
