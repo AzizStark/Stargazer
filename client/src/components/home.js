@@ -69,11 +69,11 @@ class Home extends Component {
 
 
 
-
-          <section className="hero is-link is-fullheight hero2 " >
-          {herobar('PORTFOLIO','My awesome works')}
+          {herobar('What I built?','My awesome works')}
+          <section className="hero is-fullheight svgg" >
+         
             <div className="columns " style={{padding: 10}}>
-              <div className="column is-half" style={{padding:10,paddingTop:0}}>
+              <div className="column is-half" style={{padding:10}}>
                   <div className="imghvr-blur" style={{display:'block',backgroundColor: "#00000000"}}>
                       <img src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
@@ -85,7 +85,7 @@ class Home extends Component {
                   </div>
               </div>
 
-              <div className="column is-half" style={{padding:10,paddingTop:0}}>
+              <div className="column is-half" style={{padding:10}}>
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%'}}>
                             <img  src={img1}  />
@@ -122,12 +122,12 @@ class Home extends Component {
 
           </section>
           {herobar('What I do?','Code and Design')}
-          <section className="hero is-link is-fullheight hero2" >
+          <section className="hero is-fullheight svgg"  >
            
             <div className="columns" style={{padding: '10%', paddingTop: '10vw'}}>
               <div className="column ">
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(12px + 0.5vw)", paddingTop: '14vh' }}>Clean & Optimized Code</h2> <br/>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.5vw)" }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions and straightforward lines of control.</h2>
+                <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(2rem)" }}>Clean & Optimized Code</p> <br/>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)" }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
@@ -135,16 +135,15 @@ class Home extends Component {
                   </div>      
               </div>
               <div className="column ">
-              <h2 style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(12px + 0.5vw),", paddingTop: '14vh'}}>Beautiful Design & Interface</h2> <br/>
-              <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.5vw)" }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
+              <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(2rem)"}}>Beautiful Design & Interface</p> <br/>
+              <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)" }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
               </div>
-   
             </div>
           </section>
 
 
-
-          <section className="hero is-link is-fullheight hero2" >
+          {herobar('Who I am?','About me')}
+          <section className="hero is-fullheight svgg" >
             <div className="columns" style={{padding: '10%', paddingTop: '10vw'}}>
               <div className="column  has-text-centered">
                 <img  src={azi} style={{width: '75%', borderRadius: 6}}/> 
@@ -177,7 +176,7 @@ class Home extends Component {
 
 function herobar(head, subhead){ 
   return (<section className="hero is-primary ">
-<div className="hero-body" style={{backgroundColor: '#142332'}}>
+<div className="hero-body" style={{backgroundColor: '#0B1826'}}>
   <div className="container">
     <h1 className="subheading" style={{fontSize: 'calc(22px + 2.2vw)', fontWeight: 400}}>
        {head}
