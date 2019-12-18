@@ -69,7 +69,7 @@ class Home extends Component {
 
 
 
-          {herobar('What I built?','My awesome works')}
+          {herobar('What I built?','Awesome projects')}
           <section className="hero is-fullheight svgg" >
          
             <div className="columns " style={{padding: 10}}>
@@ -124,19 +124,19 @@ class Home extends Component {
           {herobar('What I do?','Code and Design')}
           <section className="hero is-fullheight svgg"  >
            
-            <div className="columns" style={{padding: '10%', paddingTop: '10vw'}}>
+            <div className="columns" style={{padding: '10%', paddingTop: '12vw'}}>
               <div className="column ">
-                <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(2rem)" }}>Clean & Optimized Code</p> <br/>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)" }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
+                <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(1.8rem)" }}>Clean & Optimized Code</p> <br/>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)", textAlign: 'justify' }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#D0AE1E'} sliderLineWidth = {4} sliderPositionPercentage={0.94}/>             
+                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} sliderLineWidth = {4} sliderPositionPercentage={0.94}/>             
                   </div>      
               </div>
               <div className="column ">
-              <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(2rem)"}}>Beautiful Design & Interface</p> <br/>
-              <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)" }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
+              <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(1.8rem)"}}>Beautiful Design & Interface</p> <br/>
+              <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)",textAlign: 'justify'  }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
               </div>
             </div>
           </section>
@@ -151,23 +151,28 @@ class Home extends Component {
                 </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
               <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1><div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: '80%', height: 6}}></div>
-                <div className="content" style={{fontSize: 'calc(12px + 0.65vw)',padding: 30, paddingLeft: 0, paddingRight:0}}>
-                  Hello! 👋 I'm Aziz Rahman, I obviously love web and mobile apps development and have developed few websites and projects️, but I'm also passionate about design🎨.I spend my free time by listening to music 🎧, playing videogames and surfing the internet to explore the world.
+                <div className="content" style={{fontSize: 'calc(12px + 0.66vw)',padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
+                Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
                 </div>
               </div>
             </div>    
           </section>
 
-
-
-          <footer class="footer">
-            <div class="content has-text-centered">
-              <p>
-                <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-              </p>
-            </div>
+          <footer class="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: 46}}>
+          <div className="columns">
+         
+          <div class="column is-four-fifths" style={{paddingLeft: '39%',paddingTop: 25}}>
+            <p style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.6vh)" }}>
+              Content & Graphics © 2019 AzizStark
+            </p>
+          </div>
+          <div class="column" >
+              <p style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.6vh)" }}>
+                Email : theazizstark@gmail.com <br/>
+                Phone : 6382527775
+                </p>
+          </div>
+          </div> 
           </footer>
       </div>
     );
@@ -176,12 +181,12 @@ class Home extends Component {
 
 function herobar(head, subhead){ 
   return (<section className="hero is-primary ">
-<div className="hero-body" style={{backgroundColor: '#0B1826'}}>
+<div className="hero-body" style={{backgroundColor: '#152636'}}>
   <div className="container">
-    <h1 className="subheading" style={{fontSize: 'calc(22px + 2.2vw)', fontWeight: 400}}>
+    <h1 className="subheading2" style={{fontSize: 'calc(22px + 2.0vw)', fontWeight: 500}}>
        {head}
     </h1>
-    <h2 className="subtitle" style={{fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
+    <h2 className="subtitle" style={{fontSize: 'calc(12px + 1.4vw)' , fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
       {subhead}
     </h2>
   </div>

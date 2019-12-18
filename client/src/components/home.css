@@ -12,10 +12,6 @@
   color: #e6f2fb;
 }
 
-.hero.is-link {
-  background-image: 'header.png'!important;
-}
-
 
 
 .title {
@@ -39,6 +35,14 @@
     font-size: calc(10px + 1.3vw);
     letter-spacing: 0.08em;
     color: #E5F2FB;
+}
+
+.subheading2{
+  font-family: Comfortaa;
+  font-style: normal;
+  font-weight: 200;
+  font-size: calc(10px + 1.3vw);
+  color: #E5F2FB;
 }
 
 .floating {  
