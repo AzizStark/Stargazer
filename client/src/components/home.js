@@ -126,7 +126,7 @@ class Home extends Component {
            
             <div className="columns" style={{padding: '10%', paddingTop: '12vw'}}>
               <div className="column ">
-                <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(1.8rem)" }}>Clean & Optimized Code</p> <br/>
+                <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)" }}>Clean & Optimized Code</p> <br/>
                 <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)", textAlign: 'justify' }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
               </div>
               <div className="column is-half">
@@ -135,7 +135,7 @@ class Home extends Component {
                   </div>      
               </div>
               <div className="column ">
-              <p style={{fontFamily: 'Nunito', fontWeight: 600, color: '#2EA7FF', fontSize: "calc(1.8rem)"}}>Beautiful Design & Interface</p> <br/>
+              <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)"}}>Beautiful Design & Interface</p> <br/>
               <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)",textAlign: 'justify'  }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
               </div>
             </div>
@@ -158,19 +158,41 @@ class Home extends Component {
             </div>    
           </section>
 
-          <footer class="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: 46}}>
+          {herobar('Want to talk?','Contact me')}
+          <section className="hero is-fullheight svgg" >
+            <div  class="columns">
+          <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', padding: '10%',paddingTop: '20%'}}>
+						<div class="field">
+							<label>Name</label>
+							<div class="control">
+								<input class="input is-medium" type="text" style={styles.input}/>
+							</div>
+						</div>
+						<div class="field">
+							<label>Email</label>
+							<div class="control">
+								<input class="input is-medium" type="text" style={styles.input}/>
+							</div>
+						</div>
+						<div class="field">
+							<label >Message</label>
+							<div class="control">
+								<textarea class="textarea is-medium" style={styles.input}></textarea>
+							</div>
+						</div>
+						<div class="control">
+							<button type="submit" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" style={{fontFamily: 'Nunito'}}>Send Message</button>
+						</div>
+					</div>
+          </div>
+          </section>
+
+          <footer class="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
           <div className="columns">
-         
-          <div class="column is-four-fifths" style={{paddingLeft: '39%',paddingTop: 25}}>
-            <p style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.6vh)" }}>
+          <div class="column has-text-centered">
+            <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
               Content & Graphics © 2019 AzizStark
             </p>
-          </div>
-          <div class="column" >
-              <p style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.6vh)" }}>
-                Email : theazizstark@gmail.com <br/>
-                Phone : 6382527775
-                </p>
           </div>
           </div> 
           </footer>
@@ -186,7 +208,7 @@ function herobar(head, subhead){
     <h1 className="subheading2" style={{fontSize: 'calc(22px + 2.0vw)', fontWeight: 500}}>
        {head}
     </h1>
-    <h2 className="subtitle" style={{fontSize: 'calc(12px + 1.4vw)' , fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
+    <h2 className="subtitle" style={{fontSize: 'calc(12px + 1.2vw)' , fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
       {subhead}
     </h2>
   </div>
@@ -194,5 +216,9 @@ function herobar(head, subhead){
 </section>)
 }
 
+
+const styles = {
+  input: {backgroundColor: '#0B1826', borderColor: '#2EA7FF', color: '#FFFFFF'}
+}
 
 export default Home;
