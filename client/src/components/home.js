@@ -65,7 +65,7 @@ class Home extends Component {
               <div className="container"  style={{marginLeft: '3vw'}}>
             
                 <p className="title">
-                HELLO, <br></br>
+                HELLO, <br> </br>
                 I AM <span className="blue">AZIZ</span>.
                 </p>
                 <p className="subheading">An aspiring developer and designer.</p>
