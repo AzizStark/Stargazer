@@ -60,7 +60,7 @@ class Home extends Component {
           
           <section className="hero is-fullheight svgg" style={{/*backgroundImage: `url(${Head})`*/}}>
           <Navba></Navba>
-            <div className="hero-body" >
+            <div className="hero-body">
           
               <div className="container"  style={{marginLeft: '3vw'}}>
             
