@@ -53,19 +53,18 @@ class Home extends Component {
     return (
       <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
-          <meta name="google-site-verification" content="4c8WdYQOk4Ekcmgg34KgIOXZkb22NzawM8PH9ad_ycw" />
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
           
           <section className="hero is-fullheight svgg" style={{/*backgroundImage: `url(${Head})`*/}}>
           <Navba></Navba>
-            <div className="hero-body">
+            <div className="hero-body" >
           
               <div className="container"  style={{marginLeft: '3vw'}}>
             
                 <p className="title">
-                HELLO, <br> </br>
+                HELLO, <br></br>
                 I AM <span className="blue">AZIZ</span>.
                 </p>
                 <p className="subheading">An aspiring developer and designer.</p>
