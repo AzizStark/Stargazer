@@ -13,6 +13,7 @@ import azi from './aziz.png';
 import code from './carbon.png';
 import ReactCompareImage from 'react-compare-image';
 import Design from "./Design.png";
+import emailjs from 'emailjs-com';
 
 class Home extends Component {
   state = {
@@ -36,10 +37,23 @@ class Home extends Component {
       .catch(err => console.log(err));
   };
 
+  sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('mailgun', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  }
+
+
   render() {
     return (
       <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
+          <meta name="google-site-verification" content="4c8WdYQOk4Ekcmgg34KgIOXZkb22NzawM8PH9ad_ycw" />
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -162,27 +176,29 @@ class Home extends Component {
           <section className="hero is-fullheight svgg" >
             <div  class="columns">
           <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', padding: '10%',paddingTop: '20%'}}>
-						<div class="field">
+          <form className="contact-form" onSubmit={this.sendEmail}>
+            <div class="field">
 							<label>Name</label>
 							<div class="control">
-								<input class="input is-medium" type="text" style={styles.input}/>
+								<input class="input is-medium" name="user_name"  type="text" style={styles.input}/>
 							</div>
 						</div>
 						<div class="field">
 							<label>Email</label>
 							<div class="control">
-								<input class="input is-medium" type="text" style={styles.input}/>
+								<input class="input is-medium" type="email" name="user_email" style={styles.input}/>
 							</div>
 						</div>
 						<div class="field">
 							<label >Message</label>
 							<div class="control">
-								<textarea class="textarea is-medium" style={styles.input}></textarea>
+								<textarea class="textarea is-medium" name="message" style={styles.input}></textarea>
 							</div>
 						</div>
 						<div class="control">
-							<button type="submit" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" style={{fontFamily: 'Nunito'}}>Send Message</button>
+							<button type="submit" value="Send" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" style={{fontFamily: 'Nunito'}}>Send Message</button>
 						</div>
+          </form>
 					</div>
           </div>
           </section>
