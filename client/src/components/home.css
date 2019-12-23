@@ -67,22 +67,23 @@
 }
 
 .custombtn{
-  background-color: #00000000;
+  font-family: 'Nunito';
+  background-color: #161F2F;
   border-width: 2px;
-  border-color: #388BFE;
   color: #E5F2FB;
+  border-color: #388BFE;
   box-shadow: 0px 0px 20px rgba(77, 74, 218, 0.48);
   letter-spacing: 0.08em;
 }
 
 .custombtn:hover{
   background-color: #388BFE;
-  border-color: #388BFE;
+  border-color: rgb(69, 146, 255);
   color: #E5F2FB;
 }
 
 .custombtn:focus{
-  background-color: #00000000;
+  background-color: rgb(25, 34, 51);
   color: #E5F2FB;
 }
 
