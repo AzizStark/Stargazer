@@ -14,14 +14,23 @@ import code from './carbon.png';
 import ReactCompareImage from 'react-compare-image';
 import Design from "./Design.png";
 import emailjs from 'emailjs-com';
+import ReCAPTCHA from "react-google-recaptcha";
 
 class Home extends Component {
   state = {
-    todos: ["asd"]
+    todos: ["asd"],
+    capvalue: null
   };
 
   componentDidMount() {
     this.getTodos();
+  }
+
+  onChange = (value) => {
+    this.setState({
+      capvalue: value
+    });
+    console.log("Captcha value:", this.state.capvalue);
   }
 
   getTodos = () => {
@@ -39,13 +48,17 @@ class Home extends Component {
 
   sendEmail = (e) => {
     e.preventDefault();
-
-    emailjs.sendForm('mailgun', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
+    if(this.state.capvalue != null){
+      emailjs.sendForm('mailgun', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+    }
+    else{
+      console.log("captcha not verified")
+    }
   }
 
 
@@ -174,7 +187,7 @@ class Home extends Component {
           {herobar('Want to talk?','Contact me')}
           <section className="hero is-fullheight svgg" >
             <div  class="columns">
-          <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', padding: '10%',paddingTop: '20%'}}>
+          <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', padding: '10%'}}>
           <form className="contact-form" onSubmit={this.sendEmail}>
             <div class="field">
 							<label>Name</label>
@@ -194,8 +207,15 @@ class Home extends Component {
 								<textarea class="textarea is-medium" name="message" style={styles.input}></textarea>
 							</div>
 						</div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <ReCAPTCHA
+                sitekey="6LcHgMkUAAAAAFJHIMlbY2m2N0wSchYl5Ga2wJXU"
+                theme="dark"
+                onChange={this.onChange}
+              />
+            </div><br/>
 						<div class="control">
-							<button type="submit" value="Send" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" style={{fontFamily: 'Nunito'}}>Send Message</button>
+							<button type="submit" value="Send" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" >Send Message</button>
 						</div>
           </form>
 					</div>
