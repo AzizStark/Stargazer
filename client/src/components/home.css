@@ -76,15 +76,62 @@
   letter-spacing: 0.08em;
 }
 
+.custombtnS{
+  font-family: 'Nunito';
+  background-color: #161F2F;
+  border-width: 2px;
+  color: #E5F2FB;
+  border-color: #00DD72;
+  box-shadow: 0px 0px 20px rgba(0, 221, 114, 0.294);
+  letter-spacing: 0.08em;
+}
+
+
+.custombtnW{
+  font-family: 'Nunito';
+  background-color: #161F2F;
+  border-width: 2px;
+  color: #E5F2FB;
+  border-color: rgb(255, 40, 40);
+  box-shadow: 0px 0px 20px rgba(255, 49, 49, 0.623);
+  letter-spacing: 0.08em;
+}
+
 .custombtn:hover{
   background-color: #388BFE;
   border-color: rgb(69, 146, 255);
   color: #E5F2FB;
 }
 
-.custombtn:focus{
-  background-color: rgb(25, 34, 51);
+.custombtnS:hover{
+  background-color: #00DD72;
+  border-color: #00DD72;
   color: #E5F2FB;
+}
+
+.custombtnW:hover{
+  background-color: rgb(255, 39, 39);
+  border-color: rgb(255, 40, 40);
+  color: #E5F2FB;
+}
+
+.custombtn:focus{
+  color: #E5F2FB;
+  background-color: rgba(56, 138, 254, 0.753);
+}
+
+.custombtnS:focus{
+  color: #E5F2FB;
+  border-color: rgb(0, 192, 99);
+  box-shadow: 0px 0px 20px rgb(0, 192, 99);
+  background-color: rgb#00DD72;
+}
+
+.custombtnW:focus{
+  color: #E5F2FB;
+  border-color: rgb(255, 40, 40);
+  box-shadow: 0px 0px 20px rgba(255, 49, 49, 0.623);
+ 
 }
 
 .subheader{

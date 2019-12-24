@@ -19,7 +19,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 class Home extends Component {
   state = {
     todos: ["asd"],
-    capvalue: null
+    capvalue: null,
+    sendinfo: "Send Message",
+    butStyle: 'custombtn'
   };
 
   componentDidMount() {
@@ -28,7 +30,9 @@ class Home extends Component {
 
   onChange = (value) => {
     this.setState({
-      capvalue: value
+      capvalue: value,
+      sendinfo: "Send Message",
+      butStyle: 'custombtn'
     });
     console.log("Captcha value:", this.state.capvalue);
   }
@@ -48,16 +52,36 @@ class Home extends Component {
 
   sendEmail = (e) => {
     e.preventDefault();
-    if(this.state.capvalue != null){
-      emailjs.sendForm('mailgun', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
+    if(this.state.capvalue != null && this.state.capvalue != "sent"){
+      this.setState({
+        sendinfo: "Sending Message"
+      });
+      emailjs.sendForm('gmail', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
         .then((result) => {
             console.log(result.text);
+            this.setState({
+              sendinfo: "Message Sent Successfully",
+              capvalue: "sent",
+              butStyle: 'custombtnS'
+            });
         }, (error) => {
             console.log(error.text);
+            if(this.state.capvalue != "sent"){
+              this.setState({
+                sendinfo: "Sending Failed!",
+                butStyle: 'custombtnW'
+              });
+          }
         });
     }
     else{
       console.log("captcha not verified")
+      if( this.state.capvalue != "sent"){
+        this.setState({
+          sendinfo: "Please Verify Captcha",
+          butStyle: 'custombtnW'
+        });
+      }
     }
   }
 
@@ -82,7 +106,7 @@ class Home extends Component {
                 </p>
                 <p className="subheading">An aspiring developer and designer.</p>
                 <br />
-                <button className="button custombtn is-rounded " >EXPLORE</button>
+                <button className="button custombtn is-rounded " >Explore</button>
               </div>
               
               <div className="cardss">
@@ -177,7 +201,7 @@ class Home extends Component {
                 </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
               <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1><div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: '80%', height: 6}}></div>
-                <div className="content" style={{fontSize: 'calc(12px + 0.66vw)',padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
+                <div className="content" style={{fontSize: "calc(12px + 1vh)",fontWeight: 300,padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
                 Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
                 </div>
               </div>
@@ -192,19 +216,19 @@ class Home extends Component {
             <div class="field">
 							<label>Name</label>
 							<div class="control">
-								<input class="input is-medium" name="user_name"  type="text" style={styles.input}/>
+								<input class="input is-medium" name="user_name"  type="text" style={styles.input} required/>
 							</div>
 						</div>
 						<div class="field">
 							<label>Email</label>
 							<div class="control">
-								<input class="input is-medium" type="email" name="user_email" style={styles.input}/>
+								<input class="input is-medium" type="email" name="user_email" style={styles.input}  required/>
 							</div>
 						</div>
 						<div class="field">
 							<label >Message</label>
 							<div class="control">
-								<textarea class="textarea is-medium" name="message" style={styles.input}></textarea>
+								<textarea class="textarea is-medium" name="message" style={styles.input}  required></textarea>
 							</div>
 						</div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -215,7 +239,7 @@ class Home extends Component {
               />
             </div><br/>
 						<div class="control">
-							<button type="submit" value="Send" class="button custombtn is-rounded is-fullwidth has-text-weight-medium is-medium" >Send Message</button>
+							<button type="submit" value="Send" className={`${this.state.butStyle} button is-rounded is-fullwidth has-text-weight-medium is-medium`}>{this.state.sendinfo}</button>
 						</div>
           </form>
 					</div>
