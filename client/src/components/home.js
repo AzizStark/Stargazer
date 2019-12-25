@@ -7,7 +7,6 @@ import './home.css';
 import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
-import Head from './header.png';
 import img1 from './img1.png';
 import azi from './aziz.png';
 import code from './carbon.png';
