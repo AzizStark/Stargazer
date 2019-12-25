@@ -280,7 +280,7 @@ class Home extends Component {
           <div className="columns">
           <div class="column has-text-centered">
             <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
-              Content & Graphics © 2019 AzizStark
+              Content & Graphics © 2020 AzizStark
             </p>
           </div>
           </div> 
