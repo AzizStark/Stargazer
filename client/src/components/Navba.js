@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import Polygon from "./Polygon.png";
+import { } from '@fortawesome/free-brands-svg-icons'
 
+ 
 class Navba extends Component {
+
+  showIt = (elementId) =>{
+    var el = document.getElementById(elementId);
+    el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+  }
+
+
   render() {
     return (
       <nav
@@ -34,13 +43,13 @@ class Navba extends Component {
           >
             <a className="navbar-item" href="/">HOME</a>
 
-            <a className="navbar-item"  href="/">ABOUT</a>
-
-            <a className="navbar-item"  href="/">PORTFOLIO</a>
+            <a className="navbar-item"  onClick={() => this.showIt('portfolio')}>PORTFOLIO</a>
 
             <a className="navbar-item"  href="/">BLOG</a>
 
-            <a className="navbar-item"  href="/">CONTACT</a>
+            <a className="navbar-item" onClick={() => this.showIt('about')}>ABOUT</a>
+            
+            <a className="navbar-item"  onClick={() => this.showIt('contact')}>CONTACT</a>
 
           </div>
         </div>
