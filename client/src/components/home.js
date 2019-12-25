@@ -226,7 +226,7 @@ class Home extends Component {
                   Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
                 </div> 
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello%20again" target="_top"><FontAwesomeIcon  className="iclick" icon={faEnvelope}  size="2x"/></a>
+                    <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello" target="_top"><FontAwesomeIcon  className="iclick" icon={faEnvelope}  size="2x"/></a>
                     <a style={styles.bcolor} href="https://github.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faGithubAlt}  size="2x"/></a>
                     <a style={styles.bcolor} href="https://deviantart.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDeviantart}    size="2x"/></a>
                     <a style={styles.bcolor} href="https://dribbble.com/AzizStark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDribbble}    size="2x"/></a>
