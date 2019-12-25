@@ -15,6 +15,9 @@ import ReactCompareImage from 'react-compare-image';
 import Design from "./Design.png";
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
 
 class Home extends Component {
   state = {
@@ -35,6 +38,11 @@ class Home extends Component {
       butStyle: 'custombtn'
     });
     console.log("Captcha value:", this.state.capvalue);
+  }
+
+  showIt = (elementId) => {
+    var el = document.getElementById(elementId);
+    el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   }
 
   getTodos = () => {
@@ -91,7 +99,6 @@ class Home extends Component {
       <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
-          <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
           
           <section className="hero is-fullheight svgg" style={{/*backgroundImage: `url(${Head})`*/}}>
@@ -106,7 +113,7 @@ class Home extends Component {
                 </p>
                 <p className="subheading">An aspiring developer and designer.</p>
                 <br />
-                <button className="button custombtn is-rounded " >Explore</button>
+                <button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Explore</button>
               </div>
               
               <div className="cardss">
@@ -120,7 +127,7 @@ class Home extends Component {
 
 
           {herobar('What I built?','Awesome projects')}
-          <section className="hero is-fullheight svgg" >
+          <section  id="portfolio" className="hero is-fullheight svgg" >
          
             <div className="columns " style={{padding: 10}}>
               <div className="column is-half" style={{padding:10}}>
@@ -172,46 +179,69 @@ class Home extends Component {
 
           </section>
           {herobar('What I do?','Code and Design')}
-          <section className="hero is-fullheight svgg"  >
+          <section id="explore" className="hero is-fullheight svgg"  >
            
             <div className="columns" style={{padding: '10%', paddingTop: '12vw'}}>
               <div className="column ">
                 <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)" }}>Clean & Optimized Code</p> <br/>
                 <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)", textAlign: 'justify' }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
+                <br/>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>JavaScript</h2>
+                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="94" max="100"></progress>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Python</h2>
+                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="88" max="100"></progress>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Java</h2>
+                <progress style = {{height: 5}}class="progress is-small is-link" value="82" max="100"></progress>
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} sliderLineWidth = {4} sliderPositionPercentage={0.94}/>             
-                  </div>      
+                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} sliderLineWidth = {4} sliderPositionPercentage={0.996}/>      <br />       
+                  </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column ">
               <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)"}}>Beautiful Design & Interface</p> <br/>
               <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)",textAlign: 'justify'  }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
+              <br/>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Figma</h2>
+                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="96" max="100"></progress>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Illustrator</h2>
+                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="86" max="100"></progress>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Photoshop</h2>
+                <progress style = {{height: 5}}class="progress is-small is-link" value="92" max="100"></progress>
               </div>
             </div>
           </section>
 
 
           {herobar('Who I am?','About me')}
-          <section className="hero is-fullheight svgg" >
-            <div className="columns" style={{padding: '10%', paddingTop: '10vw'}}>
+          <section id="about" className="hero is-fullheight svgg"  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
+            <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
                 <img  src={azi} style={{width: '75%', borderRadius: 6}}/> 
                 
                 </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
-              <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1><div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: '80%', height: 6}}></div>
+                <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
+                <div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: '80%', height: 6}}></div>
                 <div className="content" style={{fontSize: "calc(12px + 1vh)",fontWeight: 300,padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
-                Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
+                  Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
+                </div> 
+                <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                    <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello%20again" target="_top"><FontAwesomeIcon  className="iclick" icon={faEnvelope}  size="2x"/></a>
+                    <a style={styles.bcolor} href="https://github.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faGithubAlt}  size="2x"/></a>
+                    <a style={styles.bcolor} href="https://deviantart.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDeviantart}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://dribbble.com/AzizStark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDribbble}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://www.instagram.com/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faInstagram}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://www.linkedin.com/in/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faLinkedinIn}   size="2x"/></a>
                 </div>
               </div>
             </div>    
           </section>
 
           {herobar('Want to talk?','Contact me')}
-          <section className="hero is-fullheight svgg" >
+          <section  id="contact" className="hero is-fullheight svgg" style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div  class="columns">
-          <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', padding: '10%'}}>
+          <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', paddingRight: '10%', paddingLeft: '10%'}}>
           <form className="contact-form" onSubmit={this.sendEmail}>
             <div class="field">
 							<label>Name</label>
@@ -277,7 +307,9 @@ function herobar(head, subhead){
 
 
 const styles = {
-  input: {backgroundColor: '#0B1826', borderColor: '#2EA7FF', color: '#FFFFFF'}
+  input: {backgroundColor: '#0B1826', borderColor: '#2EA7FF', color: '#FFFFFF'},
+  icon: {padding: 6},
+  bcolor: {color: '#2EA7FF'}
 }
 
 export default Home;
