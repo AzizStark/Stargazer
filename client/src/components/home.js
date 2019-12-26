@@ -15,8 +15,8 @@ import Design from "./Design.png";
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
+import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble, faGgCircle } from '@fortawesome/free-brands-svg-icons'
 
 class Home extends Component {
   state = {
@@ -194,7 +194,7 @@ class Home extends Component {
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} handleSize={50} sliderLineWidth = {6} sliderPositionPercentage={0.996}/>      <br />       
+                  <ReactCompareImage leftImage={code} rightImage={Design} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
                   </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column ">
@@ -216,7 +216,7 @@ class Home extends Component {
           <section id="about" className="hero is-fullheight svgg"  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
-                <img  src={azi} style={{width: '75%', borderRadius: 6}}/> 
+                <img  src={azi} style={{width: '75%', borderRadius: 30}}/> 
                 
                 </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
@@ -279,7 +279,7 @@ class Home extends Component {
           <div className="columns">
           <div class="column has-text-centered">
             <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
-              Content & Graphics © 2020 AzizStark
+              Content & Graphics © 2020 Aziz Stark
             </p>
           </div>
           </div> 
