@@ -17,6 +17,7 @@ class Navba extends Component {
         className="navbar is-dark"
         role="navigation"
         aria-label="main navigation"
+        style={{backgroundColor: "#00000000"}}
       >
         <div className="navbar-brand">
           <a className="navbar-item" href="#" >
@@ -38,18 +39,17 @@ class Navba extends Component {
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div
-            className="navbar-end"
-            style={{ fontFamily: "Nunito", fontWeight: "bold" }}
+            className="navbar-end" style={{fontWeight: 'bold'}}
           >
-            <a className="navbar-item" href="/">HOME</a>
+            <a className="navbar-item" href="/">Home</a>
 
-            <a className="navbar-item"  onClick={() => this.showIt('portfolio')}>PORTFOLIO</a>
+            <a className="navbar-item"  onClick={() => this.showIt('portfolio')}>Portfolio</a>
 
-            <a className="navbar-item"  href="/">BLOG</a>
+            <a className="navbar-item"  href="/">Blog</a>
 
-            <a className="navbar-item" onClick={() => this.showIt('about')}>ABOUT</a>
+            <a className="navbar-item" onClick={() => this.showIt('about')}>About</a>
             
-            <a className="navbar-item"  onClick={() => this.showIt('contact')}>CONTACT</a>
+            <a className="navbar-item"  onClick={() => this.showIt('contact')}>Contact</a>
 
           </div>
         </div>
