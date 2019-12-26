@@ -3,7 +3,6 @@ import axios from "axios";
 import Navba from './Navba';
 import './bulma.css';
 import './imagehover.min.css';
-import './home.css';
 import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
@@ -94,12 +93,13 @@ class Home extends Component {
 
 
   render() {
+    require("./home.css"); 
     return (
       <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-          
+          <link rel="stylesheet" type="text/css" href="blog" />
           <section className="hero is-fullheight svgg" style={{/*backgroundImage: `url(${Head})`*/}}>
           <Navba></Navba>
             <div className="hero-body" >
@@ -128,9 +128,9 @@ class Home extends Component {
           {herobar('What I built?','Awesome projects')}
           <section  id="portfolio" className="hero is-fullheight svgg" >
          
-            <div className="columns " style={{padding: 10}}>
-              <div className="column is-half" style={{padding:10}}>
-                  <div className="imghvr-blur" style={{display:'block',backgroundColor: "#00000000",borderRadius: 30}}>
+            <div className="columns " style={{padding: 15}}>
+              <div className="column is-half" style={{padding:10,}}>
+                  <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
                       <img src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
                         <p className="title" style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>

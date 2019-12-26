@@ -312,7 +312,7 @@ th:not([align]) {
 }
 
 html {
-  background-color: white;
+  background-color: #222227;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -352,7 +352,7 @@ pre {
 }
 
 body {
-  color: #4a4a4a;
+  color: white;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5;
