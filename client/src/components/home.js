@@ -15,7 +15,7 @@ import Design from "./Design.png";
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
 
 class Home extends Component {
@@ -130,7 +130,7 @@ class Home extends Component {
          
             <div className="columns " style={{padding: 10}}>
               <div className="column is-half" style={{padding:10}}>
-                  <div className="imghvr-blur" style={{display:'block',backgroundColor: "#00000000"}}>
+                  <div className="imghvr-blur" style={{display:'block',backgroundColor: "#00000000",borderRadius: 30}}>
                       <img src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
                         <p className="title" style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
@@ -143,13 +143,13 @@ class Home extends Component {
 
               <div className="column is-half" style={{padding:10}}>
                   <div >
-                        <div className="imghvr-blur" style={{width: '49%',marginRight: '1%'}}>
+                        <div className="imghvr-blur" style={{width: '49%',marginRight: '1%',borderRadius: 30}}>
                             <img  src={img1}  />
                             <figcaption>
                                 Helo
                             </figcaption>
                         </div>
-                        <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%'}}>
+                        <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
                             <img  src={img1} />
                             <figcaption>
                                 Helo
@@ -157,13 +157,13 @@ class Home extends Component {
                         </div>
                     </div>
                     <div style={{marginTop:"1%"}}>
-                        <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%'}}>
+                        <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
                            <img  src={img1}  />
                            <figcaption>
                                 Helo
                             </figcaption>
                         </div>
-                        <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%'}} >
+                        <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
                             <img src={img1} /> 
                             <figcaption>
                                 Helo
@@ -194,7 +194,7 @@ class Home extends Component {
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} sliderLineWidth = {4} sliderPositionPercentage={0.996}/>      <br />       
+                    <ReactCompareImage leftImage={code} rightImage={Design} handleSize = {60} sliderLineColor={'#2EA7FF'} handleSize={50} sliderLineWidth = {6} sliderPositionPercentage={0.996}/>      <br />       
                   </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column ">

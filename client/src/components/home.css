@@ -12,8 +12,6 @@
   color: #e6f2fb;
 }
 
-
-
 .title {
   font-family: Comfortaa;
   font-style: normal;
@@ -72,7 +70,6 @@
   border-width: 2px;
   color: #E5F2FB;
   border-color: #388BFE;
-  box-shadow: 0px 0px 20px rgba(77, 74, 218, 0.48);
   letter-spacing: 0.08em;
 }
 
@@ -82,7 +79,6 @@
   border-width: 2px;
   color: #E5F2FB;
   border-color: #00DD72;
-  box-shadow: 0px 0px 20px rgba(0, 221, 114, 0.294);
   letter-spacing: 0.08em;
 }
 
@@ -93,7 +89,6 @@
   border-width: 2px;
   color: #E5F2FB;
   border-color: rgb(255, 40, 40);
-  box-shadow: 0px 0px 20px rgba(255, 49, 49, 0.623);
   letter-spacing: 0.08em;
 }
 
@@ -110,28 +105,39 @@
 }
 
 .custombtnW:hover{
-  background-color: rgb(255, 39, 39);
+  background-color: rgb(255, 40, 40);
   border-color: rgb(255, 40, 40);
   color: #E5F2FB;
 }
 
-.custombtn:focus{
+.custombtn:active{
   color: #E5F2FB;
   background-color: rgba(56, 138, 254, 0.753);
 }
 
+.custombtnS:active{
+  color: #E5F2FB;
+  background-color: rgb(78, 255, 169);
+}
+
+.custombtnW:active{
+  color: #E5F2FB;
+  background-color: rgb(253, 87, 87);
+}
+
+.custombtn:focus{
+  color: #E5F2FB;
+  border-color: rgba(56, 138, 254, 0.979);
+}
+
 .custombtnS:focus{
   color: #E5F2FB;
-  border-color: rgb(0, 192, 99);
-  box-shadow: 0px 0px 20px rgb(0, 192, 99);
-  background-color: rgb#00DD72;
+  border-color:rgb(17, 199, 93);
 }
 
 .custombtnW:focus{
   color: #E5F2FB;
   border-color: rgb(255, 40, 40);
-  box-shadow: 0px 0px 20px rgba(255, 49, 49, 0.623);
- 
 }
 
 .subheader{
