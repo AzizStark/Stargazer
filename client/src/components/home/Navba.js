@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Polygon from "./Polygon.png";
-import { } from '@fortawesome/free-brands-svg-icons'
-
+import cstyles from './home.module.css';
  
 class Navba extends Component {
 
@@ -19,7 +18,7 @@ class Navba extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item" href="#" >
+          <a className="navbar-item" id={cstyles.navbarItem} href="#" >
             <img src={Polygon} width="90" height="60" alt="logo" />
           </a>
 
@@ -41,15 +40,15 @@ class Navba extends Component {
             className="navbar-end"
             style={{ fontFamily: "Nunito", fontWeight: "bold" }}
           >
-            <a className="navbar-item" href="/">HOME</a>
+            <a className="navbar-item" id={cstyles.navbarItem} href="/">HOME</a>
 
-            <a className="navbar-item"  onClick={() => this.showIt('portfolio')}>PORTFOLIO</a>
+            <a className="navbar-item" id={cstyles.navbarItem} onClick={() => this.showIt('portfolio')}>PORTFOLIO</a>
 
-            <a className="navbar-item"  href="/blog">BLOG</a>
+            <a className="navbar-item" id={cstyles.navbarItem} href="/blog">BLOG</a>
 
-            <a className="navbar-item" onClick={() => this.showIt('about')}>ABOUT</a>
+            <a className="navbar-item" id={cstyles.navbarItem} onClick={() => this.showIt('about')}>ABOUT</a>
             
-            <a className="navbar-item"  onClick={() => this.showIt('contact')}>CONTACT</a>
+            <a className="navbar-item" id={cstyles.navbarItem} onClick={() => this.showIt('contact')}>CONTACT</a>
 
           </div>
         </div>

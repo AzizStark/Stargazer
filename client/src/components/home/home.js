@@ -3,6 +3,7 @@ import axios from "axios";
 import Navba from './Navba';
 import './bulma.css';
 import './imagehover.min.css';
+import cstyles from './home.module.css';
 import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
@@ -22,7 +23,7 @@ class Home extends Component {
     todos: ["asd"],
     capvalue: null,
     sendinfo: "Send Message",
-    butStyle: 'custombtn'
+    butStyle: `${cstyles.custombtn}`
   };
 
   componentDidMount() {
@@ -33,7 +34,7 @@ class Home extends Component {
     this.setState({
       capvalue: value,
       sendinfo: "Send Message",
-      butStyle: 'custombtn'
+      butStyle: `${cstyles.custombtn}`
     });
     console.log("Captcha value:", this.state.capvalue);
   }
@@ -64,18 +65,17 @@ class Home extends Component {
       });
       emailjs.sendForm('gmail', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
         .then((result) => {
-            console.log(result.text);
             this.setState({
               sendinfo: "Message Sent Successfully",
               capvalue: "sent",
-              butStyle: 'custombtnS'
+              butStyle: `${cstyles.custombtnS}`
             });
         }, (error) => {
             console.log(error.text);
             if(this.state.capvalue != "sent"){
               this.setState({
                 sendinfo: "Sending Failed!",
-                butStyle: 'custombtnW'
+                butStyle: `${cstyles.custombtnW}`
               });
           }
         });
@@ -85,7 +85,7 @@ class Home extends Component {
       if( this.state.capvalue != "sent"){
         this.setState({
           sendinfo: "Please Verify Captcha",
-          butStyle: 'custombtnW'
+          butStyle: `${cstyles.custombtnW}`
         });
       }
     }
@@ -93,47 +93,44 @@ class Home extends Component {
 
 
   render() {
-    require("./home.css"); 
+    //require("./home.css")
     return (
       <div style={{overflow: 'Hidden'}}>
           <meta charSet="utf-8"></meta>
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-          <link rel="stylesheet" type="text/css" href="blog" />
-          <section className="hero is-fullheight svgg" style={{/*backgroundImage: `url(${Head})`*/}}>
+          
+          <section className={`hero is-fullheight ${cstyles.svgg}`}>
           <Navba></Navba>
             <div className="hero-body" >
           
               <div className="container"  style={{marginLeft: '3vw'}}>
             
-                <p className="title">
+                <p id={cstyles.title}>
                 HELLO, <br></br>
-                I AM <span className="blue">AZIZ</span>.
+                I AM <span className={cstyles.blue}>AZIZ</span>.
                 </p>
-                <p className="subheading">An aspiring developer and designer.</p>
+                <p className={cstyles.subheading}>An aspiring developer and designer.</p>
                 <br />
-                <button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Explore</button>
+                <button  onClick={() => this.showIt('explore')}  className="button is-rounded" id={cstyles.custombtn} >Explore</button>
               </div>
               
-              <div className="cardss">
-                  <img  className="floating" style={{position: 'absolute',  zIndex:2, margin: 0,}} src={leaf1}  />
+              <div className={cstyles.cardss}>
+                  <img  className={cstyles.floating} style={{position: 'absolute',  zIndex:2, margin: 0,}} src={leaf1}  />
                   <img  style={{position: 'absolute',  zIndex:1, }} src={leaf2}   />
               </div>    
             </div>
           </section>
-         
-
-
 
           {herobar('What I built?','Awesome projects')}
-          <section  id="portfolio" className="hero is-fullheight svgg" >
+          <section  id="portfolio" className={`hero is-fullheight ${cstyles.svgg}`} >
          
-            <div className="columns " style={{padding: 15}}>
+            <div className="columns" style={{padding: 15}}>
               <div className="column is-half" style={{padding:10,}}>
                   <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
                       <img src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
-                        <p className="title" style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
+                        <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                            MY FIRST PROJECT 
                         </p><br/>
                         <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
@@ -178,34 +175,34 @@ class Home extends Component {
 
           </section>
           {herobar('What I do?','Code and Design')}
-          <section id="explore" className="hero is-fullheight svgg"  >
+          <section id="explore" className={`hero is-fullheight ${cstyles.svgg}`}  >
            
             <div className="columns" style={{padding: '10%', paddingTop: '12vw'}}>
               <div className="column ">
-                <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)" }}>Clean & Optimized Code</p> <br/>
+                <p style={styles.ltext}>Clean & Optimized Code</p> <br/>
                 <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)", textAlign: 'justify' }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
                 <br/>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>JavaScript</h2>
+                <h2 style={styles.stext}>JavaScript</h2>
                 <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="94" max="100"></progress>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Python</h2>
+                <h2 style={styles.stext}>Python</h2>
                 <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="88" max="100"></progress>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Java</h2>
+                <h2 style={styles.stext}>Java</h2>
                 <progress style = {{height: 5}}class="progress is-small is-link" value="82" max="100"></progress>
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
                   <ReactCompareImage leftImage={code} rightImage={Design} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
-                  </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')}  className="button custombtn is-rounded " >Download Resume</button>    </div> 
+                  </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button>    </div> 
               </div>
-              <div className="column ">
-              <p style={{fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)"}}>Beautiful Design & Interface</p> <br/>
-              <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)",textAlign: 'justify'  }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
+              <div className="column">
+                <p style={styles.ltext}>Beautiful Design & Interface</p> <br/>
+                <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)",textAlign: 'justify'  }}>I believe in simplicity, clarity and always loves minimalism. These facts allow me to create designs smoother than a baby’s bottom. </h2>
               <br/>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Figma</h2>
+                <h2 style={styles.stext}>Figma</h2>
                 <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="96" max="100"></progress>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Illustrator</h2>
+                <h2 style={styles.stext}>Illustrator</h2>
                 <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="86" max="100"></progress>
-                <h2 style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.6vh)", textAlign: 'justify' }}>Photoshop</h2>
+                <h2 style={styles.stext}>Photoshop</h2>
                 <progress style = {{height: 5}}class="progress is-small is-link" value="92" max="100"></progress>
               </div>
             </div>
@@ -213,12 +210,11 @@ class Home extends Component {
 
 
           {herobar('Who I am?','About me')}
-          <section id="about" className="hero is-fullheight svgg"  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
+          <section id="about" className={`hero is-fullheight ${cstyles.svgg}`}  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
                 <img  src={azi} style={{width: '75%', borderRadius: 30}}/> 
-                
-                </div>  
+              </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
                 <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
                 <div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: 'calc(100% - 4rem)', height: 6}}></div>
@@ -226,19 +222,19 @@ class Home extends Component {
                   Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
                 </div> 
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello" target="_top"><FontAwesomeIcon  className="iclick" icon={faEnvelope}  size="2x"/></a>
-                    <a style={styles.bcolor} href="https://github.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faGithubAlt}  size="2x"/></a>
-                    <a style={styles.bcolor} href="https://deviantart.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDeviantart}    size="2x"/></a>
-                    <a style={styles.bcolor} href="https://dribbble.com/AzizStark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faDribbble}    size="2x"/></a>
-                    <a style={styles.bcolor} href="https://www.instagram.com/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faInstagram}    size="2x"/></a>
-                    <a style={styles.bcolor} href="https://www.linkedin.com/in/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className="iclick" icon={faLinkedinIn}   size="2x"/></a>
+                    <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello" target="_top"><FontAwesomeIcon  className={cstyles.iclick} icon={faEnvelope}  size="2x"/></a>
+                    <a style={styles.bcolor} href="https://github.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className={cstyles.iclick} icon={faGithubAlt}  size="2x"/></a>
+                    <a style={styles.bcolor} href="https://deviantart.com/azizstark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className={cstyles.iclick} icon={faDeviantart}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://dribbble.com/AzizStark" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className={cstyles.iclick} icon={faDribbble}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://www.instagram.com/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className={cstyles.iclick} icon={faInstagram}    size="2x"/></a>
+                    <a style={styles.bcolor} href="https://www.linkedin.com/in/theazizrahman/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon  className={cstyles.iclick} icon={faLinkedinIn}   size="2x"/></a>
                 </div>
               </div>
             </div>    
           </section>
 
           {herobar('Want to talk?','Contact me')}
-          <section  id="contact" className="hero is-fullheight svgg" style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
+          <section  id="contact" className={`hero is-fullheight ${cstyles.svgg}`} style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div  class="columns">
           <div class="column is-half has-text-left " style={{fontFamily: 'Nunito', fontWeight: 500,margin: 'auto', color: '#ffffff', paddingRight: '10%', paddingLeft: '10%'}}>
           <form className="contact-form" onSubmit={this.sendEmail}>
@@ -268,7 +264,7 @@ class Home extends Component {
               />
             </div><br/>
 						<div class="control">
-							<button type="submit" value="Send" className={`${this.state.butStyle} button is-rounded is-fullwidth has-text-weight-medium is-medium`}>{this.state.sendinfo}</button>
+							<button type="submit" value="Send" id={this.state.butStyle} className="button is-rounded is-fullwidth has-text-weight-medium is-medium">{this.state.sendinfo}</button>
 						</div>
           </form>
 					</div>
@@ -290,13 +286,13 @@ class Home extends Component {
 }
 
 function herobar(head, subhead){ 
-  return (<section className="hero is-primary ">
+  return (<section className="hero is-primary">
 <div className="hero-body" style={{backgroundColor: '#152636'}}>
   <div className="container">
-    <h1 className="subheading2" style={{fontSize: 'calc(22px + 2.0vw)', fontWeight: 500}}>
+    <h1 className={cstyles.subheading2} style={{fontSize: 'calc(22px + 2.0vw)', fontWeight: 500}}>
        {head}
     </h1>
-    <h2 className="subtitle" style={{fontSize: 'calc(12px + 1.2vw)' , fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
+    <h2 className={cstyles.subtitle} style={{fontSize: 'calc(12px + 1.2vw)' , fontFamily: 'Nunito', fontWeight: 300, color: '#2EA7FF'}}>
       {subhead}
     </h2>
   </div>
@@ -308,7 +304,9 @@ function herobar(head, subhead){
 const styles = {
   input: {backgroundColor: '#0B1826', borderColor: '#2EA7FF', color: '#FFFFFF'},
   icon: {padding: 6},
-  bcolor: {color: '#2EA7FF'}
+  bcolor: {color: '#2EA7FF'},
+  stext: {fontFamily: 'Nunito', fontWeight: 400, textAlign: 'justify' },
+  ltext: {fontFamily: 'Nunito', fontWeight: 500, color: '#2EA7FF', fontSize: "calc(1.8rem)"}
 }
 
 export default Home;
