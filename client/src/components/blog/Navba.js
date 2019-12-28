@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Polygon from "./Polygon.png";
 import { } from '@fortawesome/free-brands-svg-icons'
-
+import bstyles from './blog.module.css';
  
 class Navba extends Component {
 
@@ -41,15 +41,15 @@ class Navba extends Component {
           <div
             className="navbar-end" style={{fontWeight: 'bold'}}
           >
-            <a className="navbar-item" href="/">Home</a>
+            <a className="navbar-item" id={bstyles.navbarItem} href="/">Home</a>
 
-            <a className="navbar-item"  onClick={() => this.showIt('portfolio')}>Portfolio</a>
+            <a className="navbar-item"  id={bstyles.navbarItem} onClick={() => this.showIt('portfolio')}>Portfolio</a>
 
-            <a className="navbar-item"  href="/">Blog</a>
+            <a className="navbar-item" id={bstyles.navbarItem} href="/">Blog</a>
 
-            <a className="navbar-item" onClick={() => this.showIt('about')}>About</a>
+            <a className="navbar-item" id={bstyles.navbarItem} onClick={() => this.showIt('about')}>About</a>
             
-            <a className="navbar-item"  onClick={() => this.showIt('contact')}>Contact</a>
+            <a className="navbar-item"  id={bstyles.navbarItem} onClick={() => this.showIt('contact')}>Contact</a>
 
           </div>
         </div>

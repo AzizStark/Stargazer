@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Navba from './Navba';
-
+import bstyles from './blog.module.css';
+import cup from './cup.jpg';
 
 class Blog extends Component {
 
@@ -12,15 +13,23 @@ class Blog extends Component {
 
   render() {
     return (
-      <div className="blog" style={{overflow: 'Hidden'}}>
+      <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
         <head>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         </head>
         <Navba></Navba>
         <body style={{height: '100%'}}>
-        <div className="container" style={{width: '100%'}}>
-          asfdasfd
-        </div>
+          <section  id="portfolio" className={`hero is-fullheight`} >
+          <div class="columns">
+            <div class="column" >
+              <img src={cup} className={bstyles.head1} />
+            </div>
+            <div class="column" style={{padding: 0}}>
+              <h1 className={bstyles.title1}>Hello there, I'm Aziz, Welcome to my blog.</h1>
+            </div>
+          </div>
+          </section>  
         </body>
         <footer className="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
         <div className="columns">
