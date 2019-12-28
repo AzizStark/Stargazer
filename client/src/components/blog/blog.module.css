@@ -1,6 +1,43 @@
-html *
+#navbarItem {
+   font-style: normal;
+   font-weight: 600;
+   font-size: 14px;
+   line-height: 35px;
+   letter-spacing: 0.05em;
+   color: #e6f2fb !important;
+ }
+
+.blog *
 {
-   font-size: 1em !important;
    font-family: 'Noto Sans', sans-serif !important;
 }
 
+@media only screen and (min-width: 800px) {
+   .title1 {
+      font-size: 50px;
+      font-weight: bold;
+      margin-right: 100;
+      padding: 20vh 2vw 0 10vh; 
+   }
+   .head1{
+      border-radius: 30px;
+      width: 90%;
+      margin: 10vh;
+   }
+}
+
+@media only screen and (max-width: 800px) {
+   .title1 {
+      font-size: 30px;
+      font-weight: bold;
+      position: absolute;
+      top: 45%;
+      left: 16px;
+   }
+   .head1{
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+      filter: brightness(65%);
+   }
+}

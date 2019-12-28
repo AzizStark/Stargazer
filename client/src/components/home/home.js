@@ -183,9 +183,9 @@ class Home extends Component {
                 <h2 style={{fontFamily: 'Nunito', fontWeight: 300, fontSize: "calc(12px + 0.8vh)", textAlign: 'justify' }}>Clean code reads like well-written prose. Clean code never obscures the designer’s intent but rather is full of crisp abstractions.</h2>
                 <br/>
                 <h2 style={styles.stext}>JavaScript</h2>
-                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="94" max="100"></progress>
+                <progress style = {{height: 5,marginBottom:10}}className="progress is-small is-link" value="94" max="100"></progress>
                 <h2 style={styles.stext}>Python</h2>
-                <progress style = {{height: 5,marginBottom:10}}class="progress is-small is-link" value="88" max="100"></progress>
+                <progress style = {{height: 5,marginBottom:10}}className="progress is-small is-link" value="88" max="100"></progress>
                 <h2 style={styles.stext}>Java</h2>
                 <progress style = {{height: 5}}class="progress is-small is-link" value="82" max="100"></progress>
               </div>
