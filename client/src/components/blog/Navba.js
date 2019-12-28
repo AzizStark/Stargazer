@@ -6,8 +6,7 @@ import bstyles from './blog.module.css';
 class Navba extends Component {
 
   showIt = (elementId) =>{
-    var el = document.getElementById(elementId);
-    el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+    console.log(process.env.DB)
   }
 
 
