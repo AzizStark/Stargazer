@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import Polygon from "./Polygon.png";
+import Polygon from "./Polygon.svg";
 import { } from '@fortawesome/free-brands-svg-icons'
 import bstyles from './blog.module.css';
  
 class Navba extends Component {
 
   showIt = (elementId) =>{
-    console.log(process.env.DB)
+    var el = document.getElementById(elementId);
+    el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   }
 
 

@@ -12,7 +12,7 @@
    font-family: 'Noto Sans', sans-serif !important;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1024px) {
    .title1 {
       font-size: 50px;
       font-weight: bold;
@@ -22,11 +22,12 @@
    .head1{
       border-radius: 30px;
       width: 90%;
-      margin: 10vh;
+      margin: 10vh ;
+      margin-bottom: 0px;
    }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1024px) {
    .title1 {
       font-size: 30px;
       font-weight: bold;
@@ -40,4 +41,26 @@
       object-fit: cover;
       filter: brightness(65%);
    }
+}
+
+.box{
+   padding: 35px;
+   border-radius: 48px;
+   background-size: cover;
+   min-height: calc(40px + 20vh + 15vw);
+}
+
+.htext {
+   font-size: calc(0.7vh * 4 + 1vw);
+   font-weight: bold;
+}
+
+.stext {
+   font-size: 12px;
+   padding-top: 10px;
+   font-weight: bold;
+}
+
+.deck{
+   padding: 0px 5vw 0px 5vw;
 }
