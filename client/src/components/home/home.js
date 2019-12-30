@@ -16,7 +16,7 @@ import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
-import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble, faGgCircle } from '@fortawesome/free-brands-svg-icons'
+import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
 
 class Home extends Component {
   state = {

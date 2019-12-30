@@ -14,24 +14,38 @@
 
 @media only screen and (min-width: 1024px) {
    .title1 {
-      font-size: 50px;
+      font-size: 4vw;
       font-weight: bold;
       margin-right: 100;
-      padding: 20vh 2vw 0 10vh; 
+      padding: 20vh 4vw 0 10vh; 
+      line-height: 1.2;
    }
    .head1{
       border-radius: 30px;
       width: 90%;
       margin: 10vh ;
       margin-bottom: 0px;
+   }   
+   .postbox{
+      position: relative;
+      background-color: #222227b0;
+      backdrop-filter: blur(25px);
+      border-radius: 25px;
+      margin: -90px 7vw 0px 7vw;
+      padding: 90px 18vw 90px 18vw;
+      font-size: 1.3vw;
+      font-weight: 500;
+      filter: none;
+      z-index: 0;
    }
 }
 
 @media only screen and (max-width: 1024px) {
    .title1 {
-      font-size: 30px;
+      font-size: 8vw;
       font-weight: bold;
       position: absolute;
+      line-height: 1.2;
       top: 45%;
       left: 16px;
    }
@@ -41,14 +55,32 @@
       object-fit: cover;
       filter: brightness(65%);
    }
+   .postbox{
+      position: relative;
+      background-color: #222227b0;
+      backdrop-filter: blur(25px);
+      border-radius: 25px;
+      margin: -105px 4vw 0px 4vw;
+      padding: 40px 7vw 40px 7vw;
+      filter: none;
+      z-index: 0;
+   }
 }
 
 .box{
-   padding: 35px;
+   padding: 30px;
    border-radius: 48px;
    background-size: cover;
    min-height: calc(40px + 20vh + 15vw);
+   transition: all .2s ease-in-out; 
+   user-select:none;
 }
+
+
+.box:hover {
+   transform: translateY(-6px); 
+}
+
 
 .htext {
    font-size: calc(0.7vh * 4 + 1vw);
@@ -62,5 +94,5 @@
 }
 
 .deck{
-   padding: 0px 5vw 0px 5vw;
+   padding: 0px 5vw 0px 5vw;  
 }
