@@ -3,6 +3,7 @@ import axios from "axios";
 import Navba from './Navba';
 import bstyles from './blog.module.css';
 import cup from './cup.jpg';
+import renderHTML from 'react-render-html';
 
 class view extends Component {
   
@@ -38,19 +39,13 @@ componentDidMount() {
             </div>
             <div className={`column ${bstyles.postbox}`}>
                 <div className="container">
-                  <div>
-                  Ego autem existimo, si honestum esse aliquid ostendero, quod sit ipsum vi sua propter seque expetendum, iacere vestra omnia. Et summatim quidem haec erant de corpore animoque dicenda, quibus quasi informatum est quid hominis natura postulet. Quod autem satis est, eo quicquid accessit, nimium est. An ea, quae per vinitorem antea consequebatur, per se ipsa curabit? Restincta enim sitis stabilitatem voluptatis habet, inquit, illa autem voluptas ipsius restinctionis in motu est. Tum ille timide vel potius verecunde.
-<br />
-<blockquote>Expressa vero in iis aetatibus, quae iam confirmatae sunt. Tum Piso, Atqui, Cicero, inquit, ista studia, si ad imitandos summos viros spectant, ingeniosorum sunt.</blockquote> 
-<br />
-Quibus autem in rebus tanta obscuratio non fit, fieri tamen potest, ut id ipsum, quod interest, non sit magnum.
-
-Ita fit ut, quanta differentia est in principiis naturalibus, tanta sit in finibus bonorum malorumque dissimilitudo. Ut proverbia non nulla veriora sint quam vestra dogmata. Commentarios quosdam, inqua.
-
-A man in a white shirt opening a book with yellow pages
-Photo by NordWood Themes / Unsplash
-
-Aristotelios, quos hic sciebam esse, veni ut auferrem, quos legerem, dum essem otiosus.At enim, qua in vita est aliquid mali, ea beata esse non potest. Zenonis est, inquam, hoc Stoici. Miserum hominem! Si dolor summum malum est, dici aliter non potest. Videamus igitur sententias eorum, tum ad verba redeamus. Vide, ne etiam menses! nisi forte eum dicis, qui, simul atque arripuit, interficit. Atque his de rebus et splendida est eorum et illustris oratio.
+                  <div style={{backgroundColor: "#00000000"}}>
+                 {renderHTML(`<p><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: Noto Sans", sans-serif;">A year ago September, September of 2017, I started work on a proposal for a new book. I had started reading again, more than just my perfunctory fifteen minutes before sleep. Hearing different voices and other people’s thoughts in my head, I started to notice the way they excited me, energized me, made me want to do my own work. So, starting in September of that year, I devoted one of my workdays each week to a new book, a new project. I was embarrassed to tell people that it was another memoir. How mortifying!, how presumptuous!, working on a third memoir and I was only 39. My life has been very ordinary and continues to be: I’m a white woman who comes from and lives with privilege. I try to keep this in my sights, because it’s more important now than ever. I also try to put my head down and shut up and do the work, because the work, the act of writing, is worth it, and I am very lucky to do it. It took eight months, but in May, the proposal was ready, and I was elated to see it land at</span> <a href="https://www.abramsbooks.com/imprints/abramspress/" target="_blank"><span style="color: rgb(50,115,220);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: Noto Sans", sans-serif;">Abrams Press</span></a><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: Noto Sans", sans-serif;">, where it will be published in 2020. As soon as I finish writing it.<br><br></span><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 60px;font-family: Noto Sans", sans-serif;"><strong><em><ins>This book is not about food!:<br></ins></em></strong></span><span style="font-size: 11px;"><br></span></p>
+<img src="https://cdn-ak.f.st-hatena.com/images/fotolife/S/SugiuraAyano/20170117/20170117013049.gif" alt="undefined" style="height: auto;width: auto"/>
+<p><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: Noto Sans", sans-serif;"><br>People tell me this is risky? If this is what danger looks like, I am now someone who lives for it. This book is a story about sexuality, identity, and the many ways we make the thing we call family. I don’t think I’ve ever wanted so much to write any single thing, not the way I want to write this book. I am having to learn how to write it as I go along, without the handy crutch that food and recipes had become for me. Sitting at my desk, on a good day at least, I can almost feel the neurons stretch and zing and ping, reach across a synapse, build a new bridge, connect places that weren’t connected.<br><br></span><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;">People tell me this is risky? If this is what danger looks like, I am now someone who lives for it. This book is a story about sexuality, identity, and the many ways we make the thing we call family. I don’t think I’ve ever wanted so much to write any single thing, not the way I want to write this book. I am having to learn how to write it as I go along, without the handy crutch that food and recipes had become for me. Sitting at my desk, on a good day at least, I can almost feel the neurons stretch and zing and ping, reach across a synapse, build a new bridge, connect places that weren’t connected.<br><br></span><span style="color: rgb(0,0,0);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;"><code>print("hello world");<br></code></span><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;">ew bri asd lksdbv sldvcjhnsd</span></p>
+<p></p>
+<p style="text-align:center;"><span style="color: rgb(255,255,255);background-color: rgba(34,34,39,0.604);font-size: 18.69;font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;">----------- The END -----------</span></p>
+`)}
                   </div>
                 </div>
             </div>

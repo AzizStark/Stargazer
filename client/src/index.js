@@ -4,7 +4,8 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import Home from './components/home/home';
 import Blog from './components/blog/blog';
-import view from './components/blog/view';
+import View from './components/blog/view';
+import Create from './components/admin/create';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -13,7 +14,8 @@ const routing = (
         <Route exact path="/" component={Home} />
         <Route path="/Todo" component={App} />
         <Route exact path="/blog" component={Blog} />
-	<Route path="/blog/:id" component={view}/>
+	<Route path="/blog/:id" component={View}/>
+	<Route path="/admin/create" component={Create}/>
       </div>
     </Router>
 
