@@ -59,7 +59,7 @@ class Home extends Component {
 
   sendEmail = (e) => {
     e.preventDefault();
-    if(this.state.capvalue != null && this.state.capvalue != "sent"){
+    if(this.state.capvalue !== null && this.state.capvalue !== "sent"){
       this.setState({
         sendinfo: "Sending Message"
       });
@@ -72,7 +72,7 @@ class Home extends Component {
             });
         }, (error) => {
             console.log(error.text);
-            if(this.state.capvalue != "sent"){
+            if(this.state.capvalue !== "sent"){
               this.setState({
                 sendinfo: "Sending Failed!",
                 butStyle: `${cstyles.custombtnW}`
@@ -82,7 +82,7 @@ class Home extends Component {
     }
     else{
       console.log("captcha not verified")
-      if( this.state.capvalue != "sent"){
+      if( this.state.capvalue !== "sent"){
         this.setState({
           sendinfo: "Please Verify Captcha",
           butStyle: `${cstyles.custombtnW}`
@@ -116,8 +116,8 @@ class Home extends Component {
               </div>
               
               <div className={cstyles.cardss}>
-                  <img  className={cstyles.floating} style={{position: 'absolute',  zIndex:2, margin: 0,}} src={leaf1}  />
-                  <img  style={{position: 'absolute',  zIndex:1, }} src={leaf2}   />
+                  <img alt="logo" className={cstyles.floating} style={{position: 'absolute',  zIndex:2, margin: 0,}} src={leaf1}  />
+                  <img  alt="logo" style={{position: 'absolute',  zIndex:1, }} src={leaf2}   />
               </div>    
             </div>
           </section>
@@ -128,7 +128,7 @@ class Home extends Component {
             <div className="columns" style={{padding: 15}}>
               <div className="column is-half" style={{padding:10,}}>
                   <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
-                      <img src={img1} style={{width:'100%'}} title="hover text" />
+                      <img  alt="project" src={img1} style={{width:'100%'}} title="hover text" />
                       <figcaption>
                         <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                            MY FIRST PROJECT 
@@ -141,13 +141,13 @@ class Home extends Component {
               <div className="column is-half" style={{padding:10}}>
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%',borderRadius: 30}}>
-                            <img  src={img1}  />
+                            <img alt="project"  src={img1}  />
                             <figcaption>
                                 Helo
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
-                            <img  src={img1} />
+                            <img alt="project"  src={img1} />
                             <figcaption>
                                 Helo
                             </figcaption>
@@ -155,13 +155,13 @@ class Home extends Component {
                     </div>
                     <div style={{marginTop:"1%"}}>
                         <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
-                           <img  src={img1}  />
+                           <img alt="project"  src={img1}  />
                            <figcaption>
                                 Helo
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
-                            <img src={img1} /> 
+                            <img alt="project"  src={img1} /> 
                             <figcaption>
                                 Helo
                             </figcaption>
@@ -213,13 +213,13 @@ class Home extends Component {
           <section id="about" className={`hero is-fullheight ${cstyles.svgg}`}  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
-                <img  src={azi} style={{width: '75%', borderRadius: 30}}/> 
+                <img alt="aziz"  src={azi} style={{width: '75%', borderRadius: 30}}/> 
               </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
                 <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
                 <div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: 'calc(100% - 4rem)', height: 6}}></div>
                 <div className="content" style={{fontSize: "calc(12px + 1vh)",fontWeight: 300,padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
-                  Hey! 👋 I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design🎨. I spend my free time listening to music 🎧, playing video games and surfing the internet to explore the world.
+                  Hey! <span>👋</span>I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design <span>🎨</span>. I spend my free time listening to music <span>🎧</span>, playing video games and surfing the internet to explore the world.
                 </div> 
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello" target="_top"><FontAwesomeIcon  className={cstyles.iclick} icon={faEnvelope}  size="2x"/></a>
