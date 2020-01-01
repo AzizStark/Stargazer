@@ -29,10 +29,12 @@ class create extends Component {
         />
         <textarea
           disabled
+          style={{width: '100%',minHeight: '200px'}}
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         />
       </div>
     );
   }
 }
+
 export default create;

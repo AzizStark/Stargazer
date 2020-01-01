@@ -1,19 +1,21 @@
 const express = require ('express');
 const router = express.Router();
-const Aziz = require('../models/Aziz');
+const Blog = require('../models/Post');
 
-router.get('/aziz', (req, res, next) => {
+router.get('/posts', (req, res, next) => {
     //this will return all the data, exposing only the id and action field to the client
-    Aziz.find({}, 'action')
+    //Blog.find({}, 'title') to get title only
+    Blog.find({})
       .then(data => res.json(data))
       .catch(next)
   });
   
-  router.post('/aziz', (req, res, next) => {
-    if(req.body.action){
-      Aziz.create(req.body)
+  router.post('/posts', (req, res, next) => {
+    if(req.body.title){
+      Blog.create(req.body)
         .then(data => res.json(data))
         .catch(next)
+        console.log("posted")
     }else {
       res.json({
         error: "The input field is empty"
@@ -21,8 +23,8 @@ router.get('/aziz', (req, res, next) => {
     }
   });
   
-  router.delete('/aziz/:id', (req, res, next) => {
-    Aziz.findOneAndDelete({"_id": req.params.id})
+  router.delete('/posts/:id', (req, res, next) => {
+    Blog.findOneAndDelete({"_id": req.params.id})
       .then(data => res.json(data))
       .catch(next)
   })
