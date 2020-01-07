@@ -1,9 +1,8 @@
-const express = require('express');
+import express from 'express'
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const path = require('path');
-
 const app = express();
 
 require('dotenv').config();
@@ -29,7 +28,6 @@ app.use(bodyParser.json());
 
 app.use('/api', routes);
 
-
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
@@ -39,10 +37,6 @@ app.use('/api', routes);
 app.use((err, req, res, next) => {
   console.log(err);
   next();
-});
-
-app.use((req, res, next) => {
-  res.send('todo Welcome to Express');
 });
 
 app.listen(port, () => {

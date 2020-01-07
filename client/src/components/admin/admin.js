@@ -20,7 +20,11 @@ constructor(props) {
     htmlcontent: "",
     uploadedFileCloudinaryUrl: [],
     editorState: EditorState.createEmpty(),
-    pictures: []
+    pictures: [],
+    buttonUrl: "Copy URL",
+    uploadStatus: 'NotStarted',
+    uploadCount: 0,
+    test: []
   }
 }
 
@@ -48,7 +52,6 @@ putPost = () => {
       })
         .then(res => {
           if(res.data){
-            //this.setState({action: ""})
             console.log(res.data+"postputted")
           }
         })
@@ -94,97 +97,118 @@ updateTag = (e) => {
   })
 }
 
-handleImageUpload = (filee) => {
-  var url = `https://api.cloudinary.com/v1_1/azizcloud/upload`;
-  var fd = new FormData();
-  fd.append("upload_preset", 'everibadi');
-  fd.append("file", filee);
-  const config = {
-    headers: { "X-Requested-With": "XMLHttpRequest" },
-  };
-  axios.post(url, fd, config)
-  .then((res) => {
-    console.log('res', res)
-    // File uploaded successfully
-    var response = res.data;
-    // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
-    //var url = response.secure_url;
-    // Create a thumbnail of the uploaded image, with 150px width
-    //var tokens = url.split('/');
-    //tokens.splice(-2, 0, 'w_150,c_scale');
-    //var img = new Image(); // HTML5 Constructor
-    //img.src = tokens.join('/');
-    //img.alt = response.public_id;
-    //document.getElementById('gallery').appendChild(img);
-    {this.setState({
-      uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl.concat(response.secure_url)
-    });}
-    console.log(this.state.uploadedFileCloudinaryUrl);
-  })
-  .catch(err => console.log(err))
-}
-
-
-onImageUpload = () => {
-  for(var i = 0; i < this.state.pictures.length; i++)
-  {
-    this.handleImageUpload(this.state.pictures[i]);
-  }
+handleImageUpload = (index) => {
+    this.setState({
+      uploadStatus : "Uploading"
+    })
+    var imag = this.state.pictures[index]
+    var bodyFormData = new FormData();
+    bodyFormData.append('image', imag); 
+    var progress
+    const config = {
+      headers: {'Content-Type': 'multipart/form-data' },
+      onUploadProgress : (progressEvent) => {
+      progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
+      document.getElementById('progress').value = progress;
+      }
+    };
+    axios.post('/api/upload', bodyFormData,config)
+    .then((res) => {
+      console.log(res.data.data.image)
+      if(res.data){
+        var response = res.data.data.image;
+          {
+            this.setState({
+              uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl.concat(response),
+              uploadCount: this.state.uploadCount + 1
+            })
+          }
+        if(this.state.pictures.length !== this.state.uploadCount){
+          console.log(this.state.pictures.length +" !== "+ this.state.uploadCount)
+          this.handleImageUpload(index + 1)
+        }
+        else{
+          this.setState({
+            uploadStatus: 'Finished',
+          })
+          console.log("Finished")
+      }
+      }})
+    .catch(err => console.log(err))
 }
 
 imageStack = (img) => {
-  //console.log(img)
   this.setState({
     pictures: img
   });
-  console.log(this.state.pictures)
+  //console.log(URL.createObjectURL(img[0].slice()))
 }
 
+
   render() {
-    const { data } = this.props.location
+   // const { data } = this.props.location
     const { editorState } = this.state;
-    const { uploading, images } = this.state
+   // const { uploading, images } = this.state
+
     return (
       
       <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <div>
+          <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={this.state.test[0]}></img>
           <section className={`hero is-fullheight`}  style={{padding: '20%'}}>
-            <div style={{backgroundColor: '#ff5566', textAlign: 'center'}}>
+          
+          {(this.state.uploadStatus === 'Uploading') &&
+          <div>
+            <h1>
+             Uploading image {this.state.uploadCount+1} of {this.state.pictures.length}
+            </h1>
+            <progress id="progress" className="progress is-info" value="0" max="100"></progress>
+          </div>
+          }
+          
+          { 
+          (this.state.uploadStatus === 'NotStarted') &&
+            <div style={{backgroundColor: '#ff5566', textAlign: 'center',  borderRadius: 30, paddingBottom: 30}}> 
               <ImageUploader
-                    buttonText='Choose images'
+                    buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                     fileTypeError={"Invalid File"}
                     fileSizeError={"File Size is greater than 5 MB"}
                     label={"Max Size: 5 MB"}
-                    fileContainerStyle={{background: "#DF6638", borderRadius: 0}}
+                    fileContainerStyle={{background: "#ff5566",  borderRadius: 30, boxShadow: 'none'}}
                     //fileContainerStyle={{height: 30}}
                     withIcon={true}
               />
-              <h6>Files Selected for upload: {this.state.pictures.length}</h6>
-              <button onClick={this.onImageUpload}> Upload </button>
-              <p>{(this.state.pictures).length}</p>
-            </div><br />
-            <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around'}}>
+              <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length}</p><br />
+              <button onClick={() => this.handleImageUpload(0)} className="button is-primary" style={styles.bttn}> Upload </button>
+            </div> 
+          }
+
+            <br />
+            
+          {(this.state.uploadStatus === 'Finished') &&
+            <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
             {this.state.pictures.map((user,index) =>
-             
-            <figure className="column" class="image is-128x128" style={{padding: 6}} key={index} >
-              <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', objectFit: 'cover', height: '100%'}} >
-                <img src={'https://res.cloudinary.com/azizcloud/image/private/s--ivWcgHNY--/v1578069119/yjot5iy48xj0wfzudjxb.png'}/*src={this.state.uploadedFileCloudinaryUrl[index]}*/></img>
-                <figcaption style={styles.vcenter}>
-                <CopyToClipboard text={`${this.state.uploadedFileCloudinaryUrl[index]}`}>
-                   <button className="button is-primary"style={{fontSize: 14, height: 30, border: 'none', borderRadius: 15, color: "#ffffff",width: 100}}>Copy URL</button>
-                </CopyToClipboard> 
-                </figcaption>
-              </div>
-            </figure>
-            )}
-                       
-            </div>
+              <figure className="column"  className="image is-128x128" style={{padding: 6}} key={index} >
+                <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
+                  <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={URL.createObjectURL(this.state.pictures[index].slice())}></img>
+                  <figcaption style={styles.vcenter}>
+                  <CopyToClipboard text={`${this.state.uploadedFileCloudinaryUrl[index]}`}>
+                    <button className="button is-primary" onClick={() => {this.setState({ buttonUrl: "Copied"})}} onMouseOut={() => {this.setState({ buttonUrl: "Copy URL"})}} style={styles.bttn}>{this.state.buttonUrl}</button>
+                  </CopyToClipboard> 
+                  </figcaption> 
+                </div>
+              </figure>
+            )}            
+            </div>}
+
             <form>
+            <h1>Header Image</h1>
+            <input className="input" type="text" onChange={this.updateTitle} placeholder="Enter URL"/><br /><br />
             <h1>Title</h1>
             <input className="input" type="text" onChange={this.updateTitle} placeholder="Text input"/><br /><br />
             <h1>Date</h1>
@@ -212,13 +236,12 @@ imageStack = (img) => {
                 </div>
               </article> 
             </div><br />
-            <button class="button is-primary" onClick={this.putPost}>Submit</button>
+            <button className="button is-primary" onClick={this.putPost}>Submit</button>
             </form>
           </section>  
         </div>
         
-        
-        
+
         <footer className="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
         <div className="columns">
         <div className="column has-text-centered">
@@ -234,6 +257,15 @@ imageStack = (img) => {
 }
 
 const styles =({
+
+  bttn : {
+    fontSize: 14,
+    height: 30,
+    border: 'none',
+    borderRadius: 15,
+    color: "#ffffff",
+    width: 100,
+  },
 
   vcenter  : {
     padding: 0,
