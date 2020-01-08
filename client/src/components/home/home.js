@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
 import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
 
+
 class Home extends Component {
   state = {
     todos: ["asd"],
@@ -128,12 +129,12 @@ class Home extends Component {
             <div className="columns" style={{padding: 15}}>
               <div className="column is-half" style={{padding:10,}}>
                   <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
-                      <img  alt="project" src={img1} style={{width:'100%'}} title="hover text" />
+                      <img  alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/v1578490148/blog/nqcoblgv7hs42a3pmsdi.jpg'} style={{width:'100%'}} title="hover text" />
                       <figcaption>
                         <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                           MY FIRST PROJECT 
+                           Material Requirement Processing 
                         </p><br/>
-                        <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                        <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A web-based application for calculating the materials and components needed to manufacture a large number of products. It consists of three primary steps: Gathering inventory of the materials and components, identifying which additional ones are needed and then scheduling their production or purchase. It was built with Oracle 18c, PHP and Bootstrap with Materialize UI.</p>
                       </figcaption>
                   </div>
               </div>
@@ -141,29 +142,41 @@ class Home extends Component {
               <div className="column is-half" style={{padding:10}}>
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%',borderRadius: 30}}>
-                            <img alt="project"  src={img1}  />
-                            <figcaption>
-                                Helo
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578502995/blog/ofpflhzpryrkeynxrrud.jpg'}  />
+                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)'}}>
+                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
+                              Quiva
+                            </p>
+                             A fancy text generator application that works based on the different Unicode characters and glyphs, It was developed using React Native.
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
-                            <img alt="project"  src={img1} />
+                            <img alt="project"  src={'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/927746af-d8f4-4053-8745-2916d8ed7bd8/dca8ibe-d42a65ed-7078-4d8c-b7c5-129c5c313238.jpg'} />
                             <figcaption>
-                                Helo
+                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
+                              Bassbeat
+                            </p>
+                            An animated rainmeter music visualizer for windows. Downloaded over 15,000 times over the world and counting!
                             </figcaption>
                         </div>
                     </div>
                     <div style={{marginTop:"1%"}}>
                         <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
-                           <img alt="project"  src={img1}  />
+                           <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578506213/blog/pqqek8ub6z60xpndpcp3.jpg'}  />
                            <figcaption>
-                                Helo
+                           <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
+                              Zephyr
+                            </p>
+                             A Dark themed windows 10 UI that fetched 3rd Prize from deviantart!
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
                             <img alt="project"  src={img1} /> 
                             <figcaption>
-                                Helo
+                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
+                              Cosmos
+                            </p>
+                            Space illustration. Designed with Adobe Illustrator.
                             </figcaption>
                         </div>
                   </div>
@@ -192,7 +205,7 @@ class Home extends Component {
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
                   <ReactCompareImage leftImage={code} rightImage={Design} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
-                  </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={() => this.showIt('explore')} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button>    </div> 
+                  </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={'https://drive.google.com/open?id=13ChPvEZ31vPNt8LajWoVamre0_Bc-JHC'} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column">
                 <p style={styles.ltext}>Beautiful Design & Interface</p> <br/>

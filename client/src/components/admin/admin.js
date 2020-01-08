@@ -184,7 +184,7 @@ imageStack = (img) => {
                     withIcon={true}
               />
               <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length}</p><br />
-              <button onClick={() => this.handleImageUpload(0)} className="button is-primary" style={styles.bttn}> Upload </button>
+              <button onClick={() => (this.state.pictures.length > 0) && this.handleImageUpload(0)} className="button is-primary" style={styles.bttn}> Upload </button>
             </div> 
           }
 
