@@ -134,7 +134,7 @@ class Home extends Component {
                         <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                            Material Requirement Processing 
                         </p><br/>
-                        <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A web-based application for calculating the materials and components needed to manufacture a large number of products. It consists of three primary steps: Gathering inventory of the materials and components, identifying which additional ones are needed and then scheduling their production or purchase. It was built with Oracle 18c, PHP and Bootstrap with Materialize UI.</p>
+                        <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500",fontFamily: 'nunito'}}>A web-based application for calculating the materials and components needed to manufacture a large number of products. It consists of three primary steps: Gathering inventory of the materials and components, identifying which additional ones are needed and then scheduling their production or purchase. It was built with Oracle 18c, PHP and Bootstrap with Materialize UI.</p>
                       </figcaption>
                   </div>
               </div>
@@ -143,40 +143,40 @@ class Home extends Component {
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%',borderRadius: 30}}>
                             <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578502995/blog/ofpflhzpryrkeynxrrud.jpg'}  />
-                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)'}}>
+                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
                             <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Quiva
                             </p>
-                             A fancy text generator application that works based on the different Unicode characters and glyphs, It was developed using React Native.
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A fancy text generator application that works based on the different Unicode characters and glyphs, It was developed using React Native.</p>
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
                             <img alt="project"  src={'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/927746af-d8f4-4053-8745-2916d8ed7bd8/dca8ibe-d42a65ed-7078-4d8c-b7c5-129c5c313238.jpg'} />
-                            <figcaption>
+                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
                             <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Bassbeat
                             </p>
-                            An animated rainmeter music visualizer for windows. Downloaded over 15,000 times over the world and counting!
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>An animated music visualizer for windows. Downloaded over 15,000 times over the world and counting!</p>
                             </figcaption>
                         </div>
                     </div>
                     <div style={{marginTop:"1%"}}>
                         <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578506213/blog/pqqek8ub6z60xpndpcp3.jpg'}  />
-                           <figcaption>
+                           <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Zephyr
                             </p>
-                             A Dark themed windows 10 UI that fetched 3rd Prize from deviantart!
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A Dark themed windows 10 UI that fetched 3rd Prize from deviantart!</p>
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
                             <img alt="project"  src={img1} /> 
-                            <figcaption>
+                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)', fontFamily: 'nunito'}}>
                             <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Cosmos
                             </p>
-                            Space illustration. Designed with Adobe Illustrator.
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>Space illustration. Designed with Adobe Illustrator.</p>
                             </figcaption>
                         </div>
                   </div>

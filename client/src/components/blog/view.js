@@ -56,7 +56,7 @@ getPosts = () => {
                   <div style={{backgroundColor: "#00000000"}}>
                  {renderHTML(`<p> Hrlo </p>`)}
                   </div>
-                  <button onClick={this.getPosts}>Get fo</button>
+                  <button onClick={this.getPosts}>Site under construction</button>
                 </div>
             </div>
           </section>  

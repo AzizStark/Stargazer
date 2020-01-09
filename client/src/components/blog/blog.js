@@ -33,7 +33,7 @@ constructor(props) {
               <img src={cup} className={bstyles.head1} />
             </div>
             <div className="column">
-              <h1 className={bstyles.title1}>Hello there, I'm Aziz, Welcome to my blog.</h1>
+              <h1 className={bstyles.title1}>Site Under Construction...</h1>
             </div>
           </div>
           <div className={`hero`} style={{paddingBottom: 30}}>
