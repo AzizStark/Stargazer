@@ -129,7 +129,7 @@ class Home extends Component {
             <div className="columns" style={{padding: 15}}>
               <div className="column is-half" style={{padding:10,}}>
                   <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
-                      <img  alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/v1578490148/blog/nqcoblgv7hs42a3pmsdi.jpg'} style={{width:'100%'}} title="hover text" />
+                      <img  alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/v1578766304/blog/Frame_3_4_ibeprt.jpg'} style={{width:'100%'}} title="hover text" />
                       <figcaption>
                         <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                            Material Requirement Processing 
@@ -162,7 +162,7 @@ class Home extends Component {
                     </div>
                     <div style={{marginTop:"1%"}}>
                         <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
-                           <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578506213/blog/pqqek8ub6z60xpndpcp3.jpg'}  />
+                           <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578766286/blog/Frame_3_2_xvbzmt.jpg'}  />
                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Zephyr
@@ -171,12 +171,12 @@ class Home extends Component {
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
-                            <img alt="project"  src={img1} /> 
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1578766298/blog/Frame_2_lpqho5.jpg'} /> 
                             <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)', fontFamily: 'nunito'}}>
                             <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                              Cosmos
+                              E - Magazine
                             </p>
-                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>Space illustration. Designed with Adobe Illustrator.</p>
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>Designed and created two E-Magazines that consists of articles and other creations from my college students.</p>
                             </figcaption>
                         </div>
                   </div>
