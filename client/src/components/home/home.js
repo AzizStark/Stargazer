@@ -151,7 +151,7 @@ class Home extends Component {
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
-                            <img alt="project"  src={'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/927746af-d8f4-4053-8745-2916d8ed7bd8/dca8ibe-d42a65ed-7078-4d8c-b7c5-129c5c313238.jpg'} />
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578842720/blog/bass_kq4uan.jpg'} />
                             <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
                             <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
                               Bassbeat
@@ -204,7 +204,7 @@ class Home extends Component {
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                  <ReactCompareImage leftImage={code} rightImage={Design} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
+                  <ReactCompareImage leftImage={'https://res.cloudinary.com/azizcloud/image/upload/v1578849235/blog/carbon_qqgdm4.png'} rightImage={'https://res.cloudinary.com/azizcloud/image/upload/v1578849324/blog/Design_k67srm.png'} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
                   </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={'https://drive.google.com/open?id=13ChPvEZ31vPNt8LajWoVamre0_Bc-JHC'} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column">
@@ -226,7 +226,7 @@ class Home extends Component {
           <section id="about" className={`hero is-fullheight ${cstyles.svgg}`}  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
-                <img alt="aziz"  src={azi} style={{width: '75%', borderRadius: 30}}/> 
+                <img alt="aziz"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578847794/blog/B612_20190512_161749_660_20190513154325455_gmrxka.jpg'} style={{width: '75%', borderRadius: 30}}/> 
               </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
                 <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
