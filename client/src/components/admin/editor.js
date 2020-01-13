@@ -8,11 +8,12 @@ import draftToHtml from 'draftjs-to-html';
 import ImageUploader from 'react-images-upload';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-class view extends Component {
+class editor extends Component {
   
 constructor(props) {
   super(props);
   this.state = {
+    simage: "",
     stitle: "",
     sdate: "",
     stag: "",
@@ -32,7 +33,7 @@ onEditorStateChange: Function = (editorState) => {
   this.setState({
     editorState
   });
-  console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+  //console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
 };
 
 componentDidMount() {
@@ -43,8 +44,9 @@ componentDidMount() {
 putPost = () => {
   console.log(this.state.stitle)
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-    if(this.state.stitle.length && this.state.stag.length && this.state.sdate.length && content.length > 0){
+    if(this.state.stitle.length && this.state.stag.length && this.state.sdate.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
+          imageurl: this.state.simage,
           title: this.state.stitle,
           date: this.state.sdate,
           tag: this.state.stag,
@@ -77,6 +79,12 @@ getPosts = () => {
       }
     })
     .catch(err => console.log(err))
+}
+
+updateImage = (e) => {
+  this.setState({
+      simage: e.target.value
+  })
 }
 
 updateTitle = (e) => {
@@ -158,7 +166,7 @@ imageStack = (img) => {
         <div>
           <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={this.state.test[0]}></img>
           <section className={`hero is-fullheight`}  style={{padding: '20%'}}>
-          
+          <h1 style={{fontSize: 26, textAlign: 'center'}}>Create Post</h1>
           {(this.state.uploadStatus === 'Uploading') &&
           <div>
             <h1>
@@ -208,7 +216,7 @@ imageStack = (img) => {
 
             <form>
             <h1>Header Image</h1>
-            <input className="input" type="text" onChange={this.updateTitle} placeholder="Enter URL"/><br /><br />
+            <input className="input" type="text" onChange={this.updateImage} placeholder="Enter URL"/><br /><br />
             <h1>Title</h1>
             <input className="input" type="text" onChange={this.updateTitle} placeholder="Text input"/><br /><br />
             <h1>Date</h1>
@@ -236,7 +244,7 @@ imageStack = (img) => {
                 </div>
               </article> 
             </div><br />
-            <button className="button is-primary" onClick={this.putPost}>Submit</button>
+            <button className="button is-primary" onClick={this.putPost}>Create Post</button>
             </form>
           </section>  
         </div>
@@ -276,4 +284,4 @@ const styles =({
   }
 })
 
-export default view;
+export default editor;
