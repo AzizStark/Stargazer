@@ -6,7 +6,7 @@ import Home from './components/home/home';
 import Blog from './components/blog/blog';
 import View from './components/blog/view';
 import Create from './components/admin/create';
-import Admin from './components/admin/admin';
+import Editor from './components/admin/editor';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -16,7 +16,7 @@ const routing = (
         <Route path="/Todo" component={App} />
         <Route exact path="/blog" component={Blog} />
 	      <Route path="/blog/:id" component={View}/>
-        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/admin/editor" component={Editor} />
        	<Route path="/admin/create" component={Create}/>
       </div>
     </Router>

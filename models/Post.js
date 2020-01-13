@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 //create schema for Aziz
 const newpost = new Schema({
+  imageurl: {
+    type: String,
+    required: [true, 'Image URL required']
+  },
   title: {
     type: String,
     required: [true, 'Title is required']
