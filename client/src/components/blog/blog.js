@@ -11,7 +11,7 @@ constructor(props) {
   super(props);
   this.state = {
     btypes: ["","is-one-third"],
-    posts: ["Hello",2,3,4,5,6,7,8,9,10,"This is last post"],
+    posts: [],
     dual : "help"
   };
 }
@@ -19,6 +19,25 @@ constructor(props) {
     var el = document.getElementById(elementId);
     el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   }
+
+  componentDidMount(){
+    this.getPosts()
+  }
+
+getPosts = () => {
+  axios.get('/api/postitles')
+    .then(res => {
+      if(res.data){
+        this.setState({
+          posts: res.data,
+        })
+        for (var i=0; i < res.data.length; i++){
+          console.log(this.state.posts[i])
+        }
+      }
+    })
+    .catch(err => console.log(err))
+}
 
   render() {
     return (
@@ -33,7 +52,7 @@ constructor(props) {
               <img src={cup} className={bstyles.head1} />
             </div>
             <div className="column">
-              <h1 className={bstyles.title1}>Site Under Construction...</h1>
+              <h1 className={bstyles.title1}>Site Under Construction...</h1><button onClick={()=>{this.getPosts()}}>Get posts</button> 
             </div>
           </div>
           <div className={`hero`} style={{paddingBottom: 30}}>
@@ -59,10 +78,10 @@ constructor(props) {
   }
 }
 
-function box(wtype,title,date,index){
+function box(wtype,title,date,index,image){
   return (<div className={`column is-full-touch ${wtype}`} key={index}>
-    <Link to={{pathname:`blog/${title}`,data: [title,]}} style={{ color: 'inherit' }}> 
-      <div className={bstyles.box} style={{backgroundImage: "linear-gradient(42.51deg, rgba(49, 49, 44, 0.397) -3.51%, rgba(17, 17, 14, 0.452) 97.42%),url('https://images.unsplash.com/photo-1577496549804-8b05f1f67338?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80')"}}>
+    <Link to={{pathname:`blog/${title}`}} style={{ color: 'inherit' }}> 
+      <div className={bstyles.box} style={{backgroundImage: `linear-gradient(42.51deg, rgba(49, 49, 44, 0.297) -3.51%, rgba(17, 17, 14, 0.452) 97.42%),url(https://res.cloudinary.com/azizcloud/image/upload/t_tiles/${image.slice(50)})`}}>
       <h1 className={bstyles.htext}>{title}</h1>
       <h1 className={bstyles.stext}>{date}</h1>
     </div></Link>
@@ -93,17 +112,13 @@ function deck(nposts){
     sliced.map((user,index) =>
       <div className={`columns is-desktop ${bstyles.deck}`} key={index}>     
       {sliced[index].map((user,inde) =>
-          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : ("")),`I cannot look at modern buildings without thinking`,'by Janet Robertson 4 years ago',inde)
+          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : ("")),sliced[index][inde].title,sliced[index][inde].date,inde,sliced[index][inde].imageurl)
       )}
       {change(dual)}
     </div>)
   )
 }
 
-const Child = ({ match }) => (
-  <div>
-    <h3>ID: {match.params.id}</h3>
-  </div>
-)
+
 
 export default Blog;

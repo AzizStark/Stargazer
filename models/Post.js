@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//create schema for Aziz
+//create schema for Post
 const newpost = new Schema({
   imageurl: {
     type: String,
