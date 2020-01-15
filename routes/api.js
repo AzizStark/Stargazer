@@ -23,7 +23,7 @@ router.post('/upload', multerUploads, (req, res) => {
         })
         .catch(err =>
           res.status(400).json({
-            message: "someting went wrong while processing your request",
+            message: "Something went wrong while processing your request",
             data: {
               err
             }
@@ -35,6 +35,14 @@ router.get('/posts', (req, res, next) => {
     //this will return all the data, exposing only the id and action field to the client
     //Blog.find({}, 'title') to get title only
     Blog.find({})
+      .then(data => res.json(data))
+      .catch(next)
+  });
+
+  router.get('/postitles', (req, res, next) => {
+    //this will return all the data, exposing only the id and action field to the client
+    //Blog.find({}, 'title') to get title only
+    Blog.find({}, 'title date imageurl').limit(4)
       .then(data => res.json(data))
       .catch(next)
   });
