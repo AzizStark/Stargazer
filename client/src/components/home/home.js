@@ -117,7 +117,7 @@ class Home extends Component {
               </div>
               
               <div className={cstyles.cardss}>
-                  <img alt="logo" className={cstyles.floating} style={{position: 'absolute',  zIndex:2, margin: 0,}} src={leaf1}  />
+                  <img alt="logo" className={cstyles.floating} style={{position: 'absolute',  zIndex:2, margin: 0}} src={leaf1}  />
                   <img  alt="logo" style={{position: 'absolute',  zIndex:1, }} src={leaf2}   />
               </div>    
             </div>

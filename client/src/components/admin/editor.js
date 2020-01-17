@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './react-draft-wysiwyg.css';
-import bstyles from './blog.module.css';
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -15,7 +14,6 @@ constructor(props) {
   this.state = {
     simage: "",
     stitle: "",
-    sdate: "",
     stag: "",
     scontent: "",
     htmlcontent: "",
@@ -44,11 +42,10 @@ componentDidMount() {
 putPost = () => {
   console.log(this.state.stitle)
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-    if(this.state.stitle.length && this.state.stag.length && this.state.sdate.length && this.state.simage.length && content.length > 0){
+    if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
           imageurl: this.state.simage,
           title: this.state.stitle,
-          date: this.state.sdate,
           tag: this.state.stag,
           content: content        
       })
@@ -90,12 +87,6 @@ updateImage = (e) => {
 updateTitle = (e) => {
   this.setState({
       stitle: e.target.value
-  })
-}
-
-updateDate = (e) => {
-  this.setState({
-      sdate: e.target.value
   })
 }
 
@@ -160,7 +151,7 @@ imageStack = (img) => {
 
     return (
       
-      <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
+      <div className={''} style={{overflow: 'Hidden'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <div>
@@ -214,37 +205,35 @@ imageStack = (img) => {
             )}            
             </div>}
 
-            <form>
-            <h1>Header Image</h1>
-            <input className="input" type="text" onChange={this.updateImage} placeholder="Enter URL"/><br /><br />
-            <h1>Title</h1>
-            <input className="input" type="text" onChange={this.updateTitle} placeholder="Text input"/><br /><br />
-            <h1>Date</h1>
-            <input className="input" type="text" onChange={this.updateDate} placeholder="Text input"/><br /><br />
-            <h1>Tag</h1>
-            <input className="input" type="text" onChange={this.updateTag} placeholder="Text input"/><br/><br />
-            <h1>Content</h1>
-            <div style={{border: 10, borderColor: '#6D6D6D', borderStyle: 'solid'}}>
-              <article className="panel is-primary" >
-                <p className="panel-heading">
-                  Primary
-                </p>
-                <div>
-                  <Editor
-                    editorState={editorState}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
-                    onEditorStateChange={this.onEditorStateChange}
-                  />
-                  <textarea
-                    disabled
-                    style={{width: '100%',minHeight: '200px'}}
-                    value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                  />
-                </div>
-              </article> 
-            </div><br />
-            <button className="button is-primary" onClick={this.putPost}>Create Post</button>
+            <form onSubmit={this.putPost}>
+              <h1>Header Image</h1>
+              <input className="input" type="text" onChange={this.updateImage} placeholder="Enter URL" required/><br /><br />
+              <h1>Title</h1>
+              <input className="input" type="text" onChange={this.updateTitle} placeholder="Text input" required/><br /><br />
+              <h1>Tag</h1>
+              <input className="input" type="text" onChange={this.updateTag} placeholder="Text input" required/><br/><br />
+              <h1>Content</h1>
+              <div style={{border: 10, borderColor: '#6D6D6D', borderStyle: 'solid'}}>
+                <article className="panel is-primary" >
+                  <p className="panel-heading">
+                    Primary
+                  </p>
+                  <div>
+                    <Editor
+                      editorState={editorState}
+                      wrapperClassName="demo-wrapper"
+                      editorClassName="demo-editor"
+                      onEditorStateChange={this.onEditorStateChange}
+                    />
+                    <textarea
+                      disabled
+                      style={{width: '100%',minHeight: '200px'}}
+                      value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                    />
+                  </div>
+                </article> 
+              </div><br />
+              <button className="button is-primary" value='submit' >Create Post</button>
             </form>
           </section>  
         </div>

@@ -9,33 +9,43 @@ class view extends Component {
 constructor(props) {
   super(props);
   this.state = {
-    btypes: ["","is-one-third"],
-    posts: ["Hello",2,3,4,5,6,7,8,9,10,"This is last post"],
-    dual : "help",
-    todos : " ",
-    title : "Sample"
+    title : "",
+    date: "",
+    tag: "",
+    content: "",
+    image: ""
   };
 }
 
 componentDidMount() {
   window.scrollTo(0, 0)
+  this.getPosts()
 }
 
 getPosts = () => {
-  axios.get('/api/posts')
+  const path = window.location.pathname
+  axios.get('/api/viewpost',{
+    params: {
+      title: path.slice(8).replace(/-/g,' '),
+      cid: path.slice(6,window.location.pathname.lastIndexOf('/'))
+    }
+  })
     .then(res => {
       if(res.data){
         this.setState({
-          todos: res.data
+          title: res.data.title,
+          date: res.data.date,
+          tag: res.data.tag,
+          content: res.data.content,
+          image: res.data.imageurl
         })
-        console.log("From View: "+ this.state.todos[1].title)
+        console.log("From View: "+ this.state.image)
       }
     })
     .catch(err => console.log(err))
 }
 
   render() {
-    const { data } = this.props.location
     return (
       <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
@@ -45,18 +55,17 @@ getPosts = () => {
           <section className={`hero is-fullheight`}  >
             <div className="columns is-desktop" >
               <div className="column" >
-                <img src={'https://images.unsplash.com/photo-1571217668979-f46db8864f75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'} className={bstyles.head1} />
+                <img src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
               </div>
               <div className="column ">
-              <h1 className={bstyles.title1}>{'I cannot look at modern buildings without thinking'}</h1>
+              <h1 className={bstyles.title1}>{this.state.title}</h1>
               </div>
             </div>
             <div className={`column ${bstyles.postbox}`}>
                 <div className="container" style={{minHeight: 400}}>
                   <div style={{backgroundColor: "#00000000"}}>
-                 {renderHTML(`<p> Hrlo </p>`)}
+                 {renderHTML(`${this.state.content}`)}
                   </div>
-                  <button onClick={this.getPosts}>{window.location.pathname}</button>
                 </div>
             </div>
           </section>  
