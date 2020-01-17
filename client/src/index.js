@@ -18,6 +18,7 @@ const routing = (
         <Route exact path="/blog" component={Blog} />
 	      <Route path="/blog/:id" component={View}/>
         <Route exact path="/admin/editor" component={Editor} />
+        <Route exact path="/admin/editor/:cid/:id" component={Editor} />
        	<Route path="/admin/create" component={Create}/>
         <Route path="/admin/dashboard" component={Dashboard}/>
       </div>

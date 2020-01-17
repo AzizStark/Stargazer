@@ -41,6 +41,11 @@ router.get('/viewpost', (req, res, next) => {
       .catch(next)
   });
 
+  router.put('/updatepost', (req, res, next) => {
+    console.log('Updating')
+    Blog.findOneAndUpdate()
+  });
+
   router.get('/postitles', (req, res, next) => {
     //this will return all the data, exposing only the id and action field to the client
     //Blog.find({}, 'title') to get title only

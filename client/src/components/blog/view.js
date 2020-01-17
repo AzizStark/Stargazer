@@ -23,11 +23,12 @@ componentDidMount() {
 }
 
 getPosts = () => {
-  const path = window.location.pathname
+  const path = this.props.location.pathname
+  var cid = path.slice(6,path.lastIndexOf('/'))
   axios.get('/api/viewpost',{
     params: {
-      title: path.slice(8).replace(/-/g,' '),
-      cid: path.slice(6,window.location.pathname.lastIndexOf('/'))
+      title: path.slice(7 + cid.length).replace(/-/g,' '),
+      cid: cid
     }
   })
     .then(res => {

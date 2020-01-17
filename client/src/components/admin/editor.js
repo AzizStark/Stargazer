@@ -12,18 +12,17 @@ class editor extends Component {
 constructor(props) {
   super(props);
   this.state = {
+    editmode: "Create Post",
     simage: "",
     stitle: "",
     stag: "",
     scontent: "",
-    htmlcontent: "",
     uploadedFileCloudinaryUrl: [],
     editorState: EditorState.createEmpty(),
     pictures: [],
     buttonUrl: "Copy URL",
     uploadStatus: 'NotStarted',
     uploadCount: 0,
-    test: []
   }
 }
 
@@ -35,12 +34,18 @@ onEditorStateChange: Function = (editorState) => {
 };
 
 componentDidMount() {
-  this.getPosts()
+  var searchParams = new URLSearchParams(this.props.location.search).get("m");
+  if(searchParams === 'edit'){
+    this.setState({
+      editmode: 'Edit Post'
+    })
+    this.getPost()
+  }
   window.scrollTo(0, 0)
 }
 
-putPost = () => {
-  console.log(this.state.stitle)
+putPost = (e) => {
+  e.preventDefault();
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
@@ -60,22 +65,52 @@ putPost = () => {
     }
 }
 
-getPosts = () => {
-  axios.get('/api/posts')
+getPost = () => {
+  const path = this.props.location.pathname
+  var cid = path.slice(14,path.lastIndexOf('/'));
+  axios.get('/api/viewpost',{
+    params: {
+      title: path.slice(15 + cid.length).replace(/-/g,' '),
+      cid: cid
+    }
+  })
     .then(res => {
       if(res.data){
         this.setState({
-          htmlcontent: res.data,
+          stitle: res.data.title,
+          simage: res.data.imageurl,
+          stag: res.data.tag,
           editorState: EditorState.createWithContent(
             ContentState.createFromBlockArray(
-              convertFromHTML(res.data[0].content)
+              convertFromHTML(res.data.content)
             )
           )
         })
-        console.log(this.state.htmlcontent[0].content)
       }
     })
     .catch(err => console.log(err))
+}
+
+setPost = (e) => {
+  e.preventDefault();
+  console.log("Post will update");
+  const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+    if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
+      axios.put('/api/updatepost',{
+          imageurl: this.state.simage,
+          title: this.state.stitle,
+          tag: this.state.stag,
+          content: content        
+      })
+        .then(res => {
+          if(res.data){
+            console.log(res.data+"Post Updated Successfully")
+          }
+        })
+        .catch(err => console.log(err))
+    }else {
+      console.log('Update Failed')
+    }
 }
 
 updateImage = (e) => {
@@ -155,9 +190,8 @@ imageStack = (img) => {
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <div>
-          <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={this.state.test[0]}></img>
           <section className={`hero is-fullheight`}  style={{padding: '20%'}}>
-          <h1 style={{fontSize: 26, textAlign: 'center'}}>Create Post</h1>
+          <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1>
           {(this.state.uploadStatus === 'Uploading') &&
           <div>
             <h1>
@@ -169,17 +203,16 @@ imageStack = (img) => {
           
           { 
           (this.state.uploadStatus === 'NotStarted') &&
-            <div style={{backgroundColor: '#ff5566', textAlign: 'center',  borderRadius: 30, paddingBottom: 30}}> 
+            <div style={{backgroundColor: '#80BFE2', textAlign: 'center',  borderRadius: 30, paddingBottom: 30}}> 
               <ImageUploader
                     buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                    maxFileSize={5242880}
+                    imgExtension={['.jpg','.jpeg', '.gif', '.png', '.gif']}
+                    maxFileSize={1050000}
                     fileTypeError={"Invalid File"}
-                    fileSizeError={"File Size is greater than 5 MB"}
-                    label={"Max Size: 5 MB"}
-                    fileContainerStyle={{background: "#ff5566",  borderRadius: 30, boxShadow: 'none'}}
-                    //fileContainerStyle={{height: 30}}
+                    fileSizeError={"image size is larger than 1 MB"}
+                    label={"Maximum image size: 1 MB"}
+                    fileContainerStyle={{background: "#80BFE2",  borderRadius: 30, boxShadow: 'none'}}
                     withIcon={true}
               />
               <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length}</p><br />
@@ -205,13 +238,13 @@ imageStack = (img) => {
             )}            
             </div>}
 
-            <form onSubmit={this.putPost}>
+            <form onSubmit={this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>
               <h1>Header Image</h1>
-              <input className="input" type="text" onChange={this.updateImage} placeholder="Enter URL" required/><br /><br />
+              <input className="input" type="text" onChange={this.updateImage} value={this.state.simage} placeholder="Enter URL" required/><br /><br />
               <h1>Title</h1>
-              <input className="input" type="text" onChange={this.updateTitle} placeholder="Text input" required/><br /><br />
+              <input className="input" type="text" onChange={this.updateTitle} value={this.state.stitle} placeholder="Text input" required/><br /><br />
               <h1>Tag</h1>
-              <input className="input" type="text" onChange={this.updateTag} placeholder="Text input" required/><br/><br />
+              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Text input" required/><br/><br />
               <h1>Content</h1>
               <div style={{border: 10, borderColor: '#6D6D6D', borderStyle: 'solid'}}>
                 <article className="panel is-primary" >
@@ -233,7 +266,7 @@ imageStack = (img) => {
                   </div>
                 </article> 
               </div><br />
-              <button className="button is-primary" value='submit' >Create Post</button>
+            <center><button className="button is-primary" value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
             </form>
           </section>  
         </div>

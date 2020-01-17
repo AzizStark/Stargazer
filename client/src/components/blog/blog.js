@@ -26,6 +26,7 @@ getPosts = () => {
   axios.get('/api/postitles')
     .then(res => {
       if(res.data){
+        res.data.reverse();
         this.setState({
           posts: res.data,
         })
