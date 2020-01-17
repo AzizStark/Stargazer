@@ -25,19 +25,37 @@
       width: 90%;
       margin: 10vh ;
       margin-bottom: 0px;
+      height: 100%;
+      object-fit: cover;
    }   
    .postbox{
       position: relative;
       background-color: #2222279a;
       backdrop-filter: blur(25px);
       border-radius: 25px;
-      margin: -90px 7vw 0px 7vw;
+      margin: -10px 7vw 0px 7vw;
       padding: 90px 18vw 90px 18vw;
       font-size: 1.3vw;
       font-weight: 500;
       filter: none;
       z-index: 0;
    }
+
+   .deck{
+      padding: 0px 8vw 0px 8vw;  
+   }
+
+   .box{
+      padding: 30px;
+      border-radius: 25px;
+      background-size: cover;
+      min-height: calc(40px + 16vh + 15vw);
+      height: 100%;
+      transition: all .2s ease-in-out; 
+      user-select:none;
+      backdrop-filter: blur(25px);
+   }
+
 }
 
 @media only screen and (max-width: 1024px) {
@@ -65,17 +83,24 @@
       filter: none;
       z-index: 0;
    }
-}
 
-.box{
-   padding: 30px;
-   border-radius: 48px;
-   background-size: cover;
-   min-height: calc(40px + 20vh + 15vw);
-   transition: all .2s ease-in-out; 
-   user-select:none;
-}
+   .deck{
+      padding: 0px 4vw 0px 4vw;  
+   }
 
+   .box{
+      padding: 30px;
+      border-radius: 25px;
+      background-size: cover;
+      min-height: calc(40px + 20vh + 17vw);
+      transition: all .2s ease-in-out; 
+      user-select:none;
+   }
+
+   .wrapper{
+      padding: 6px;
+   }
+}
 
 .box:hover {
    transform: translateY(-6px); 
@@ -91,8 +116,4 @@
    font-size: 12px;
    padding-top: 10px;
    font-weight: bold;
-}
-
-.deck{
-   padding: 0px 5vw 0px 5vw;  
 }

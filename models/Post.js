@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 //create schema for Post
 const newpost = new Schema({
+  cid: {
+    type: Number,
+    required: [true, 'Post ID needed'],
+  },
   imageurl: {
     type: String,
     required: [true, 'Image URL required']
