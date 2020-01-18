@@ -34,66 +34,74 @@ router.post('/upload', multerUploads, (req, res) => {
 router.get('/viewpost', (req, res, next) => {
     //this will return all the data, exposing only the id and action field to the client
     //Blog.find({}, 'title') to get title only
-    console.log()
     Blog.findOne({title: req.query.title, cid: req.query.cid})
       .then(data => {res.json(data)
       })
       .catch(next)
   });
 
-  router.put('/updatepost', (req, res, next) => {
-    console.log('Updating')
-    Blog.findOneAndUpdate()
-  });
+router.put('/updatepost', (req, res, next) => {
+  Blog.findOneAndUpdate(
+    { "title" : req.body.otitle, "cid" : req.body.cid },
+    { $set: 
+      { "imageurl" : req.body.imageurl,
+        "title" : req.body.title,
+        "tag" : req.body.tag, 
+        "content" : req.body.content
+      } 
+    }
+  ).then(data => res.json(data))
+  .catch(next)
+});
 
-  router.get('/postitles', (req, res, next) => {
-    //this will return all the data, exposing only the id and action field to the client
-    //Blog.find({}, 'title') to get title only
-    Blog.find({}, 'title date imageurl cid')
-      .then(data => res.json(data))
-      .catch(next)
-  });
+router.get('/postitles', (req, res, next) => {
+  //this will return all the data, exposing only the id and action field to the client
+  //Blog.find({}, 'title') to get title only
+  Blog.find({}, 'title date imageurl cid')
+    .then(data => res.json(data))
+    .catch(next)
+});
   
-  router.post('/posts', (req, res, next) => {
-    Blog.countDocuments({title: (req.body.title)}).then((count) => {
-        if(req.body.title){
-          req.body.date = new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'})
-          if(count == 0){
-            req.body.cid = 0
+router.post('/posts', (req, res, next) => {
+  Blog.countDocuments({title: (req.body.title)}).then((count) => {
+      if(req.body.title){
+        req.body.date = new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'})
+        if(count == 0){
+          req.body.cid = 0
+          Blog.create(req.body)
+            .then(data => res.json(data))
+            .catch(next)
+            console.log("Posted")
+        }
+        else{
+          Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
+            req.body.cid = data[0].cid + 1
             Blog.create(req.body)
               .then(data => res.json(data))
               .catch(next)
-              console.log("Posted")
-          }
-          else{
-            Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
-              req.body.cid = data[0].cid + 1
-              Blog.create(req.body)
-                .then(data => res.json(data))
-                .catch(next)
-                console.log("Posted Duplicate")
-            })
-          }
-        }else {
-          res.json({
-            error: "The input field is empty"
+              console.log("Posted Duplicate")
           })
         }
-    })
-  });
-  
-  router.delete('/posts/:id', (req, res, next) => {
-    Blog.findOneAndDelete({"_id": req.params.id})
-      .then(data => res.json(data))
-      .catch(next)
+      }else {
+        res.json({
+          error: "The input field is empty"
+        })
+      }
   })
+});
   
-  router.get('/test', (req, res, next) => {
-    Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
-      console.log(new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'}))
-      console.log(data[0].cid)
-    })
-    res.send("done");
+router.delete('/posts/:id', (req, res, next) => {
+  Blog.findOneAndDelete({"_id": req.params.id})
+    .then(data => res.json(data))
+    .catch(next)
+})
+
+router.get('/test', (req, res, next) => {
+  Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
+    console.log(new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'}))
+    console.log(data[0].cid)
   })
+  res.send("done");
+})
 
 module.exports = router;
