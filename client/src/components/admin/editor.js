@@ -14,6 +14,8 @@ constructor(props) {
   this.state = {
     editmode: "Create Post",
     simage: "",
+    otitle: "",
+    ocid: 0,
     stitle: "",
     stag: "",
     scontent: "",
@@ -45,7 +47,7 @@ componentDidMount() {
 }
 
 putPost = (e) => {
-  e.preventDefault();
+  e.preventDefault(); 
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
@@ -67,16 +69,19 @@ putPost = (e) => {
 
 getPost = () => {
   const path = this.props.location.pathname
-  var cid = path.slice(14,path.lastIndexOf('/'));
+  const cid = path.slice(14,path.lastIndexOf('/'));
+  const title = path.slice(15 + cid.length).replace(/-/g,' ');
   axios.get('/api/viewpost',{
     params: {
-      title: path.slice(15 + cid.length).replace(/-/g,' '),
+      title: title,
       cid: cid
     }
   })
     .then(res => {
       if(res.data){
         this.setState({
+          otitle: title,
+          ocid: cid,
           stitle: res.data.title,
           simage: res.data.imageurl,
           stag: res.data.tag,
@@ -97,6 +102,8 @@ setPost = (e) => {
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.put('/api/updatepost',{
+          otitle: this.state.otitle,
+          cid: this.state.ocid,
           imageurl: this.state.simage,
           title: this.state.stitle,
           tag: this.state.stag,
