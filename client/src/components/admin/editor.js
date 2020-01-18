@@ -18,13 +18,13 @@ constructor(props) {
     ocid: 0,
     stitle: "",
     stag: "",
-    scontent: "",
     uploadedFileCloudinaryUrl: [],
     editorState: EditorState.createEmpty(),
     pictures: [],
     buttonUrl: "Copy URL",
     uploadStatus: 'NotStarted',
     uploadCount: 0,
+    modalstate: '',
   }
 }
 
@@ -46,8 +46,7 @@ componentDidMount() {
   window.scrollTo(0, 0)
 }
 
-putPost = (e) => {
-  e.preventDefault(); 
+putPost = () => { 
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
@@ -57,13 +56,18 @@ putPost = (e) => {
           content: content        
       })
         .then(res => {
+          console.log(res.data)
           if(res.data){
-            console.log(res.data+"postputted")
+            window.alert("Posted Successfully!")
+            this.setState({
+              modalstate: "",
+            })
+            this.props.history.push(`/blog/${res.data.cid}/${res.data.title}`);
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => window.alert('Post creation failed'))
     }else {
-      console.log('input field required')
+      window.alert('Input field required')
     }
 }
 
@@ -96,8 +100,7 @@ getPost = () => {
     .catch(err => console.log(err))
 }
 
-setPost = (e) => {
-  e.preventDefault();
+setPost = () => {
   console.log("Post will update");
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
@@ -110,13 +113,18 @@ setPost = (e) => {
           content: content        
       })
         .then(res => {
+          console.log(res.data)
           if(res.data){
-            console.log(res.data+"Post Updated Successfully")
+            window.alert("Success: Post Updated!")
+            this.setState({
+              modalstate: "",
+            })
+            this.props.history.push(`/blog/${res.data.cid}/${res.data.title}`);
           }
         })
         .catch(err => console.log(err))
     }else {
-      console.log('Update Failed')
+      window.alert('Update failed, Please try again')
     }
 }
 
@@ -185,6 +193,22 @@ imageStack = (img) => {
   //console.log(URL.createObjectURL(img[0].slice()))
 }
 
+toggleModal = (e) => {
+  if(e){
+    e.preventDefault();
+  }
+  var mstate = this.state.modalstate
+  if(mstate == ''){
+    this.setState({
+      modalstate: "is-active is-clipped"
+    })
+  }
+  else{
+    this.setState({
+      modalstate: ""
+    })
+  }
+}
 
   render() {
    // const { data } = this.props.location
@@ -245,7 +269,7 @@ imageStack = (img) => {
             )}            
             </div>}
 
-            <form onSubmit={this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>
+            <form onSubmit={this.toggleModal}>
               <h1>Header Image</h1>
               <input className="input" type="text" onChange={this.updateImage} value={this.state.simage} placeholder="Enter URL" required/><br /><br />
               <h1>Title</h1>
@@ -278,6 +302,31 @@ imageStack = (img) => {
           </section>  
         </div>
         
+        <div className={`modal ${this.state.modalstate}`}>
+              <div className="modal-background"></div>
+              <div className="modal-content">
+              <div className="card" style={{borderRadius: 6}}>
+                <div className="card-content">
+                  <p className="title">
+                     {this.state.editmode === "Create Post" ? 'Are you sure you want to create a new post?' : 'Are you sure you want to update the changes to the post?' }
+                  </p>
+                </div>
+                <footer className="card-footer">
+                  <p className="card-footer-item">
+                    <span>
+                      <a onClick = {this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>Confirm</a>
+                    </span>
+                  </p>
+                  <p className="card-footer-item">
+                    <span>
+                      <a onClick = {() => {this.toggleModal()}} >Cancel</a>
+                    </span>
+                  </p>
+                </footer>
+              </div>
+              </div>
+              <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
+            </div>
 
         <footer className="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
         <div className="columns">
