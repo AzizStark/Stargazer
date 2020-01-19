@@ -92,33 +92,37 @@ router.post('/posts', (req, res, next) => {
           req.body.cid = 0
           Blog.create(req.body)
             .then(data => res.json(data))
-            .catch( err =>
+            .catch( err => {
               res.status(400).json({
                 message: "Something went wrong while processing your request",
                 data: {
                   err
                 }
-            }))
+            })
+            console.log(err)})
         }
         else{
-          Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
+          Blog.find({title: req.body.title}, "cid").sort({cid : -1}).limit(1).then((data) => {
+            console.log(data)
             req.body.cid = data[0].cid + 1
             Blog.create(req.body)
               .then(data => res.json(data))
-              .catch(err =>
+              .catch(err => {
                 res.status(400).json({
                   message: "Something went wrong while processing your request",
                   data: {
                     err
                   }
-              }))
+              })
+              console.log(err)})
           }).catch(
-            err => res.status(400).json({
+            err => {res.status(400).json({
               message: "Something went wrong while processing your request",
               data: {
                 err
               }
-          }))
+          })
+          console.log(err)})
         }
       }else {
         res.json({
