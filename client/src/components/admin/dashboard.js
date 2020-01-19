@@ -89,10 +89,10 @@ updateTitle = (e) => {
 
             <h3 style={{color: '#ffffff' }} className="title is-3">Manage Blog </h3>
             <div style={{minWidth: '50%'}}>
-            <div className="card" style={{ borderRadius: 6}}>
+            <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
                 <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row'}}>
-                  <button className="button is-link" onClick={()=>{this.getPosts()}}>Refresh</button> 
-                  <button className="button is-success" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
+                  <button className="button is-info" onClick={()=>{this.getPosts()}}>Refresh</button> 
+                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
                 </div>
             </div>
             <br/>

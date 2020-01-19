@@ -349,8 +349,9 @@ const styles =({
     height: 30,
     border: 'none',
     borderRadius: 15,
-    color: "#ffffff",
     width: 100,
+    padding:0,
+    backgroundColor:'#3f4257' 
   },
 
   vcenter  : {

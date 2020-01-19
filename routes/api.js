@@ -3,8 +3,33 @@ const router = express.Router();
 const Blog = require('../models/Post');
 import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
-
 router.use("*", cloudinaryConfig);
+
+
+var crypto = require('crypto');
+
+//Login
+router.post('/login',(req,res,next) => {
+  const header = Buffer.from(req.headers.authorization.split(" ")[1], 'base64').toString()
+  const index = header.lastIndexOf(':')
+  const user = header.slice(0,index)
+  const pass = header.slice(index + 1)
+
+  console.log(user + pass)
+  var hashed = crypto.pbkdf2Sync(pass, process.env.GOLD_KEY, 1000, 64, 'sha256').toString('hex');
+
+  if(hashed === process.env.GOLD_BOX){
+    console.log("Correct")
+    res.cookie('AuthToken', index);
+    //Implement Session
+  }
+  else{
+    console.log("Incorrect")
+  }
+  res.send("From Login"+ req.body)
+})
+
+
 
 //Upload Image
 router.post('/upload', multerUploads, (req, res) => {

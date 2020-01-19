@@ -21,15 +21,10 @@ import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from
 
 class Home extends Component {
   state = {
-    todos: ["asd"],
     capvalue: null,
     sendinfo: "Send Message",
     butStyle: `${cstyles.custombtn}`
   };
-
-  componentDidMount() {
-    this.getTodos();
-  }
 
   onChange = (value) => {
     this.setState({
@@ -44,19 +39,6 @@ class Home extends Component {
     var el = document.getElementById(elementId);
     el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   }
-
-  getTodos = () => {
-    axios
-      .get("/api/aziz")
-      .then(res => {
-        if (res.data) {
-          this.setState({
-            todos: res.data
-          });
-        }
-      })
-      .catch(err => console.log(err));
-  };
 
   sendEmail = (e) => {
     e.preventDefault();
