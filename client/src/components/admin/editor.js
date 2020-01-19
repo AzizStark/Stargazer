@@ -119,7 +119,7 @@ setPost = () => {
             this.setState({
               modalstate: "",
             })
-            this.props.history.push(`/blog/${res.data.cid}/${res.data.title}`);
+            this.props.history.push(`/blog/${res.data.cid}/${this.state.stitle}`);
           }
         })
         .catch(err => console.log(err))
