@@ -102,7 +102,7 @@ updateTitle = (e) => {
                         <td>{post.date}</td>
                         <td>{post.cid}</td>
                         <td><button className="button is-info" onClick={() => {window.open(`/blog/${post.cid}/${post.title}`)}}>View</button></td>
-                        <td><button className="button is-info" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}}>Edit</button></td>
+                        <td><button className="button is-link" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}}>Edit</button></td>
                         <td><button className="button is-danger" onClick={() => this.toggleModal(index)}>Delete</button></td>
                     </tr>
                 </tbody>
