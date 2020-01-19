@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const path = require('path');
 const app = express();
-
+var session = require('express-session')
 require('dotenv').config();
+
 
 
 const port = process.env.PORT || 5000;
@@ -28,6 +29,14 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use(session({
+  name: 'session',
+  keys: [/* secret keys */],
+  resave: true,
+  saveUninitialized: true,
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 app.use('/api', routes);
 
   app.use(express.static("client/build"));
