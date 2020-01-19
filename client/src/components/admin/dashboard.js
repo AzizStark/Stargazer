@@ -88,10 +88,18 @@ updateTitle = (e) => {
             <h2 style={{color: '#ffffff' }} className="title is-2"> Dashboard </h2>
 
             <h3 style={{color: '#ffffff' }} className="title is-3">Manage Blog </h3>
-            <table className="table is-hoverable is-striped" style={{minWidth: '50%', borderRadius: 5}}>
+            <div style={{minWidth: '50%'}}>
+            <div className="card" style={{ borderRadius: 6}}>
+                <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row'}}>
+                  <button className="button is-link" onClick={()=>{this.getPosts()}}>Refresh</button> 
+                  <button className="button is-success" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
+                </div>
+            </div>
+            <br/>
+            <table className="table is-hoverable is-striped" style={{borderRadius: 5}}>
                 <thead>
                     <tr>
-                        <th>Post ID</th><th>Title</th><th>Date</th><th>Content ID</th><th>View Post</th><th>Edit</th><th>Delete</th>
+                        <th>Post ID</th><th>Title</th><th>Date</th><th>CID</th><th>Tag</th><th>View Post</th><th>Edit</th><th>Delete</th>
                     </tr>    
                 </thead>
             {scontent.map((post,index)  =>
@@ -101,6 +109,7 @@ updateTitle = (e) => {
                         <td>{post.title}</td>
                         <td>{post.date}</td>
                         <td>{post.cid}</td>
+                        <td>{post.tag}</td>
                         <td><button className="button is-info" onClick={() => {window.open(`/blog/${post.cid}/${post.title}`)}}>View</button></td>
                         <td><button className="button is-link" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}}>Edit</button></td>
                         <td><button className="button is-danger" onClick={() => this.toggleModal(index)}>Delete</button></td>
@@ -108,10 +117,11 @@ updateTitle = (e) => {
                 </tbody>
             )}
             </table>
+            </div>
             <div className={`modal ${this.state.modalstate}`}>
               <div className="modal-background"></div>
               <div className="modal-content">
-              <div className="card">
+              <div className="card" style={{borderRadius: 6}}>
                 <div className="card-content">
                   <p className="title">
                     Are you sure you want to permanently delete this post?
@@ -138,7 +148,6 @@ updateTitle = (e) => {
               </div>
               <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
             </div>
-           <button className="button is-primary" onClick={()=>{this.getPosts()}}>Refresh</button> 
         </div>
       );
   }

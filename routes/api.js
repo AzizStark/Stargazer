@@ -72,7 +72,7 @@ router.put('/updatepost', (req, res, next) => {
 //Fetch all posts without content
 router.get('/postitles', (req, res, next) => {
   //Blog.find({}, 'title') to get title only
-  Blog.find({}, 'title date imageurl cid')
+  Blog.find({}, 'title date imageurl cid tag')
     .then(data => res.json(data))
     .catch( err =>
       res.status(400).json({
