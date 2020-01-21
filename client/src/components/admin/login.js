@@ -46,8 +46,8 @@ class login extends Component {
     render() {
         return(
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
-                <div class="card" style={{borderRadius: 5, backgroundColor: '#b292b1'}}>
-                    <div class="card-content">
+                <div className="card" style={{borderRadius: 5}}>
+                    <div className="card-content">
                         <img src={logo} style={{height: 30}}/>
                         <br/><br/>
                         <form onClick={this.handleSubmit}>
@@ -68,11 +68,12 @@ class login extends Component {
                                 </p>
                             </div>
                             <div className="field">
-                                <p className="control">
-                                    <center><button className="button is-success">
+                                <br/>
+                                <center>
+                                    <button className="button is-success">
                                         Login
-                                    </button></center>
-                                </p>
+                                    </button>
+                                </center>
                             </div>
                         </form>
                     </div>
