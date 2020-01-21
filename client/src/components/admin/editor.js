@@ -36,14 +36,22 @@ onEditorStateChange: Function = (editorState) => {
 };
 
 componentDidMount() {
-  var searchParams = new URLSearchParams(this.props.location.search).get("m");
-  if(searchParams === 'edit'){
-    this.setState({
-      editmode: 'Edit Post'
-    })
-    this.getPost()
-  }
-  window.scrollTo(0, 0)
+  axios.get('/api/isLogged')
+     .then(res => {
+       console.log("Logged yay")
+       var searchParams = new URLSearchParams(this.props.location.search).get("m");
+       if(searchParams === 'edit'){
+        this.setState({
+          editmode: 'Edit Post'
+        })
+        this.getPost()
+      }
+     }).catch( err => {
+         if(err.response.status === 401){
+             console.log('Unauthorized')
+             this.props.history.push('/admin/login');
+         } 
+     })   
 }
 
 putPost = () => { 
@@ -198,7 +206,7 @@ toggleModal = (e) => {
     e.preventDefault();
   }
   var mstate = this.state.modalstate
-  if(mstate == ''){
+  if(mstate === ''){
     this.setState({
       modalstate: "is-active is-clipped"
     })

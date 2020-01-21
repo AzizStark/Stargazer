@@ -21,7 +21,7 @@
       line-height: 1.2;
    }
    .head1{
-      border-radius: 30px;
+      border-radius: 10px; 
       width: 90%;
       margin: 10vh ;
       margin-bottom: 0px;
@@ -42,7 +42,7 @@
    }
 
    .deck{
-      padding: 0px 8vw 0px 8vw;  
+      padding: 0px 7vw 0px 7vw;  
    }
 
    .box{
