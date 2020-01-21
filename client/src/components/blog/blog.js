@@ -51,7 +51,7 @@ getPosts = () => {
               <h1 className={bstyles.title1}>Site Under Construction...</h1>
             </div>
           </div>
-          <div className={`hero`} style={{paddingBottom: 30, marginTop: '-10px'}}>
+          <div className="hero" style={{paddingBottom: 30}}>
 
           {
             deck(this.state.posts)

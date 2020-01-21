@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const path = require('path');
+
 const app = express();
 var session = require('express-session')
+
 require('dotenv').config();
 
 
@@ -29,14 +31,14 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+
 app.use(session({
-  name: 'session',
-  keys: [/* secret keys */],
+  'secret': '343ji43j4n3jn4jk3n',
   resave: true,
   saveUninitialized: true,
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours
 }))
+
 app.use('/api', routes);
 
   app.use(express.static("client/build"));

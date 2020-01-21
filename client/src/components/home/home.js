@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Navba from './Navba';
 import './bulma.css';
 import './imagehover.min.css';
@@ -7,11 +6,7 @@ import cstyles from './home.module.css';
 import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
-import img1 from './img1.png';
-import azi from './aziz.png';
-import code from './carbon.png';
 import ReactCompareImage from 'react-compare-image';
-import Design from "./Design.png";
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

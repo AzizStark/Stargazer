@@ -3,10 +3,29 @@ const router = express.Router();
 const Blog = require('../models/Post');
 import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
+const crypto = require('crypto');
+
 router.use("*", cloudinaryConfig);
 
+//Authentication Function to secure APIs
+const requireAuth = (req, res, next) => {
+  if (req.session.isLogged === true) {
+      next();
+  } else {
+      return false
+  }
+};
 
-var crypto = require('crypto');
+//Auth API for client routes
+router.get('/isLogged', (req, res, next) => {
+  if(req.session.isLogged === true){
+    res.status(200).json({data: "Logged"})
+  }
+  else{
+    res.status(401).json({data: "Error"})
+  }
+})
+
 
 //Login
 router.post('/login',(req,res,next) => {
@@ -15,24 +34,23 @@ router.post('/login',(req,res,next) => {
   const user = header.slice(0,index)
   const pass = header.slice(index + 1)
 
-  console.log(user + pass)
+  console.log(pass)
   var hashed = crypto.pbkdf2Sync(pass, process.env.GOLD_KEY, 1000, 64, 'sha256').toString('hex');
 
   if(hashed === process.env.GOLD_BOX){
-    console.log("Correct")
-    res.cookie('AuthToken', index);
-    //Implement Session
+    req.session.isLogged = true;
+    res.send("Logged In");
+    console.log("Logged In")
   }
   else{
-    console.log("Incorrect")
+    console.log("Incorrect Credentials")
   }
-  res.send("From Login"+ req.body)
 })
 
 
 
 //Upload Image
-router.post('/upload', multerUploads, (req, res) => {
+router.post('/upload', requireAuth, multerUploads, (req, res) => {
   if (req.file) {
     const file = dataUri(req).content;
     return uploader
@@ -73,7 +91,7 @@ router.get('/viewpost', (req, res, next) => {
 });
 
 //Update the post
-router.put('/updatepost', (req, res, next) => {
+router.put('/updatepost', requireAuth, (req, res, next) => {
   Blog.findOneAndUpdate(
     { "title" : req.body.otitle, "cid" : req.body.cid },
     { $set: 
@@ -109,7 +127,7 @@ router.get('/postitles', (req, res, next) => {
 });
 
 //Create new post 
-router.post('/posts', (req, res, next) => {
+router.post('/posts', requireAuth, (req, res, next) => {
   Blog.countDocuments({title: (req.body.title)}).then((count) => {
       if(req.body.title){
         req.body.date = new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'})
@@ -158,7 +176,7 @@ router.post('/posts', (req, res, next) => {
 });
   
 //delete the post
-router.delete('/deletepost', (req, res, next) => {
+router.delete('/deletepost',requireAuth, (req, res, next) => {
   Blog.findOneAndDelete({"_id": req.body.id})
     .then(data => res.json(data))
     .catch( err =>
@@ -170,13 +188,9 @@ router.delete('/deletepost', (req, res, next) => {
     }))
 })
 
-//For API Testing
-router.get('/test', (req, res, next) => {
-  Blog.find({title: "one" }, "cid").sort({cid : -1}).limit(1).then((data) => {
-    console.log(new Date().toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric'}))
-    console.log(data[0].cid)
-  })
-  res.send("done");
+//For Testing
+router.post('/test', (req, res, next) => {
+  res.send("a")
 })
 
 module.exports = router;

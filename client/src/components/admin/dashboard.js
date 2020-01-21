@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
-
 class Dashboard extends Component{
 
- 
 constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +14,17 @@ constructor(props) {
   }
 
   componentDidMount(){
-    this.getPosts()
+    axios.get('/api/isLogged')
+     .then(res => {
+       this.getPosts()
+     }).catch( err => {
+         if(err.response.status === 401){
+             this.props.history.push('/admin/login');
+         } 
+     })   
   }
+
+
 
 getPosts = () => {
   axios.get('/api/postitles')
@@ -61,7 +68,7 @@ deletePost = (e) => {
 
 toggleModal = (indx) => {
   var mstate = this.state.modalstate
-  if(mstate == ''){
+  if(mstate === ''){
     this.setState({
       target: indx,
       modalstate: "is-active is-clipped"

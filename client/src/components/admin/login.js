@@ -3,10 +3,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
-
-
 class login extends Component {
-    
 
     constructor(props) {
         super(props);
@@ -16,7 +13,21 @@ class login extends Component {
         }
     }
 
-    handleSubmit = () => {
+
+
+  requireAuth = () => {
+    axios.get('/api/isLogged')
+    .then(res => {
+        console.log("Logged")
+    }).catch( err => {
+        if(err.response.status === 401){
+            this.props.history.push('/admin/login');
+        }
+    })
+  }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
         axios.post("/api/login", {} , 
         {auth: {
             username: this.state.username,
@@ -25,41 +36,45 @@ class login extends Component {
         })
         .then(res => {
           if (res.data) {
-            this.setState({
-              todos: res.data
-            });
+            this.props.history.push('/admin/dashboard');
           }
         })
         .catch(err => console.log(err));
     }
     
-
-    
     render() {
         return(
-            <div style={{margin: '18% 30% 0 30%'}} className="had-text-centered">
-                <div class="field is-grouped-centered">
-                    <p class="control has-icons-left">
-                        <input onChange={ (e) => {this.setState({ username: e.target.value})}} class="input" type="email" placeholder="Email"/>
-                        <span class="icon is-small is-left">
-                            <FontAwesomeIcon icon={faEnvelope}  size="1x"/>
-                        </span>
-                    </p>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
+                <div class="card" style={{borderRadius: 5}}>
+                    <div class="card-content">
+                        <center> <p className="subtitle is-4" > Login </p></center>
+                        <br/>
+                        <form onClick={this.handleSubmit}>
+                            <div className="field is-grouped-centered">
+                                <p className="control has-icons-left">
+                                    <input onChange={ (e) => {this.setState({ username: e.target.value})}} className="input" type="email" placeholder="Email" required/>
+                                    <span className="icon is-small is-left">
+                                        <FontAwesomeIcon icon={faEnvelope}  size="1x"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="field">
+                                <p className="control has-icons-left">
+                                    <input onChange={ (e) => {this.setState({ password: e.target.value})}} className="input" type="password" placeholder="Password" required/>
+                                    <span className="icon is-small is-left">
+                                        <FontAwesomeIcon icon={faLock}  size="1x"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="field">
+                                <p className="control">
+                                    <center><button className="button is-success">
+                                        Login
+                                    </button></center>
+                                </p>
+                            </div>
+                        </form>
                     </div>
-                    <div class="field">
-                    <p class="control has-icons-left">
-                        <input onChange={ (e) => {this.setState({ password: e.target.value})}} class="input" type="password" placeholder="Password"/>
-                        <span class="icon is-small is-left">
-                            <FontAwesomeIcon icon={faLock}  size="1x"/>
-                        </span>
-                    </p>
-                    </div>
-                    <div class="field">
-                    <p class="control">
-                        <button class="button is-success" onClick={this.handleSubmit}>
-                        Login
-                        </button>
-                    </p>
                 </div>
             </div>
         )
