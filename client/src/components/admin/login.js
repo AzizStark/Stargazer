@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import logo from './Polygon.svg'
 
 class login extends Component {
 
@@ -45,10 +46,10 @@ class login extends Component {
     render() {
         return(
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
-                <div class="card" style={{borderRadius: 5}}>
+                <div class="card" style={{borderRadius: 5, backgroundColor: '#b292b1'}}>
                     <div class="card-content">
-                        <center> <p className="subtitle is-4" > Login </p></center>
-                        <br/>
+                        <img src={logo} style={{height: 30}}/>
+                        <br/><br/>
                         <form onClick={this.handleSubmit}>
                             <div className="field is-grouped-centered">
                                 <p className="control has-icons-left">
