@@ -1,15 +1,14 @@
 import express from 'express'
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const routes = require('./routes/api');
-const path = require('path');
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import routes from './routes/api';
+import path from 'path';
+import helmet from 'helmet';
+import session from 'express-session';
 
 const app = express();
-var session = require('express-session')
 
 require('dotenv').config();
-
-
 
 const port = process.env.PORT || 5000;
 
@@ -28,24 +27,20 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+app.use(helmet())
 app.use(bodyParser.json());
-
-
 app.use(session({
   'secret': '343ji43j4n3jn4jk3n',
   resave: true,
   saveUninitialized: true,
   maxAge: 24 * 60 * 60 * 1000, // 24 hours
 }))
-
 app.use('/api', routes);
-
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-
+app.use(express.static("client/build"));
+  
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   console.log(err);

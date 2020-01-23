@@ -258,8 +258,7 @@ toggleModal = (e) => {
               <button onClick={() => (this.state.pictures.length > 0) && this.handleImageUpload(0)} className="button is-primary" style={styles.bttn}> Upload </button>
             </div> 
           }
-
-            <br />
+          <br />
             
           {(this.state.uploadStatus === 'Finished') &&
             <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
