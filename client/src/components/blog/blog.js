@@ -74,13 +74,14 @@ getPosts = () => {
   }
 }
 
-function box(wtype,title,cid,date,index,image){
+function box(wtype,title,cid,date,index,image,tag){
   return (<div className={`column is-full-touch ${bstyles.wrapper} ${wtype}`} key={index}>
     <Link to={{pathname:`blog/${cid}/${title.replace(/ /g,"-")}`}} style={{ color: 'inherit' }}> 
       <div className={bstyles.box} style={{backgroundImage: `linear-gradient(42.51deg, rgba(49, 49, 44, 0.297) -3.51%, rgba(17, 17, 14, 0.452) 97.42%),url(https://res.cloudinary.com/azizcloud/image/upload/t_tiles/${image.slice(50)})`}}>
       <h1 className={bstyles.htext}>{title}</h1>
       <br/>
-      <h1 className={bstyles.stext}>Posted on {date}</h1>
+      <h1 className={bstyles.stext}>{date}</h1>
+      <h1 className={bstyles.tag}>{tag}</h1>
     </div></Link>
   </div>)
 }
@@ -90,8 +91,8 @@ function deck(nposts){
   var rnum = 2;
   var j = 0;
   for (var i=0; i<(nposts.length); i++){
-    sliced[i] = nposts.slice(j, (j+rnum))
-    j = j+rnum
+    sliced[i] = nposts.slice(j, (j + rnum))
+    j = j + rnum
     rnum = Math.floor(Math.random() * 2) + 2 ;
   }
   var dual = 0;
@@ -109,7 +110,7 @@ function deck(nposts){
     sliced.map((user,index) =>
       <div className={`columns is-desktop ${bstyles.deck}`} key={index}>     
       {sliced[index].map((user,inde) =>
-          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : ("")),sliced[index][inde].title,sliced[index][inde].cid,sliced[index][inde].date,inde,sliced[index][inde].imageurl)
+          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : ("")),sliced[index][inde].title,sliced[index][inde].cid,sliced[index][inde].date,inde,sliced[index][inde].imageurl, sliced[index][inde].tag)
       )}
       {change(dual)}
     </div>)

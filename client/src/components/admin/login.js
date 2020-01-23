@@ -5,7 +5,6 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import logo from './Polygon.svg'
 
 class login extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +49,7 @@ class login extends Component {
                     <div className="card-content">
                         <img src={logo} style={{height: 30}}/>
                         <br/><br/>
-                        <form onClick={this.handleSubmit}>
+                        <form>
                             <div className="field is-grouped-centered">
                                 <p className="control has-icons-left">
                                     <input onChange={ (e) => {this.setState({ username: e.target.value})}} className="input" type="email" placeholder="Email" required/>
@@ -70,7 +69,7 @@ class login extends Component {
                             <div className="field">
                                 <br/>
                                 <center>
-                                    <button className="button is-success">
+                                    <button className="button is-success" onClick={this.handleSubmit}>
                                         Login
                                     </button>
                                 </center>
