@@ -1,8 +1,9 @@
-const express = require ('express');
-const router = express.Router();
-const Blog = require('../models/Post');
+import express from 'express';
+import Blog from '../models/Post';
 import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
+
+const router = express.Router();
 const crypto = require('crypto');
 
 router.use("*", cloudinaryConfig);
@@ -26,7 +27,6 @@ router.get('/isLogged', (req, res, next) => {
   }
 })
 
-
 //Login
 router.post('/login',(req,res,next) => {
   const header = Buffer.from(req.headers.authorization.split(" ")[1], 'base64').toString()
@@ -34,13 +34,11 @@ router.post('/login',(req,res,next) => {
   const user = header.slice(0,index)
   const pass = header.slice(index + 1)
 
-  console.log(pass)
   var hashed = crypto.pbkdf2Sync(pass, process.env.GOLD_KEY, 1000, 64, 'sha256').toString('hex');
 
-  if(hashed === process.env.GOLD_BOX){
+  if(hashed === process.env.GOLD_BOX && user === process.env.ADMIN){
     req.session.isLogged = true;
     res.send("Logged In");
-    console.log("Logged In")
   }
   else{
     console.log("Incorrect Credentials")
@@ -114,7 +112,6 @@ router.put('/updatepost', requireAuth, (req, res, next) => {
 
 //Fetch all posts without content
 router.get('/postitles', (req, res, next) => {
-  //Blog.find({}, 'title') to get title only
   Blog.find({}, 'title date imageurl cid tag')
     .then(data => res.json(data))
     .catch( err =>
@@ -146,7 +143,6 @@ router.post('/posts', requireAuth, (req, res, next) => {
         }
         else{
           Blog.find({title: req.body.title}, "cid").sort({cid : -1}).limit(1).then((data) => {
-            console.log(data)
             req.body.cid = data[0].cid + 1
             Blog.create(req.body)
               .then(data => res.json(data))
@@ -156,8 +152,8 @@ router.post('/posts', requireAuth, (req, res, next) => {
                   data: {
                     err
                   }
+                })
               })
-              console.log(err)})
           }).catch(
             err => {res.status(400).json({
               message: "Something went wrong while processing your request",
@@ -190,7 +186,7 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
 
 //For Testing
 router.post('/test', (req, res, next) => {
-  res.send("a")
+  res.send("working")
 })
 
 module.exports = router;
