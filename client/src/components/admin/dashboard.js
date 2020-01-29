@@ -9,7 +9,8 @@ constructor(props) {
       ctitle: "",
       scontent: [],
       modalstate: "",
-      target: ""
+      target: "",
+      sspace: ""
     }
   }
 
@@ -17,13 +18,13 @@ constructor(props) {
     axios.get('/api/isLogged')
      .then(res => {
        this.getPosts()
+       this.getSpace()
      }).catch( err => {
          if(err.response.status === 401){
              this.props.history.push('/admin/login');
          } 
      })   
   }
-
 
 
 getPosts = () => {
@@ -36,6 +37,18 @@ getPosts = () => {
       }
     })
     .catch(err => console.log(err))
+}
+
+getSpace = () => {
+  axios.get('/api/usedspace')
+  .then(res => {
+    if(res.data){
+      this.setState({
+        sspace: res.data.dataSize/1000,
+      })
+    }
+  })
+  .catch(err => console.log(err))
 }
 
 deletePost = (e) => {
@@ -90,7 +103,7 @@ updateTitle = (e) => {
   render() {
     const { scontent } = this.state;
       return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: '20%', paddingTop: '6%'}}>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <h2 style={{color: '#ffffff' }} className="title is-2"> Dashboard </h2>
 
@@ -98,7 +111,8 @@ updateTitle = (e) => {
             <div style={{minWidth: '50%'}}>
             <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
                 <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row'}}>
-                  <button className="button is-info" onClick={()=>{this.getPosts()}}>Refresh</button> 
+                  <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
+                  <p>Storage used: {this.state.sspace} MB</p>
                   <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
                 </div>
             </div>

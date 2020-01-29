@@ -2,7 +2,7 @@ import express from 'express';
 import Blog from '../models/Post';
 import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
-
+const mongoose = require('mongoose');
 const router = express.Router();
 const crypto = require('crypto');
 
@@ -184,9 +184,20 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
     }))
 })
 
-//For Testing
-router.post('/test', (req, res, next) => {
-  res.send("working")
+//Mongo Storage Details
+router.get('/usedspace',requireAuth, (req, res, next) => {
+  mongoose.connection.db.stats({
+    scale: 1024
+  })
+  .then(data => res.status(200).json(data))
+  .catch( err =>
+    res.status(400).json({
+      message: "Something went wrong while processing your request",
+      data: {
+        err
+      }
+  }))
+
 })
 
 module.exports = router;
