@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
+import loading from "./loading.gif";
+
+
 class Dashboard extends Component{
 
 constructor(props) {
@@ -7,10 +10,10 @@ constructor(props) {
     this.state = {
       id: "",
       ctitle: "",
-      scontent: [],
+      scontent: ["loading"],
       modalstate: "",
       target: "",
-      sspace: ""
+      space: "loading"
     }
   }
 
@@ -44,7 +47,7 @@ getSpace = () => {
   .then(res => {
     if(res.data){
       this.setState({
-        sspace: res.data.dataSize/1000,
+        space: res.data,
       })
     }
   })
@@ -100,24 +103,34 @@ updateTitle = (e) => {
   })
 }
 
+loader = () => {
+  return(
+    <center><img src={loading} style={{width: 40}}/></center>
+  )
+}
+
   render() {
     const { scontent } = this.state;
       return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: '20%', paddingTop: '6%'}}>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <h2 style={{color: '#ffffff' }} className="title is-2"> Dashboard </h2>
-
-            <h3 style={{color: '#ffffff' }} className="title is-3">Manage Blog </h3>
             <div style={{minWidth: '50%'}}>
             <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
-                <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row'}}>
+                <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center'}}>
                   <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
-                  <p>Storage used: {this.state.sspace} MB</p>
-                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
+                  { this.state.space !== 'loading' ? (
+                    <div>
+                      <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
+                      <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
+                      <p>CDN service used: {this.state.space.Credits} %</p>
+                    </div>) : this.loader()
+                  }
+                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create</button> 
                 </div>
             </div>
             <br/>
-            <table className="table is-hoverable is-striped" style={{borderRadius: 5}}>
+            {this.state.scontent[0] !== 'loading' ? (<table className="table is-hoverable is-striped" style={{borderRadius: 5}}>
                 <thead>
                     <tr>
                         <th>Post ID</th><th>Title</th><th>Date</th><th>CID</th><th>Tag</th><th>View Post</th><th>Edit</th><th>Delete</th>
@@ -137,7 +150,7 @@ updateTitle = (e) => {
                     </tr>
                 </tbody>
             )}
-            </table>
+            </table>): this.loader()}
             </div>
             <div className={`modal ${this.state.modalstate}`}>
               <div className="modal-background"></div>
