@@ -1,6 +1,6 @@
 import express from 'express';
 import Blog from '../models/Post';
-import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig'
+import { uploader, cloudinaryConfig, v2 } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -72,6 +72,8 @@ router.post('/upload', requireAuth, multerUploads, (req, res) => {
         )
   }
 });
+
+
 
 //View single post
 router.get('/viewpost', (req, res, next) => {
@@ -185,11 +187,24 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
 })
 
 //Mongo Storage Details
-router.get('/usedspace',requireAuth, (req, res, next) => {
+router.get('/usedspace', (req, res, next) => {
   mongoose.connection.db.stats({
     scale: 1024
   })
-  .then(data => res.status(200).json(data))
+  .then(data => {
+    let monspace = data
+    v2.api.usage({}).then( data => {
+      let clospace = data;
+
+      const rdata = {
+        "MStorage" : monspace.dataSize+monspace.indexSize,
+        "CStorage" : clospace.storage.usage,
+        "Credits" : clospace.credits.used_percent
+       }
+
+      res.send(rdata)
+    });
+  })
   .catch( err =>
     res.status(400).json({
       message: "Something went wrong while processing your request",
@@ -197,7 +212,6 @@ router.get('/usedspace',requireAuth, (req, res, next) => {
         err
       }
   }))
-
 })
 
 module.exports = router;
