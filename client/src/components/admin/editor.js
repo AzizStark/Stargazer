@@ -19,6 +19,7 @@ constructor(props) {
     stitle: "",
     stag: "",
     uploadedFileCloudinaryUrl: [],
+    uploadedFileCloudinaryId: [],
     editorState: EditorState.createEmpty(),
     pictures: [],
     buttonUrl: "Copy URL",
@@ -61,7 +62,8 @@ putPost = () => {
           imageurl: this.state.simage,
           title: this.state.stitle,
           tag: this.state.stag,
-          content: content        
+          content: content,
+          cimages: this.state.uploadedFileCloudinaryId,        
       })
         .then(res => {
           console.log(res.data)
@@ -171,17 +173,17 @@ handleImageUpload = (index) => {
     };
     axios.post('/api/upload', bodyFormData,config)
     .then((res) => {
-      console.log(res.data.data.image)
       if(res.data){
-        var response = res.data.data.image;
+        var response = res.data.imgurl;
+        var id = res.data.public_id;
           {
             this.setState({
               uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl.concat(response),
+              uploadedFileCloudinaryId: this.state.uploadedFileCloudinaryId.concat(id),
               uploadCount: this.state.uploadCount + 1
             })
           }
         if(this.state.pictures.length !== this.state.uploadCount){
-          console.log(this.state.pictures.length +" !== "+ this.state.uploadCount)
           this.handleImageUpload(index + 1)
         }
         else{

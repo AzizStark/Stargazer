@@ -26,6 +26,9 @@ const PostSchema = new Schema({
   content: {
     type: String,
     required: [true, 'String is required']
+  },
+  cimages: {
+    type: Array
   }
 })
 

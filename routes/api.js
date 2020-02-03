@@ -54,12 +54,12 @@ router.post('/upload', requireAuth, multerUploads, (req, res) => {
     return uploader
         .upload(file)
         .then(result => {
+          const pid = result.public_id
           const image = result.secure_url
           return res.status(200).json({
             message: "Your image has been uploded successfully to cloudinary",
-            data: {
-              image
-            }
+            imgurl: image,
+            public_id: pid
           });
         })
         .catch(err =>
@@ -175,6 +175,22 @@ router.post('/posts', requireAuth, (req, res, next) => {
   
 //delete the post
 router.delete('/deletepost',requireAuth, (req, res, next) => {
+  Blog.findOne({"_id": req.body.id}, 'cimages')
+    .then(data => 
+      {
+        //Delete CDN Resources associtated with the post.
+        v2.api.delete_resources(data.cimages)
+        .then( data => res.send(data))
+        .catch( err => res.send(err))
+      }
+    )
+    .catch(err =>
+      res.status(400).json({
+        message: "Something went wrong while processing your request",
+        data: {
+          err
+        }
+    }))
   Blog.findOneAndDelete({"_id": req.body.id})
     .then(data => res.json(data))
     .catch( err =>
@@ -186,7 +202,7 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
     }))
 })
 
-//Mongo Storage Details
+//Mongo, Cloudinary Storage Details
 router.get('/usedspace', (req, res, next) => {
   mongoose.connection.db.stats({
     scale: 1024
