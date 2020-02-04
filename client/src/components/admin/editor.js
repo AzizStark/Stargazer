@@ -26,6 +26,8 @@ constructor(props) {
     uploadStatus: 'NotStarted',
     uploadCount: 0,
     modalstate: '',
+    uindex: 0,
+    utotal: 0
   }
 }
 
@@ -184,10 +186,12 @@ handleImageUpload = (index) => {
             })
           }
         if(this.state.pictures.length !== this.state.uploadCount){
+          this.setState({ uindex: this.state.uindex + 1})
           this.handleImageUpload(index + 1)
         }
         else{
           this.setState({
+            uindex: this.state.uindex + 1,
             uploadStatus: 'Finished',
           })
           console.log("Finished")
@@ -233,17 +237,17 @@ toggleModal = (e) => {
         <div>
           <section className={`hero is-fullheight`}  style={{padding: '20%'}}>
           <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1>
-          {(this.state.uploadStatus === 'Uploading') &&
+          {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) &&
           <div>
             <h1>
-             Uploading image {this.state.uploadCount+1} of {this.state.pictures.length}
+             Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} of {this.state.utotal}
             </h1>
             <progress id="progress" className="progress is-info" value="0" max="100"></progress>
           </div>
           }
           
           { 
-          (this.state.uploadStatus === 'NotStarted') &&
+          //(this.state.uploadStatus === 'NotStarted') &&
             <div style={{backgroundColor: '#80BFE2', textAlign: 'center',  borderRadius: 30, paddingBottom: 30}}> 
               <ImageUploader
                     buttonText={`Choose images`}
@@ -256,15 +260,19 @@ toggleModal = (e) => {
                     fileContainerStyle={{background: "#80BFE2",  borderRadius: 30, boxShadow: 'none'}}
                     withIcon={true}
               />
-              <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length}</p><br />
-              <button onClick={() => (this.state.pictures.length > 0) && this.handleImageUpload(0)} className="button is-primary" style={styles.bttn}> Upload </button>
+              <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
+              <button onClick={() => (this.state.pictures.length > 0 && this.state.pictures.length !== this.state.uploadCount) && (this.setState({utotal: this.state.pictures.length - this.state.uindex}) | this.handleImageUpload(this.state.uindex))} className="button is-primary" style={styles.bttn}> Upload </button>
             </div> 
           }
           <br />
-            
-          {(this.state.uploadStatus === 'Finished') &&
+          {
+          //this.state.uploadStatus !== 'Finished'
+          }
+          <h1> Uploaded Images </h1><br/>
+          {(true) &&
             <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
             {this.state.pictures.map((user,index) =>
+              (this.state.uploadedFileCloudinaryUrl[index] !== undefined) && 
               <figure className="column"  className="image is-128x128" style={{padding: 6}} key={index} >
                 <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
                   <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={URL.createObjectURL(this.state.pictures[index].slice())}></img>
