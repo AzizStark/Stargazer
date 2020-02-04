@@ -2,6 +2,7 @@ import express from 'express';
 import Blog from '../models/Post';
 import { uploader, cloudinaryConfig, v2 } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
+import { isValidObjectId } from 'mongoose';
 const mongoose = require('mongoose');
 const router = express.Router();
 const crypto = require('crypto');
@@ -228,6 +229,54 @@ router.get('/usedspace', (req, res, next) => {
         err
       }
   }))
+})
+
+router.post('/unused',requireAuth,(req,res,next) => {
+  mongoose.connection.db.collection('unusedimages',function (err, collection) {
+    collection.findOneAndUpdate({},
+      { $push: 
+        { 
+          "images" : { $each: req.body.imgids} ,
+        } 
+      })
+      .then(data => {
+        console.log(data) 
+        res.status(200)
+      })
+      .catch( err =>
+        res.status(400).json({
+          message: "Something went wrong while processing your request",
+          data: {
+            err
+          }
+      }))
+  })
+})
+
+
+router.delete('/deleteunused',(req,res,next) => {
+  console.log(req.body.imgids)
+  mongoose.connection.db.collection('unusedimages',function (err, collection) {
+    collection.findOneAndUpdate({},
+      { $pull: 
+        { 
+          images : { $in: req.body.imgids}
+        },
+      },{ multi: true })
+      .then(data => {
+        res.status(200).json({
+          message: "Deleted",
+        })
+      })
+      .catch( err =>
+        res.status(400).json({
+          message: "Something went wrong while processing your request",
+          data: {
+            err
+          }
+      }))
+  })
+  res.send("Delte") 
 })
 
 module.exports = router;

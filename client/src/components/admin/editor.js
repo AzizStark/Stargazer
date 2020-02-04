@@ -68,8 +68,19 @@ putPost = () => {
           cimages: this.state.uploadedFileCloudinaryId,        
       })
         .then(res => {
-          console.log(res.data)
-          if(res.data){
+          
+          //Remove ids from unused stack
+          axios.delete('/api/deleteunused',{
+            headers: {
+              Authorization: 'authorizationToken'
+            },
+            data: {
+              imgids: this.state.uploadedFileCloudinaryId
+            }  
+          }).then((res) => {
+            console.log("Stack Cleared")
+          }).catch( err => console.log(err))
+          if(res){
             window.alert("Posted Successfully!")
             this.setState({
               modalstate: "",
@@ -195,6 +206,13 @@ handleImageUpload = (index) => {
             uploadStatus: 'Finished',
           })
           console.log("Finished")
+          let unused = this.state.uploadedFileCloudinaryId.slice(this.state.uindex - this.state.utotal)
+        
+          axios.post('/api/unused',{
+            imgids: unused
+          }).then((res) => {
+            console.log("sent")
+          }).catch( err => console.log(err))
       }
       }})
     .catch(err => console.log(err))
