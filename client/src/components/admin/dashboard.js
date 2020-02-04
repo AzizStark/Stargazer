@@ -21,7 +21,16 @@ constructor(props) {
     axios.get('/api/isLogged')
      .then(res => {
        this.getPosts()
-       this.getSpace()
+
+       //clear stack
+       axios.delete('/api/clear')
+       .then(res => {
+          console.log('Cleared')
+          this.getSpace()
+       }).catch( err => {
+          console.log("Not cleared"+err)
+       })   
+
      }).catch( err => {
          if(err.response.status === 401){
              this.props.history.push('/admin/login');

@@ -231,6 +231,7 @@ router.get('/usedspace', (req, res, next) => {
   }))
 })
 
+//put unused images
 router.post('/unused',requireAuth,(req,res,next) => {
   mongoose.connection.db.collection('unusedimages',function (err, collection) {
     collection.findOneAndUpdate({},
@@ -240,7 +241,6 @@ router.post('/unused',requireAuth,(req,res,next) => {
         } 
       })
       .then(data => {
-        console.log(data) 
         res.status(200)
       })
       .catch( err =>
@@ -253,9 +253,8 @@ router.post('/unused',requireAuth,(req,res,next) => {
   })
 })
 
-
-router.delete('/deleteunused',(req,res,next) => {
-  console.log(req.body.imgids)
+//clear unused stack
+router.delete('/deleteunused',requireAuth, (req,res,next) => {
   mongoose.connection.db.collection('unusedimages',function (err, collection) {
     collection.findOneAndUpdate({},
       { $pull: 
@@ -265,7 +264,7 @@ router.delete('/deleteunused',(req,res,next) => {
       },{ multi: true })
       .then(data => {
         res.status(200).json({
-          message: "Deleted",
+          message: "Something went wrong while processing your request",
         })
       })
       .catch( err =>
@@ -276,7 +275,43 @@ router.delete('/deleteunused',(req,res,next) => {
           }
       }))
   })
-  res.send("Delte") 
+})
+
+//delete Unused images from cloudinary
+router.delete('/clear',requireAuth, (req,res,next) => {
+  mongoose.connection.db.collection('unusedimages',function (err, collection) {
+    collection.findOne({}).then(
+      data => {
+        v2.api.delete_resources(data.images)
+        .then( data => {
+          console.log("Clearing")
+          mongoose.connection.db.collection('unusedimages',function (err, collection) {
+            connection.db.collection.findOneAndUpdate({},
+              { $set: 
+                { 
+                  images : [] 
+                },
+              },{ multi: true })
+              .then(data => {
+                console.log("Cleared")
+                res.status(200).json({
+                  message: "Something went wrong while processing your request",
+                })
+              })
+              .catch( err =>
+                res.status(400).json({
+                  message: "Something went wrong while processing your request",
+                  data: {
+                    err
+                  }
+            }))
+          })
+        })
+        .catch( err => res.send(err))
+      }
+    )
+    .catch( err => res.send(err))
+  })
 })
 
 module.exports = router;
