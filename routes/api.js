@@ -285,27 +285,23 @@ router.delete('/clear',requireAuth, (req,res,next) => {
         v2.api.delete_resources(data.images)
         .then( data => {
           console.log("Clearing")
-          mongoose.connection.db.collection('unusedimages',function (err, collection) {
-            connection.db.collection.findOneAndUpdate({},
-              { $set: 
-                { 
-                  images : [] 
-                },
-              },{ multi: true })
-              .then(data => {
-                console.log("Cleared")
-                res.status(200).json({
-                  message: "Something went wrong while processing your request",
-                })
+          collection.findOneAndUpdate({},
+            { $set: 
+              { 
+                images : []
+              },
+            })
+            .then(data => {
+              console.log("Cleared")
+              res.status(200).json({
+                message: "Cache cleared"
               })
-              .catch( err =>
-                res.status(400).json({
-                  message: "Something went wrong while processing your request",
-                  data: {
-                    err
-                  }
-            }))
-          })
+            })
+            .catch( err => {
+              console.log(err)
+              res.status(400).json({
+                message: "An error occured while clearing cache"
+          })})
         })
         .catch( err => res.send(err))
       }
@@ -313,5 +309,6 @@ router.delete('/clear',requireAuth, (req,res,next) => {
     .catch( err => res.send(err))
   })
 })
+
 
 module.exports = router;
