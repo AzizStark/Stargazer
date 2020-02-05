@@ -12,6 +12,7 @@ constructor(props) {
       ctitle: "",
       scontent: ["loading"],
       modalstate: "",
+      modalstate2: "",
       target: "",
       space: "loading"
     }
@@ -20,17 +21,8 @@ constructor(props) {
   componentDidMount(){
     axios.get('/api/isLogged')
      .then(res => {
-       this.getPosts()
-
-       //clear stack
-       axios.delete('/api/clear')
-       .then(res => {
-          console.log('Cleared')
-          this.getSpace()
-       }).catch( err => {
-          console.log("Not cleared"+err)
-       })   
-
+      this.getSpace()
+      this.getPosts()
      }).catch( err => {
          if(err.response.status === 401){
              this.props.history.push('/admin/login');
@@ -49,6 +41,16 @@ getPosts = () => {
       }
     })
     .catch(err => console.log(err))
+}
+
+clearCache = () => {
+  axios.delete('/api/clear')
+       .then(res => {
+          window.alert('Cache cleared')
+          this.toggleModal2()
+       }).catch( err => {
+          window.alert("Failed to clear cache")
+       })   
 }
 
 getSpace = () => {
@@ -92,8 +94,7 @@ deletePost = (e) => {
 }
 
 toggleModal = (indx) => {
-  var mstate = this.state.modalstate
-  if(mstate === ''){
+  if(this.state.modalstate === ''){
     this.setState({
       target: indx,
       modalstate: "is-active is-clipped"
@@ -105,6 +106,22 @@ toggleModal = (indx) => {
     })
   }
 }
+
+
+
+toggleModal2 = () => {
+  if(this.state.modalstate2 === ''){
+    this.setState({
+      modalstate2: "is-active is-clipped"
+    })
+  }
+  else{
+    this.setState({
+      modalstate2: ""
+    })
+  }
+}
+
 
 updateTitle = (e) => {
   this.setState({
@@ -127,15 +144,16 @@ loader = () => {
             <div style={{minWidth: '50%'}}>
             <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
                 <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center'}}>
-                  <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
                   { this.state.space !== 'loading' ? (
-                    <div>
-                      <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
-                      <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
-                      <p>CDN service used: {this.state.space.Credits} %</p>
-                    </div>) : this.loader()
+                      <div>
+                        <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
+                        <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
+                        <p>CDN service used: {this.state.space.Credits} %</p>
+                      </div>) : this.loader()
                   }
-                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create</button> 
+                  <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
+                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
+                  <button className="button is-danger" onClick={()=>{this.toggleModal2()}}>Clear Cache</button> 
                 </div>
             </div>
             <br/>
@@ -190,6 +208,39 @@ loader = () => {
               </div>
               </div>
               <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
+            </div>
+
+
+            <div className={`modal ${this.state.modalstate2}`}>
+              <div className="modal-background"></div>
+              <div className="modal-content">
+              <div className="card" style={{borderRadius: 6}}>
+                <div className="card-content">
+                  <p className="subtitle">
+                    <span style={{color: 'red'}}>Warning</span>: Clearing the cache while writting a post will cause data loss.
+                    Make sure there is no pending posts to submit.
+                  </p>
+                  <br/>
+                  <p className="subtitle">
+                    Are you sure you want to clear cache?
+                  </p>
+                  <br/>
+                </div>
+                <footer className="card-footer">
+                  <p className="card-footer-item">
+                    <span>
+                      <a style={{color: 'red'}} onClick = {() => {this.clearCache()}}>Clear cache</a>
+                    </span>
+                  </p>
+                  <p className="card-footer-item">
+                    <span>
+                      <a onClick = {() => {this.toggleModal2()}} >Cancel</a>
+                    </span>
+                  </p>
+                </footer>
+              </div>
+              </div>
+              <button className="modal-close is-large" onClick = {() => {this.toggleModal2()}} aria-label="close"></button>
             </div>
         </div>
       );
