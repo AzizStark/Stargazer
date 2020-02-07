@@ -11,7 +11,7 @@ import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
-import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
+import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble, faReact } from '@fortawesome/free-brands-svg-icons'
 
 
 class Home extends Component {
@@ -106,53 +106,38 @@ class Home extends Component {
             <div className="columns" style={{padding: 15}}>
               <div className="column is-half" style={{padding:10,}}>
                   <div className="imghvr-blur" style={{display:'block',borderRadius: 30}}>
-                      <img  alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578766304/blog/Frame_3_4_ibeprt.jpg'} style={{width:'100%'}} title="hover text" />
+                      <img  alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/v1581060654/portfolio/eyrwgd7vlqdwtvptwt52.jpg'} style={{width:'100%'}} title="hover text" />
                       <figcaption>
-                        <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                           Material Requirement Processing 
-                        </p><br/>
-                        <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500",fontFamily: 'nunito'}}>A web-based application for calculating the materials and components needed to manufacture a large number of products. It consists of three primary steps: Gathering inventory of the materials and components, identifying which additional ones are needed and then scheduling their production or purchase. It was built with Oracle 18c, PHP and Bootstrap with Materialize UI.</p>
-                      </figcaption>
+                      <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}> An Android application designed and developed using React Native. It is a fancy text generator application that works based on the different Unicode characters and glyphs</p>       
+                       </figcaption>
                   </div>
               </div>
 
               <div className="column is-half" style={{padding:10}}>
                   <div >
                         <div className="imghvr-blur" style={{width: '49%',marginRight: '1%',borderRadius: 30}}>
-                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578502995/blog/ofpflhzpryrkeynxrrud.jpg'}  />
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060647/portfolio/jpdxu6kko9dqxaw6phod.jpg'}  />
                             <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
-                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                              Quiva
-                            </p>
-                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A fancy text generator application that works based on the different Unicode characters and glyphs, It was developed using React Native.</p>
+                            <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500",fontFamily: 'nunito'}}>A web-based application for calculating the materials and components needed to manufacture a large number of products.</p>
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ width: '49%', marginLeft: '1%',borderRadius: 30}}>
-                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578842720/blog/bass_kq4uan.jpg'} />
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/v1581060530/portfolio/xzidttw5lncbbkw7qetc.jpg'} />
                             <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
-                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                              Bassbeat
-                            </p>
                             <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>An animated music visualizer for windows. Downloaded over 15,000+ times around the world and counting!</p>
                             </figcaption>
                         </div>
                     </div>
                     <div style={{marginTop:"1%"}}>
                         <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%',borderRadius: 30}}>
-                           <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578766286/blog/Frame_3_2_xvbzmt.jpg'}  />
+                           <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060650/portfolio/azr4fshuzsn4ltbnvoqg.jpg'}  />
                            <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)',fontFamily: 'nunito'}}>
-                           <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                              Zephyr
-                            </p>
                             <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>A Dark themed windows 10 UI that fetched 3rd Prize from deviantart!</p>
                             </figcaption>
                         </div>
                         <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%',borderRadius: 30}} >
-                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578766298/blog/Frame_2_lpqho5.jpg'} /> 
+                            <img alt="project"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060644/portfolio/k8hxkuipmshqkvvosd0y.jpg'} /> 
                             <figcaption style={{padding: 20, fontSize: 'calc(10px + 0.6vw)', fontFamily: 'nunito'}}>
-                            <p className="title" id={cstyles.title} style={{fontSize: "calc(12px + 1vw)", fontWeight: "500"}}>
-                              E - Magazine
-                            </p>
                             <p className="subheading" style={{fontSize: "calc(12px + 0.5vw)", fontWeight: "500"}}>Designed and created two E-Magazines that consists of articles and other creations from my college students.</p>
                             </figcaption>
                         </div>
@@ -165,7 +150,7 @@ class Home extends Component {
 
           </section>
           {herobar('What I do?','Code and Design')}
-          <section id="explore" className={`hero is-fullheight ${cstyles.svgg}`}  >
+          <section id="explore" className={`hero is-fullheight ${cstyles.svgg}`} style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}} >
            
             <div className="columns" style={{padding: '10%', paddingTop: '12vw'}}>
               <div className="column ">
@@ -181,7 +166,7 @@ class Home extends Component {
               </div>
               <div className="column is-half">
                   <div className="container" style={{width: '100%'}}>
-                  <ReactCompareImage leftImage={'https://res.cloudinary.com/azizcloud/image/upload/v1578849235/blog/carbon_qqgdm4.png'} rightImage={'https://res.cloudinary.com/azizcloud/image/upload/v1578849324/blog/Design_k67srm.png'} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
+                  <ReactCompareImage leftImage={'https://res.cloudinary.com/azizcloud/image/upload/v1581061483/portfolio/j6pqcavpcvsbzk4g8xnc.png'} rightImage={'https://res.cloudinary.com/azizcloud/image/upload/v1581064288/portfolio/dgusm9nn5s7frnig0sdn.svg'} handle={<FontAwesomeIcon  icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x"/>} sliderLineColor={'#2EA7FF'} sliderLineWidth = {8} sliderPositionPercentage={0.515}/>      <br />       
                   </div> <div style={{display: 'flex', justifyContent: 'center'}} ><button  onClick={'https://drive.google.com/open?id=13ChPvEZ31vPNt8LajWoVamre0_Bc-JHC'} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button>    </div> 
               </div>
               <div className="column">
@@ -203,7 +188,7 @@ class Home extends Component {
           <section id="about" className={`hero is-fullheight ${cstyles.svgg}`}  style={{display: 'flex',justifyContent: 'center', flexDirection: 'column'}}>
             <div className="columns" style={{padding: '10%'}}>
               <div className="column  has-text-centered">
-                <img alt="aziz"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1578847794/blog/B612_20190512_161749_660_20190513154325455_gmrxka.jpg'} style={{width: '75%', borderRadius: 30}}/> 
+                <img alt="aziz"  src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060713/portfolio/mje9zcv7jcb2yluhfhsi.png'} style={{width: '75%', borderRadius: 30}}/> 
               </div>  
               <div className="column is-three-fifths" style={{fontFamily:'nunito', paddingLeft: 0}}>
                 <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
@@ -261,11 +246,14 @@ class Home extends Component {
           </div>
           </section>
 
-          <footer class="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
+          <footer class="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '2%'}}>
           <div className="columns">
           <div class="column has-text-centered">
-            <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
-              Content & Graphics © 2020 Aziz Stark
+            <p style={{fontFamily: 'Nunito', fontWeight: 400, color: '#b2becd' ,fontSize: "calc(12px + 0.3vh)" }}>
+              Created with <FontAwesomeIcon icon={faReact}  size="1x"/> by Aziz Stark
+            </p>
+            <p style={{fontFamily: 'Nunito', fontWeight: 400, color: '#b2becd' ,fontSize: "calc(12px + 0.3vh)" }}>
+              Content and Graphics © 2020 
             </p>
           </div>
           </div> 

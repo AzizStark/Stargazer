@@ -157,7 +157,7 @@ loader = () => {
                 </div>
             </div>
             <br/>
-            {this.state.scontent[0] !== 'loading' ? (<table className="table is-hoverable is-striped" style={{borderRadius: 5}}>
+            {this.state.scontent[0] !== 'loading' ? (<table className="table is-hoverable is-striped" style={{borderRadius: 5, width: '100%'}}>
                 <thead>
                     <tr>
                         <th>Post ID</th><th>Title</th><th>Date</th><th>CID</th><th>Tag</th><th>View Post</th><th>Edit</th><th>Delete</th>

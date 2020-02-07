@@ -19,7 +19,7 @@ class Navba extends Component {
       >
         <div className="navbar-brand">
           <a className="navbar-item" id={cstyles.navbarItem} href="#" >
-            <img src={Polygon} width="90" height="60" alt="logo" />
+            <img src={"https://res.cloudinary.com/azizcloud/image/upload/v1581064953/portfolio/x6fzis0xbyyodmd8sq7p.svg"} width="90" height="60" alt="logo" />
           </a>
 
           <a

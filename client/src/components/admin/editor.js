@@ -41,7 +41,6 @@ onEditorStateChange: Function = (editorState) => {
 componentDidMount() {
   axios.get('/api/isLogged')
      .then(res => {
-       console.log("Logged yay")
        var searchParams = new URLSearchParams(this.props.location.search).get("m");
        if(searchParams === 'edit'){
         this.setState({
@@ -112,6 +111,11 @@ getPost = () => {
           stitle: res.data.title,
           simage: res.data.imageurl,
           stag: res.data.tag,
+          uploadedFileCloudinaryId: res.data.cimages,
+          uploadedFileCloudinaryUrl: res.data.cimages,
+          uploadCount: res.data.cimages.length,
+          uploadStatus: "Finished",
+          uindex: res.data.cimages.length, 
           editorState: EditorState.createWithContent(
             ContentState.createFromBlockArray(
               convertFromHTML(res.data.content)
