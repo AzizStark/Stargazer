@@ -3189,7 +3189,7 @@ fieldset[disabled] .button {
 
 .content table tbody tr:last-child td,
 .content table tbody tr:last-child th {
-  border-bottom-width: 0;
+  border-bottom-width: 1;
 }
 
 .content .tabs li + li {
@@ -3848,7 +3848,7 @@ fieldset[disabled] .button {
 
 .table tbody tr:last-child td,
 .table tbody tr:last-child th {
-  border-bottom-width: 0;
+  border-bottom-width: 1;
 }
 
 .table.is-bordered td,

@@ -110,7 +110,8 @@ function deck(nposts){
     sliced.map((user,index) =>
       <div className={`columns is-desktop ${bstyles.deck}`} key={index}>     
       {sliced[index].map((user,inde) =>
-          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : ("")),sliced[index][inde].title,sliced[index][inde].cid,sliced[index][inde].date,inde,sliced[index][inde].imageurl, sliced[index][inde].tag)
+          box(((sliced[index].length === 2 && inde === dual ) ? ("is-one-third") : (sliced[index].length === 2 ? ("is-two-thirds") : (sliced[index].length === 3 ? ("is-one-third") : ("")))),sliced[index][inde].title,sliced[index][inde].cid,sliced[index][inde].date,inde,sliced[index][inde].imageurl, sliced[index][inde].tag)
+          ,console.log(sliced[index])
       )}
       {change(dual)}
     </div>)

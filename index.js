@@ -13,7 +13,7 @@ require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 //connect to the database
-mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(() => {
     console.log(`Database connected successfully`)
   })

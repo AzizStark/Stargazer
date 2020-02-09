@@ -58,7 +58,7 @@ getPosts = () => {
               <div className="column" >
                 <img src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
               </div>
-              <div className="column ">
+              <div className="column" style={{maxWidth: '50%'}}>
               <h1 className={bstyles.title1}>{this.state.title}</h1>
               </div>
             </div>
