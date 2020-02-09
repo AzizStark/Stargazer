@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import './react-draft-wysiwyg.css';
+//import './react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import ImageUploader from 'react-images-upload';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
@@ -52,7 +53,7 @@ componentDidMount() {
      }).catch( err => {
          if(err.response.status === 401){
              console.log('Unauthorized')
-             this.props.history.push('/admin/login');
+           //  this.props.history.push('/admin/login');
          } 
      })   
 }
@@ -107,6 +108,10 @@ getPost = () => {
   })
     .then(res => {
       if(res.data){
+        const blocksFromHtml = htmlToDraft(res.data.content);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+        const editorState = EditorState.createWithContent(contentState);
         this.setState({
           otitle: title,
           ocid: cid,
@@ -115,11 +120,8 @@ getPost = () => {
           stag: res.data.tag,
           uploadedFileCloudinaryId: res.data.cimages,
           udone: res.data.cimages.length,
-          editorState: EditorState.createWithContent(
-            ContentState.createFromBlockArray(
-              convertFromHTML(res.data.content)
-            )
-          )
+          //Editor state conversion
+          editorState: editorState
         })
       }
     })
@@ -326,7 +328,6 @@ toggleModal = (e) => {
               <figure className="column"  className="image is-128x128" style={{padding: 6}} key={index} >
                 <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
                   <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}></img>
-                  {/* <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={URL.createObjectURL(this.state.pictures[index].slice())}></img> */}
                   <figcaption style={styles.vcenter}>
                   <CopyToClipboard text={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}>
                     <button className="button is-primary" onClick={() => {this.setState({ buttonUrl: "Copied"})}} onMouseOut={() => {this.setState({ buttonUrl: "Copy URL"})}} style={styles.bttn}>{this.state.buttonUrl}</button>
@@ -346,7 +347,7 @@ toggleModal = (e) => {
               <h1>Tag</h1>
               <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Text input" maxLength='10' required/><br/><br />
               <h1>Content</h1>
-              <div style={{border: 10, borderColor: '#6D6D6D', borderStyle: 'solid'}}>
+              <div>
                 <article className="panel is-primary" >
                   <p className="panel-heading">
                     Primary

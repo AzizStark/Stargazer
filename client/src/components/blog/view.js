@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Navba from './Navba';
+import '../admin/react-draft-wysiwyg.css';
 import bstyles from './blog.module.css';
 import renderHTML from 'react-render-html';
 
@@ -64,7 +65,7 @@ getPosts = () => {
             </div>
             <div className={`column ${bstyles.postbox}`}>
                 <div className="container" style={{minHeight: 400}}>
-                  <div style={{backgroundColor: "#00000000"}}>
+                  <div className={bstyles.contentArea} style={{backgroundColor: "#00000000"}}>
                  {renderHTML(`${this.state.content}`)}
                   </div>
                 </div>
