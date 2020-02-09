@@ -66,16 +66,16 @@ getPosts = () => {
             <div className={`column ${bstyles.postbox}`}>
                 <div className="container" style={{minHeight: 400}}>
                   <div className={bstyles.contentArea} style={{backgroundColor: "#00000000"}}>
-                 {renderHTML(`${this.state.content}`)}
+                    {renderHTML(`${this.state.content}`)}
                   </div>
                 </div>
             </div>
           </section>  
         </div>
-        <footer className="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
+        <footer className="footer" style={{backgroundColor: '#222227',color: '#ffffff', padding: '3%'}}>
         <div className="columns">
         <div className="column has-text-centered">
-          <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
+          <p style={{fontFamily: 'Noto Sans', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
             Content & Graphics © 2020 Aziz Stark
           </p>
         </div>

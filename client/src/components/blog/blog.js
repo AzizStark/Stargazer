@@ -60,10 +60,10 @@ getPosts = () => {
           </div>
           </section>  
         </div>
-        <footer className="footer" style={{backgroundColor: '#00000000',color: '#ffffff', padding: '1.5%'}}>
+        <footer className="footer" style={{backgroundColor: '#222227',color: '#ffffff', padding: '1.5%'}}>
           <div className="columns">
             <div className="column has-text-centered">
-              <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
+              <p style={{fontFamily: 'Noto Sans', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
                 © 2019 Aziz Stark
               </p>
             </div>
