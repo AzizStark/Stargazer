@@ -25,11 +25,12 @@ const PostSchema = new Schema({
   tag: {
     type: String,
     required: [true, 'tag is required'],
-    maxlength: 12
+    maxlength: 16
   },
   content: {
     type: String,
-    required: [true, 'String is required']
+    required: [true, 'String is required'],
+    maxlength: 100000,
   },
   cimages: {
     type: Array

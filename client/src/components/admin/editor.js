@@ -7,6 +7,8 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import ImageUploader from 'react-images-upload';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import bstyles from '../blog/blog.module.css';
+import renderHTML from 'react-render-html';
 
 class editor extends Component {
   
@@ -30,14 +32,19 @@ constructor(props) {
     uindex: 0,
     utotal: 0,
     udone: 0,
+    tab: ["is-active","",""]
   }
 }
 
 onEditorStateChange: Function = (editorState) => {
-  this.setState({
-    editorState
-  });
-  //console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+  if(editorState.getCurrentContent().getPlainText('').length < 500001){
+    this.setState({
+      editorState
+    });
+  }
+  else{
+    window.alert("Warning: Maximum content size reached")
+  }
 };
 
 componentDidMount() {
@@ -276,6 +283,24 @@ toggleModal = (e) => {
   }
 }
 
+switchTab = (index) =>{
+  let tab = ["","",""]
+  tab[index] = "is-active"
+  this.setState({
+    tab: tab
+  })
+}
+
+editHtml = (contents) => {
+    const blocksFromHtml = htmlToDraft(contents.target.value);
+    const { contentBlocks, entityMap } = blocksFromHtml;
+    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    const editorState = EditorState.createWithContent(contentState);
+    this.setState({
+      editorState: editorState
+    })
+}
+
   render() {
    // const { data } = this.props.location
     const { editorState } = this.state;
@@ -283,12 +308,13 @@ toggleModal = (e) => {
 
     return (
       
-      <div className={''} style={{overflow: 'Hidden'}}>
+      <div className={''} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-        <div>
-          <section className={`hero is-fullheight`}  style={{padding: '20%'}}>
+        <div style={{width: '60%', paddingTop: '10%'}}>
+          <section className={`hero is-fullheight`} >
           <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1>
+        
           {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) &&
           <div>
             <h1>
@@ -340,34 +366,67 @@ toggleModal = (e) => {
             </div>}
 
             <form onSubmit={this.toggleModal}>
-              <h1>Header Image</h1>
-              <input className="input" type="text" onChange={this.updateImage} value={this.state.simage} placeholder="Enter URL" maxLength="250" required/><br /><br />
-              <h1>Title</h1>
-              <input className="input" type="text" onChange={this.updateTitle} value={this.state.stitle} placeholder="Text input" maxLength='77' required/><br /><br />
-              <h1>Tag</h1>
-              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Text input" maxLength='10' required/><br/><br />
-              <h1>Content</h1>
+              <input className="input" type="url" onChange={this.updateImage} value={this.state.simage} placeholder="Enter header image URL" maxLength="250" required/><br /><br />
+              <input className="input" pattern={`^[a-zA-Z0-9,!.()"'|]+$`} onChange={this.updateTitle} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
+              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
               <div>
                 <article className="panel is-primary" >
                   <p className="panel-heading">
-                    Primary
+                    Manage content
                   </p>
-                  <div>
+                  <div class="tabs is-centered is-boxed" style={{backgroundColor: '#fff',paddingTop: 10,marginBottom: 0}}>
+                  <ul>
+                    <li class={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
+                      <a>
+                        <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                        <span>Editor</span>
+                      </a>
+                    </li>
+                    <li class={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
+                      <a>
+                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                        <span>Preview</span>
+                      </a>
+                    </li>
+                    <li class={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
+                      <a>
+                        <span class="icon is-small"><i class="fas fa-film" aria-hidden="true"></i></span>
+                        <span>Edit HTML</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                  <div style={this.state.tab[0] === "" ? styles.hide : undefined}>
                     <Editor
                       editorState={editorState}
-                      wrapperClassName="demo-wrapper"
-                      editorClassName="demo-editor"
+                      editorClassName={bstyles.contentArea}
                       onEditorStateChange={this.onEditorStateChange}
                     />
-                    <textarea
+                    {/* <textarea
                       disabled
                       style={{width: '100%',minHeight: '200px'}}
                       value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    />
+                    /> */}<br />
+                    <center><button className="button is-primary" value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
                   </div>
+
+                  {this.state.tab[1] === "is-active" && 
+                    <div style={{borderStyle: 'double', padding: '4%', minHeight: '60vh'}}>
+                      <div className="container">
+                        <div className={bstyles.contentArea} >
+                          {renderHTML(draftToHtml(convertToRaw(editorState.getCurrentContent())))}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  {this.state.tab[2] === "is-active" && 
+                        <textarea style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}} onChange = {(e) => this.editHtml(e)}>
+                          {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                        </textarea >
+                  }
                 </article> 
-              </div><br />
-            <center><button className="button is-primary" value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
+              </div>
             </form>
           </section>  
         </div>
@@ -398,10 +457,10 @@ toggleModal = (e) => {
               <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
             </div>
 
-        <footer className="footer" style={{backgroundColor: '#152636',color: '#ffffff', padding: '3%'}}>
+        <footer className="footer" style={{backgroundColor: '#222227',color: '#ffffff', padding: '3%'}}>
         <div className="columns">
         <div className="column has-text-centered">
-          <p style={{fontFamily: 'Nunito', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
+          <p style={{fontFamily: 'Noto Sans', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
             Content & Graphics © 2020 Aziz Stark
           </p>
         </div>
@@ -413,6 +472,10 @@ toggleModal = (e) => {
 }
 
 const styles =({
+
+  hide: {
+    display: 'none',
+  },
 
   bttn : {
     fontSize: 14,
