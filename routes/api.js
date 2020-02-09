@@ -1,8 +1,8 @@
 import express from 'express';
 import Blog from '../models/Post';
+import uimage from '../models/Images';
 import { uploader, cloudinaryConfig, v2 } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
-import { isValidObjectId } from 'mongoose';
 const mongoose = require('mongoose');
 const router = express.Router();
 const crypto = require('crypto');
@@ -57,6 +57,23 @@ router.post('/upload', requireAuth, multerUploads, (req, res) => {
         .then(result => {
           const pid = result.public_id
           const image = result.secure_url
+            uimage.findOneAndUpdate({},
+              { $push: 
+                { 
+                  "images" : pid ,
+                } 
+              },
+              {upsert: true})
+              .then(data => {
+                console.log("Image added to stack")
+              })
+              .catch( err =>
+                res.status(400).json({
+                  message: "Something went wrong while processing your request",
+                  data: {
+                    err
+                  }
+              }))
           return res.status(200).json({
             message: "Your image has been uploded successfully to cloudinary",
             imgurl: image,
@@ -93,24 +110,62 @@ router.get('/viewpost', (req, res, next) => {
 
 //Update the post
 router.put('/updatepost', requireAuth, (req, res, next) => {
-  Blog.findOneAndUpdate(
-    { "title" : req.body.otitle, "cid" : req.body.cid },
-    { $set: 
-      { "imageurl" : req.body.imageurl,
-        "title" : req.body.title,
-        "tag" : req.body.tag, 
-        "content" : req.body.content
-      } 
-    }
-  )
-  .then(data => res.json(data))
-  .catch(err =>
-    res.status(400).json({
-      message: "Something went wrong while processing your request",
-      data: {
-        err
+  if(req.body.otitle === req.body.title){
+    Blog.findOneAndUpdate(
+      { "title" : req.body.otitle, "cid" : req.body.cid },
+      { $set: 
+        { "cimages" : req.body.cimages,
+          "imageurl" : req.body.imageurl,
+          "title" : req.body.title,
+          "tag" : req.body.tag, 
+          "content" : req.body.content
+        } 
+      },{ returnOriginal: false }
+    )
+    .then(data => res.json(data))
+    .catch(err =>
+      res.status(400).json({
+        message: "Something went wrong while processing your request",
+        data: {
+          err
+        }
+    }))
+  }
+  else{ //error here
+    Blog.find({title: req.body.title}, "cid").sort({cid : -1}).limit(1).then((data) => {
+      var cid = req.body.cid;
+      if( data[0] === undefined ){
+        cid = 0
       }
-  }))
+      else{
+        console.log(data[0])
+        cid = data[0].cid + 1
+      }
+        Blog.findOneAndUpdate(
+          { "title" : req.body.otitle, "cid" : req.body.cid },
+          { $set: 
+            { "cimages" : req.body.cimages,
+              "imageurl" : req.body.imageurl,
+              "title" : req.body.title,
+              "tag" : req.body.tag, 
+              "content" : req.body.content,
+              "cid": cid
+            } 
+          },{ returnOriginal: false }
+        )
+        .then(data2 => { 
+            console.log(data2)
+           res.json(data2)})
+        .catch(err =>
+          res.status(400).json({
+            message: "Something went wrong while processing your request",
+            data: {
+              err
+            }
+          })
+        )
+    })
+  }
 });
 
 //Fetch all posts without content
@@ -231,28 +286,6 @@ router.get('/usedspace', (req, res, next) => {
   }))
 })
 
-//put unused images
-router.post('/unused',requireAuth,(req,res,next) => {
-  mongoose.connection.db.collection('unusedimages',function (err, collection) {
-    collection.findOneAndUpdate({},
-      { $push: 
-        { 
-          "images" : { $each: req.body.imgids} ,
-        } 
-      })
-      .then(data => {
-        res.status(200)
-      })
-      .catch( err =>
-        res.status(400).json({
-          message: "Something went wrong while processing your request",
-          data: {
-            err
-          }
-      }))
-  })
-})
-
 //clear unused stack
 router.delete('/deleteunused',requireAuth, (req,res,next) => {
   mongoose.connection.db.collection('unusedimages',function (err, collection) {
@@ -310,5 +343,29 @@ router.delete('/clear',requireAuth, (req,res,next) => {
   })
 })
 
+router.delete('/deleteimage',requireAuth, (req,res,next) => {
+  console.log([req.body.imageid])
+      v2.api.delete_resources([req.body.imageid])
+        .then( data => {
+          console.log("Deleted and deleting from database")
+          Blog.findOneAndUpdate({ "title" : req.body.title, "cid" : req.body.cid },
+            { $pull: 
+              { 
+                cimages : req.body.imageid,
+              },
+            },{ multi: true })
+            .then(data => {
+              console.log("Image deleted Successfully")
+              res.status(200).json({
+                message: "Image deleted Successfully"
+              })
+            })
+            .catch( err => {
+              console.log(err)
+              res.status(400).json({
+                message: "An error occured while clearing cache"
+          })})
+    })
+})
 
 module.exports = router;

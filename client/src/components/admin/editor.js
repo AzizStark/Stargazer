@@ -27,7 +27,8 @@ constructor(props) {
     uploadCount: 0,
     modalstate: '',
     uindex: 0,
-    utotal: 0
+    utotal: 0,
+    udone: 0,
   }
 }
 
@@ -79,6 +80,7 @@ putPost = () => {
           }).then((res) => {
             console.log("Stack Cleared")
           }).catch( err => console.log(err))
+
           if(res){
             window.alert("Posted Successfully!")
             this.setState({
@@ -112,10 +114,7 @@ getPost = () => {
           simage: res.data.imageurl,
           stag: res.data.tag,
           uploadedFileCloudinaryId: res.data.cimages,
-          uploadedFileCloudinaryUrl: res.data.cimages,
-          uploadCount: res.data.cimages.length,
-          uploadStatus: "Finished",
-          uindex: res.data.cimages.length, 
+          udone: res.data.cimages.length,
           editorState: EditorState.createWithContent(
             ContentState.createFromBlockArray(
               convertFromHTML(res.data.content)
@@ -134,20 +133,30 @@ setPost = () => {
       axios.put('/api/updatepost',{
           otitle: this.state.otitle,
           cid: this.state.ocid,
+          cimages: this.state.uploadedFileCloudinaryId,
           imageurl: this.state.simage,
           title: this.state.stitle,
           tag: this.state.stag,
           content: content        
       })
         .then(res => {
-          console.log(res.data)
-          if(res.data){
-            window.alert("Success: Post Updated!")
-            this.setState({
-              modalstate: "",
-            })
-            this.props.history.push(`/blog/${res.data.cid}/${this.state.stitle}`);
-          }
+          axios.delete('/api/deleteunused',{
+            headers: {
+              Authorization: 'authorizationToken'
+            },
+            data: {
+              imgids: this.state.uploadedFileCloudinaryId
+            }  
+          }).then((res) => {
+            console.log("Stack Cleared")
+            if(res.data){
+              window.alert("Success: Post Updated!")
+              this.setState({
+                modalstate: "",
+              })
+            }
+          }).catch( err => console.log(err))
+          this.props.history.push(`/blog/${res.data.cid}/${this.state.stitle}`);
         })
         .catch(err => console.log(err))
     }else {
@@ -172,6 +181,8 @@ updateTag = (e) => {
       stag: e.target.value
   })
 }
+
+
 
 handleImageUpload = (index) => {
     this.setState({
@@ -210,16 +221,33 @@ handleImageUpload = (index) => {
             uploadStatus: 'Finished',
           })
           console.log("Finished")
-          let unused = this.state.uploadedFileCloudinaryId.slice(this.state.uindex - this.state.utotal)
-        
-          axios.post('/api/unused',{
-            imgids: unused
-          }).then((res) => {
-            console.log("sent")
-          }).catch( err => console.log(err))
+          let unused = this.state.uploadedFileCloudinaryId.slice(this.state.uindex + this.state.udone - this.state.utotal)
       }
       }})
     .catch(err => console.log(err))
+}
+
+deleteImage = (index) => {
+  axios.delete('/api/deleteimage', {
+    headers: {
+      Authorization: 'authorizationToken'
+    },
+    data: {
+      title: this.state.otitle,
+      cid: this.state.ocid,
+      imageid: this.state.uploadedFileCloudinaryId[index]
+    }
+  }).then(res => {
+    if(res.data){
+      window.alert("Imagehas been deleted")
+      const ids = this.state.uploadedFileCloudinaryId;
+      ids.splice(index,1)
+      this.setState({
+        uploadedFileCloudinaryId: ids,
+        udone: this.state.udone - 1,
+      })
+    }
+  })
 }
 
 imageStack = (img) => {
@@ -290,18 +318,20 @@ toggleModal = (e) => {
           {
           //this.state.uploadStatus !== 'Finished'
           }
-          <h1> Uploaded Images </h1><br/>
+          <h1> Uploaded Images </h1><br/> 
           {(true) &&
             <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
-            {this.state.pictures.map((user,index) =>
-              (this.state.uploadedFileCloudinaryUrl[index] !== undefined) && 
+            {this.state.uploadedFileCloudinaryId.map((user,index) =>
+              (this.state.uploadedFileCloudinaryId[index] !== undefined) && 
               <figure className="column"  className="image is-128x128" style={{padding: 6}} key={index} >
                 <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
-                  <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={URL.createObjectURL(this.state.pictures[index].slice())}></img>
+                  <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}></img>
+                  {/* <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={URL.createObjectURL(this.state.pictures[index].slice())}></img> */}
                   <figcaption style={styles.vcenter}>
-                  <CopyToClipboard text={`${this.state.uploadedFileCloudinaryUrl[index]}`}>
+                  <CopyToClipboard text={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}>
                     <button className="button is-primary" onClick={() => {this.setState({ buttonUrl: "Copied"})}} onMouseOut={() => {this.setState({ buttonUrl: "Copy URL"})}} style={styles.bttn}>{this.state.buttonUrl}</button>
                   </CopyToClipboard> 
+                  <button className="button is-danger" onClick={() => {this.deleteImage(index)}}>Delete</button>
                   </figcaption> 
                 </div>
               </figure>
@@ -310,11 +340,11 @@ toggleModal = (e) => {
 
             <form onSubmit={this.toggleModal}>
               <h1>Header Image</h1>
-              <input className="input" type="text" onChange={this.updateImage} value={this.state.simage} placeholder="Enter URL" required/><br /><br />
+              <input className="input" type="text" onChange={this.updateImage} value={this.state.simage} placeholder="Enter URL" maxLength="250" required/><br /><br />
               <h1>Title</h1>
-              <input className="input" type="text" onChange={this.updateTitle} value={this.state.stitle} placeholder="Text input" required/><br /><br />
+              <input className="input" type="text" onChange={this.updateTitle} value={this.state.stitle} placeholder="Text input" maxLength='77' required/><br /><br />
               <h1>Tag</h1>
-              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Text input" required/><br/><br />
+              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Text input" maxLength='10' required/><br/><br />
               <h1>Content</h1>
               <div style={{border: 10, borderColor: '#6D6D6D', borderStyle: 'solid'}}>
                 <article className="panel is-primary" >

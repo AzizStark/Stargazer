@@ -165,7 +165,7 @@ loader = () => {
                 </thead>
             {scontent.map((post,index)  =>
                 <tbody key={index}>
-                    <tr>
+                    <tr >
                         <td>{index}</td>
                         <td>{post.title}</td>
                         <td>{post.date}</td>

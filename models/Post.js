@@ -9,19 +9,23 @@ const PostSchema = new Schema({
   },
   imageurl: {
     type: String,
-    required: [true, 'Image URL required']
+    required: [true, 'Image URL required'],
+    maxlength: 300,
   },
   title: {
     type: String,
-    required: [true, 'Title is required']
+    required: [true, 'Title is required'],
+    maxlength: 80
   },
   date: {
     type: String,
-   required: [true, 'Date is required']
+    required: [true, 'Date is required'],
+    maxlength: 20,
   },
   tag: {
     type: String,
-    required: [true, 'tag is required']
+    required: [true, 'tag is required'],
+    maxlength: 12
   },
   content: {
     type: String,
@@ -31,6 +35,7 @@ const PostSchema = new Schema({
     type: Array
   }
 })
+
 
 //create model for posts
 const PostModel = mongoose.model('Post', PostSchema);
