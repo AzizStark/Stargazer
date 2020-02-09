@@ -9,7 +9,7 @@
 
 .blog *
 {
-   font-family: 'Noto Sans', sans-serif !important;
+   font-family: 'Noto Sans', sans-serif;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -132,3 +132,52 @@
    letter-spacing: 2px;
    text-transform: uppercase;
 }
+
+.contentArea {
+   font-size: 20px;
+}
+
+.contentArea ul{
+   list-style: disc;
+   padding-left: 2em;
+}
+
+.contentArea ol{
+   padding-left: 2em;
+}
+
+.contentArea strong{
+   color: #ffffff;;
+}
+
+.contentArea code{
+   background-color: transparent;
+   font-family: monospace;
+   color: #fff;
+}
+
+
+.contentArea pre{ 
+   background-color: #140f0f;
+   font-size: 0.875em;
+   font-family: monospace;
+   color: rgb(223, 226, 236);
+   overflow-x: auto;
+   padding: 1.25rem 1.5rem;
+   white-space: pre;
+   word-wrap: normal;
+   border-radius: 8px;
+}
+
+.contentArea blockquote {
+   background: transparent;
+   border-left: 10px solid rgb(193, 255, 169);
+   margin: 1.5em 10px;
+   padding: 0.5em 10px;
+   quotes: "\201C""\201D""\2018""\2019";
+   font-size: 24px;
+ }
+
+.contentArea blockquote p {
+   display: inline;
+ }

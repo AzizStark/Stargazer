@@ -259,7 +259,7 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
 })
 
 //Mongo, Cloudinary Storage Details
-router.get('/usedspace', (req, res, next) => {
+router.get('/usedspace',requireAuth, (req, res, next) => {
   mongoose.connection.db.stats({
     scale: 1024
   })
@@ -288,8 +288,7 @@ router.get('/usedspace', (req, res, next) => {
 
 //clear unused stack
 router.delete('/deleteunused',requireAuth, (req,res,next) => {
-  mongoose.connection.db.collection('unusedimages',function (err, collection) {
-    collection.findOneAndUpdate({},
+    uimage.findOneAndUpdate({},
       { $pull: 
         { 
           images : { $in: req.body.imgids}
@@ -307,13 +306,11 @@ router.delete('/deleteunused',requireAuth, (req,res,next) => {
             err
           }
       }))
-  })
 })
 
 //delete Unused images from cloudinary
 router.delete('/clear',requireAuth, (req,res,next) => {
-  mongoose.connection.db.collection('unusedimages',function (err, collection) {
-    collection.findOne({}).then(
+    uimage.findOne({}).then(
       data => {
         v2.api.delete_resources(data.images)
         .then( data => {
@@ -340,7 +337,6 @@ router.delete('/clear',requireAuth, (req,res,next) => {
       }
     )
     .catch( err => res.send(err))
-  })
 })
 
 router.delete('/deleteimage',requireAuth, (req,res,next) => {
