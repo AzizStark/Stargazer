@@ -57,7 +57,11 @@
       user-select:none;
       backdrop-filter: blur(25px);
    }
-
+   .lcontainer{
+      width: 60%;
+      padding-top: 5%;
+      padding-bottom: 20%;
+   }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -104,6 +108,11 @@
 
    .wrapper{
       padding: 6px;
+   }
+   .lcontainer{
+      width: 95%;
+      padding-top: 5%;
+      padding-bottom: 30%;
    }
 }
 

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Navba from './Navba';
-import '../admin/react-draft-wysiwyg.css';
 import bstyles from './blog.module.css';
 import renderHTML from 'react-render-html';
 
