@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-//import './react-draft-wysiwyg.css';
+import './react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -9,6 +9,9 @@ import ImageUploader from 'react-images-upload';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import bstyles from '../blog/blog.module.css';
 import renderHTML from 'react-render-html';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faEdit, faEye, faCode } from '@fortawesome/free-solid-svg-icons'
+
 
 class editor extends Component {
   
@@ -24,6 +27,7 @@ constructor(props) {
     uploadedFileCloudinaryUrl: [],
     uploadedFileCloudinaryId: [],
     editorState: EditorState.createEmpty(),
+    htmlcontent: "",
     pictures: [],
     buttonUrl: "Copy URL",
     uploadStatus: 'NotStarted',
@@ -173,26 +177,6 @@ setPost = () => {
     }
 }
 
-updateImage = (e) => {
-  this.setState({
-      simage: e.target.value
-  })
-}
-
-updateTitle = (e) => {
-  this.setState({
-      stitle: e.target.value
-  })
-}
-
-updateTag = (e) => {
-  this.setState({
-      stag: e.target.value
-  })
-}
-
-
-
 handleImageUpload = (index) => {
     this.setState({
       uploadStatus : "Uploading"
@@ -263,7 +247,6 @@ imageStack = (img) => {
   this.setState({
     pictures: img
   });
-  //console.log(URL.createObjectURL(img[0].slice()))
 }
 
 toggleModal = (e) => {
@@ -291,8 +274,8 @@ switchTab = (index) =>{
   })
 }
 
-editHtml = (contents) => {
-    const blocksFromHtml = htmlToDraft(contents.target.value);
+editHtml = () => {
+    const blocksFromHtml = htmlToDraft(this.state.htmlcontent);
     const { contentBlocks, entityMap } = blocksFromHtml;
     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
     const editorState = EditorState.createWithContent(contentState);
@@ -311,22 +294,14 @@ editHtml = (contents) => {
       <div className={''} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-        <div style={{width: '60%', paddingTop: '10%'}}>
+        <div className={bstyles.lcontainer}>
           <section className={`hero is-fullheight`} >
-          <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1>
+          <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1><br/>
         
-          {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) &&
-          <div>
-            <h1>
-             Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} of {this.state.utotal}
-            </h1>
-            <progress id="progress" className="progress is-info" value="0" max="100"></progress>
-          </div>
-          }
-          
+  
           { 
           //(this.state.uploadStatus === 'NotStarted') &&
-            <div style={{backgroundColor: '#80BFE2', textAlign: 'center',  borderRadius: 30, paddingBottom: 30}}> 
+            <div style={{backgroundColor: '#80BFE2', textAlign: 'center',  borderRadius: 10, paddingBottom: 30}}> 
               <ImageUploader
                     buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
@@ -335,19 +310,25 @@ editHtml = (contents) => {
                     fileTypeError={"Invalid File"}
                     fileSizeError={"image size is larger than 1 MB"}
                     label={"Maximum image size: 1 MB"}
-                    fileContainerStyle={{background: "#80BFE2",  borderRadius: 30, boxShadow: 'none'}}
+                    fileContainerStyle={{background: "#80BFE2", boxShadow: 'none'}}
                     withIcon={true}
               />
               <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
+              {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) ?
+              <div>
+                <h1>
+                Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} / {this.state.utotal}
+                </h1><br/>
+                <center><progress id="progress" style={{width: '70%'}} className="progress is-info" value="0" max="100"></progress></center>
+              </div>
+              :
               <button onClick={() => (this.state.pictures.length > 0 && this.state.pictures.length !== this.state.uploadCount) && (this.setState({utotal: this.state.pictures.length - this.state.uindex}) | this.handleImageUpload(this.state.uindex))} className="button is-primary" style={styles.bttn}> Upload </button>
-            </div> 
+              }
+           </div> 
           }
           <br />
-          {
-          //this.state.uploadStatus !== 'Finished'
-          }
+
           <h1> Uploaded Images </h1><br/> 
-          {(true) &&
             <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
             {this.state.uploadedFileCloudinaryId.map((user,index) =>
               (this.state.uploadedFileCloudinaryId[index] !== undefined) && 
@@ -363,12 +344,12 @@ editHtml = (contents) => {
                 </div>
               </figure>
             )}            
-            </div>}
+            </div>
 
             <form onSubmit={this.toggleModal}>
-              <input className="input" type="url" onChange={this.updateImage} value={this.state.simage} placeholder="Enter header image URL" maxLength="250" required/><br /><br />
-              <input className="input" pattern={`^[a-zA-Z0-9,!.()"'|]+$`} onChange={this.updateTitle} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
-              <input className="input" type="text" onChange={this.updateTag} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
+              <input className="input" type="url" onChange={(e) => this.setState({simage: e.target.value})} value={this.state.simage} placeholder="Enter header image URL" maxLength="250" required/><br /><br />
+              <input className="input" pattern={`^[a-zA-Z0-9,! .()"'|]+$`} onChange={(e) => this.setState({stitle: e.target.value})} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
+              <input className="input" type="text" onChange={(e) => this.setState({stag: e.target.value})} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
               <div>
                 <article className="panel is-primary" >
                   <p className="panel-heading">
@@ -376,21 +357,21 @@ editHtml = (contents) => {
                   </p>
                   <div class="tabs is-centered is-boxed" style={{backgroundColor: '#fff',paddingTop: 10,marginBottom: 0}}>
                   <ul>
-                    <li class={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
+                    <li style={styles.li} class={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
                       <a>
-                        <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                        <FontAwesomeIcon icon={faEdit}  size="1x"/>&nbsp;
                         <span>Editor</span>
                       </a>
                     </li>
-                    <li class={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
+                    <li style={styles.li} class={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
                       <a>
-                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                        <FontAwesomeIcon icon={faEye}  size="1x"/>&nbsp;
                         <span>Preview</span>
                       </a>
                     </li>
-                    <li class={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
+                    <li style={styles.li} class={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
                       <a>
-                        <span class="icon is-small"><i class="fas fa-film" aria-hidden="true"></i></span>
+                        <FontAwesomeIcon icon={faCode}  size="1x"/>&nbsp;
                         <span>Edit HTML</span>
                       </a>
                     </li>
@@ -402,16 +383,12 @@ editHtml = (contents) => {
                       editorClassName={bstyles.contentArea}
                       onEditorStateChange={this.onEditorStateChange}
                     />
-                    {/* <textarea
-                      disabled
-                      style={{width: '100%',minHeight: '200px'}}
-                      value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    /> */}<br />
+                   <br />
                     <center><button className="button is-primary" value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
                   </div>
 
                   {this.state.tab[1] === "is-active" && 
-                    <div style={{borderStyle: 'double', padding: '4%', minHeight: '60vh'}}>
+                    <div style={{padding: '4%', minHeight: '60vh', backgroundColor: 'rgb(29, 28, 31)'}}>
                       <div className="container">
                         <div className={bstyles.contentArea} >
                           {renderHTML(draftToHtml(convertToRaw(editorState.getCurrentContent())))}
@@ -421,10 +398,13 @@ editHtml = (contents) => {
                   }
 
                   {this.state.tab[2] === "is-active" && 
-                        <textarea style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}} onChange = {(e) => this.editHtml(e)}>
-                          {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                        </textarea >
+                    <div>
+                      <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}}>
+                      </textarea >
+                      <center><button className="button is-primary" type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
+                    </div>
                   }
+
                 </article> 
               </div>
             </form>
@@ -475,6 +455,10 @@ const styles =({
 
   hide: {
     display: 'none',
+  },
+
+  li: {
+    width: '100%',
   },
 
   bttn : {
