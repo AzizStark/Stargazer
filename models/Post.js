@@ -6,6 +6,7 @@ const PostSchema = new Schema({
   cid: {
     type: Number,
     required: [true, 'Post ID needed'],
+    maxlength: 1000,
   },
   imageurl: {
     type: String,
@@ -33,7 +34,13 @@ const PostSchema = new Schema({
     maxlength: 100000,
   },
   cimages: {
-    type: Array
+    type: Array,
+    maxlength: 10000,
+  },
+  vcount: {
+    type: Number,
+    default: 0,
+    maxlength: 10
   }
 })
 

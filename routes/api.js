@@ -47,6 +47,20 @@ router.post('/login',(req,res,next) => {
 })
 
 
+//Logout
+router.get('/logout', (req, res, next) => {
+  if (req.session) {
+    // delete session object
+    req.session.destroy( (err) => {
+      if(err) {
+        return next(err);
+      } else {
+        return res.send(200);
+      }
+    });
+  }
+});
+
 
 //Upload Image
 router.post('/upload', requireAuth, multerUploads, (req, res) => {
@@ -95,9 +109,10 @@ router.post('/upload', requireAuth, multerUploads, (req, res) => {
 
 //View single post
 router.get('/viewpost', (req, res, next) => {
-  //this will return all the data, exposing only the id and action field to the client
+  //this will return all the data
   Blog.findOne({title: req.query.title, cid: req.query.cid})
-    .then(data => {res.status(200).json(data)
+    .then(data => {
+      res.status(200).json(data)
     })
     .catch(err =>
       res.status(400).json({
@@ -106,6 +121,15 @@ router.get('/viewpost', (req, res, next) => {
           err
         }
     }))
+
+    Blog.findOneAndUpdate(
+      { "title" : req.query.title, "cid" : req.query.cid },
+      { $inc: 
+        { "vcount" : 1} 
+      },
+    ).then(res => console.log('visited'))
+    .catch( err => console.log(err))
+
 });
 
 //Update the post
@@ -138,7 +162,6 @@ router.put('/updatepost', requireAuth, (req, res, next) => {
         cid = 0
       }
       else{
-        console.log(data[0])
         cid = data[0].cid + 1
       }
         Blog.findOneAndUpdate(
@@ -170,7 +193,10 @@ router.put('/updatepost', requireAuth, (req, res, next) => {
 
 //Fetch all posts without content
 router.get('/postitles', (req, res, next) => {
-  Blog.find({}, 'title date imageurl cid tag')
+  const skip = Number(req.query.skip)
+  const limit = Number(req.query.limit)
+
+  Blog.find({},'title date imageurl cid tag vcount').skip(skip).limit(limit).sort( [['_id', -1]] )
     .then(data => res.json(data))
     .catch( err =>
       res.status(400).json({
@@ -340,7 +366,6 @@ router.delete('/clear',requireAuth, (req,res,next) => {
 })
 
 router.delete('/deleteimage',requireAuth, (req,res,next) => {
-  console.log([req.body.imageid])
       v2.api.delete_resources([req.body.imageid])
         .then( data => {
           console.log("Deleted and deleting from database")
