@@ -47,7 +47,7 @@ class login extends Component {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
                 <div className="card" style={{borderRadius: 5}}>
                     <div className="card-content">
-                        <img src={logo} style={{height: 30}}/>
+                        <img src={logo} alt="logo" style={{height: 30}}/>
                         <br/><br/>
                         <form>
                             <div className="field is-grouped-centered">

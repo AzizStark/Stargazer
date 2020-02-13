@@ -11,7 +11,7 @@ import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
-import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble, faReact } from '@fortawesome/free-brands-svg-icons'
+import { faGithubAlt, faDeviantart, faInstagram, faLinkedinIn, faDribbble } from '@fortawesome/free-brands-svg-icons'
 
 
 class Home extends Component {
@@ -194,7 +194,7 @@ class Home extends Component {
                 <h1 style={{display: 'inline-block',fontSize: '2rem', color:'#2EA7FF', fontWeight: 500 }}>ME</h1>
                 <div style={{marginLeft: 15, display: 'inline-block', background: 'linear-gradient(91.18deg, #2EA7FF -16.44%, rgba(46, 167, 255, 0) 107.71%)', borderRadius: 21, width: 'calc(100% - 4rem)', height: 6}}></div>
                 <div className="content" style={{fontSize: "calc(12px + 1vh)",fontWeight: 300,padding: 33, paddingLeft: 0, paddingRight:0, textAlign: 'justify'}}>
-                  Hey! <span>👋</span>I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design <span>🎨</span>. I spend my free time listening to music <span>🎧</span>, playing video games and surfing the internet to explore the world.
+                  Hey! <span role="img" aria-label="wave">👋</span>I'm Aziz Rahman, I love web and mobile app development and have developed a few websites and projects️. I'm also passionate about design <span role="img" aria-label="pallete">🎨</span>. I spend my free time listening to music <span role="img" aria-label="music">🎧</span>, playing video games and surfing the internet to explore the world.
                 </div> 
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <a style={styles.bcolor} href="mailto:theazizstark@gmail.com?Subject=Hello" target="_top"><FontAwesomeIcon  className={cstyles.iclick} icon={faEnvelope}  size="2x"/></a>
@@ -250,10 +250,7 @@ class Home extends Component {
           <div className="columns">
           <div class="column has-text-centered">
             <p style={{fontFamily: 'Nunito', fontWeight: 400, color: '#b2becd' ,fontSize: "calc(12px + 0.3vh)" }}>
-              Created with <FontAwesomeIcon icon={faReact}  size="1x"/> by Aziz Stark
-            </p>
-            <p style={{fontFamily: 'Nunito', fontWeight: 400, color: '#b2becd' ,fontSize: "calc(12px + 0.3vh)" }}>
-              Content and Graphics © 2020 
+              Content and Graphics © 2020 AzizStark
             </p>
           </div>
           </div> 

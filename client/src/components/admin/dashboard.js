@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import axios from "axios";
 import loading from "./loading.gif";
 
-
 class Dashboard extends Component{
 
 constructor(props) {
@@ -47,7 +46,9 @@ clearCache = () => {
   axios.delete('/api/clear')
        .then(res => {
           window.alert('Cache cleared')
-          this.toggleModal2()
+          this.setState({
+            modalstate2: ""
+          })
        }).catch( err => {
           window.alert("Failed to clear cache")
        })   
@@ -93,10 +94,10 @@ deletePost = (e) => {
   }
 }
 
-toggleModal = (indx) => {
+toggleModal = (e) => {
+  e.preventDefault()
   if(this.state.modalstate === ''){
     this.setState({
-      target: indx,
       modalstate: "is-active is-clipped"
     })
   }
@@ -109,7 +110,8 @@ toggleModal = (indx) => {
 
 
 
-toggleModal2 = () => {
+toggleModal2 = (e) => {
+  e.preventDefault()
   if(this.state.modalstate2 === ''){
     this.setState({
       modalstate2: "is-active is-clipped"
@@ -122,6 +124,14 @@ toggleModal2 = () => {
   }
 }
 
+logout = () => {
+  axios.get('/api/logout')
+  .then(res => {
+      console.log("out")
+      this.props.history.push("login")
+  })
+  .catch(err => console.log(err))
+}
 
 updateTitle = (e) => {
   this.setState({
@@ -131,17 +141,18 @@ updateTitle = (e) => {
 
 loader = () => {
   return(
-    <center><img src={loading} style={{width: 40}}/></center>
+    <center><img src={loading} alt="loading" style={{width: 40}}/></center>
   )
 }
 
   render() {
     const { scontent } = this.state;
       return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: '20%', paddingTop: '6%'}}>
+      <div>
+        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: '10%', paddingTop: '6%', marginLeft: '16%',  marginRight: '16%', }}>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <h2 style={{color: '#ffffff' }} className="title is-2"> Dashboard </h2>
-            <div style={{minWidth: '50%'}}>
+            <div style={{minWidth: '68vw'}}>
             <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
                 <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center'}}>
                   { this.state.space !== 'loading' ? (
@@ -153,27 +164,28 @@ loader = () => {
                   }
                   <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
                   <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
-                  <button className="button is-danger" onClick={()=>{this.toggleModal2()}}>Clear Cache</button> 
+                  <button className="button is-danger" onClick={(e)=>{this.toggleModal2(e)}}>Clear Cache</button>
+                  <button className="button is-danger" onClick={(e)=>{this.logout()}}>Log out</button>  
                 </div>
             </div>
             <br/>
             {this.state.scontent[0] !== 'loading' ? (<table className="table is-hoverable is-striped" style={{borderRadius: 5, width: '100%'}}>
                 <thead>
                     <tr>
-                        <th>Post ID</th><th>Title</th><th>Date</th><th>CID</th><th>Tag</th><th>View Post</th><th>Edit</th><th>Delete</th>
+                        <th>S.No</th><th>Title</th><th>Date</th><th>Tag</th><th>Views</th><th>View Post</th><th>Edit</th><th>Delete</th>
                     </tr>    
                 </thead>
             {scontent.map((post,index)  =>
                 <tbody key={index}>
                     <tr >
                         <td>{index}</td>
-                        <td>{post.title}</td>
+                        <td style={{wordBreak: 'break-word'}}>{post.title}</td>
                         <td>{post.date}</td>
-                        <td>{post.cid}</td>
                         <td>{post.tag}</td>
+                        <td>{post.vcount}</td>
                         <td><button className="button is-info" onClick={() => {window.open(`/blog/${post.cid}/${post.title}`)}}>View</button></td>
                         <td><button className="button is-link" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}}>Edit</button></td>
-                        <td><button className="button is-danger" onClick={() => this.toggleModal(index)}>Delete</button></td>
+                        <td><button className="button is-danger" onClick={(e) => {this.setState({target: index}) || this.toggleModal(e)}}>Delete</button></td>
                     </tr>
                 </tbody>
             )}
@@ -196,18 +208,18 @@ loader = () => {
                 <footer className="card-footer">
                   <p className="card-footer-item">
                     <span>
-                      <a style={{color: 'red'}} onClick = {() => {this.deletePost()}}>Delete Post</a>
+                      <a href="# " style={{color: 'red'}} onClick = {(e) => {this.deletePost(e)}} >Delete Post</a>
                     </span>
                   </p>
                   <p className="card-footer-item">
                     <span>
-                      <a onClick = {() => {this.toggleModal()}} >Cancel</a>
+                      <a onClick = {(e) => {this.toggleModal(e)}} href="# ">Cancel</a>
                     </span>
                   </p>
                 </footer>
               </div>
               </div>
-              <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
+              <button className="modal-close is-large" onClick = {(e) => {this.toggleModal(e)}} aria-label="close"></button>
             </div>
 
 
@@ -229,20 +241,21 @@ loader = () => {
                 <footer className="card-footer">
                   <p className="card-footer-item">
                     <span>
-                      <a style={{color: 'red'}} onClick = {() => {this.clearCache()}}>Clear cache</a>
+                      <a style={{color: 'red'}} href="# " onClick = {(e) => {this.clearCache(e)}} >Clear cache</a>
                     </span>
                   </p>
                   <p className="card-footer-item">
                     <span>
-                      <a onClick = {() => {this.toggleModal2()}} >Cancel</a>
+                      <a onClick = {(e) => {this.toggleModal2(e)}} href="# " >Cancel</a>
                     </span>
                   </p>
                 </footer>
               </div>
               </div>
-              <button className="modal-close is-large" onClick = {() => {this.toggleModal2()}} aria-label="close"></button>
+              <button className="modal-close is-large" onClick = {(e) => {this.toggleModal2(e)}} aria-label="close"></button>
             </div>
         </div>
+      </div>
       );
   }
 }

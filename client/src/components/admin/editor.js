@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './react-draft-wysiwyg.css';
-import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
@@ -63,8 +63,8 @@ componentDidMount() {
       }
      }).catch( err => {
          if(err.response.status === 401){
-             console.log('Unauthorized')
-           //  this.props.history.push('/admin/login');
+            console.log('Unauthorized')
+            this.props.history.push('/admin/login');
          } 
      })   
 }
@@ -197,13 +197,11 @@ handleImageUpload = (index) => {
       if(res.data){
         var response = res.data.imgurl;
         var id = res.data.public_id;
-          {
-            this.setState({
-              uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl.concat(response),
-              uploadedFileCloudinaryId: this.state.uploadedFileCloudinaryId.concat(id),
-              uploadCount: this.state.uploadCount + 1
-            })
-          }
+          this.setState({
+            uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl.concat(response),
+            uploadedFileCloudinaryId: this.state.uploadedFileCloudinaryId.concat(id),
+            uploadCount: this.state.uploadCount + 1
+          })
         if(this.state.pictures.length !== this.state.uploadCount){
           this.setState({ uindex: this.state.uindex + 1})
           this.handleImageUpload(index + 1)
@@ -213,8 +211,6 @@ handleImageUpload = (index) => {
             uindex: this.state.uindex + 1,
             uploadStatus: 'Finished',
           })
-          console.log("Finished")
-          let unused = this.state.uploadedFileCloudinaryId.slice(this.state.uindex + this.state.udone - this.state.utotal)
       }
       }})
     .catch(err => console.log(err))
@@ -244,9 +240,14 @@ deleteImage = (index) => {
 }
 
 imageStack = (img) => {
-  this.setState({
-    pictures: img
-  });
+  if(this.state.uploadStatus !== 'Uploading'){
+    this.setState({
+      pictures: img
+    });
+  }
+  else{
+    window.alert("Please wait for the upload to finish")
+  }
 }
 
 toggleModal = (e) => {
@@ -284,10 +285,12 @@ editHtml = () => {
     })
 }
 
+prevent = (e) => {
+  e.preventDefault()
+}
+
   render() {
-   // const { data } = this.props.location
     const { editorState } = this.state;
-   // const { uploading, images } = this.state
 
     return (
       
@@ -313,12 +316,12 @@ editHtml = () => {
                     fileContainerStyle={{background: "#80BFE2", boxShadow: 'none'}}
                     withIcon={true}
               />
-              <p style={{fontSize: 14}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
+              <p style={{fontSize: 12}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
               {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) ?
               <div>
-                <h1>
+                <p style={{fontSize: 12}}>
                 Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} / {this.state.utotal}
-                </h1><br/>
+                </p><br/>
                 <center><progress id="progress" style={{width: '70%'}} className="progress is-info" value="0" max="100"></progress></center>
               </div>
               :
@@ -328,18 +331,19 @@ editHtml = () => {
           }
           <br />
 
-          <h1> Uploaded Images </h1><br/> 
-            <div className="columns" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 30}}>
+   
+            <center></center><div className="columns is-mobile" style={{flexWrap: 'wrap',justifyContent:'space-around', backgroundColor: '#131313', borderRadius: 10, width: '100%', alignSelf: "center"}}>
             {this.state.uploadedFileCloudinaryId.map((user,index) =>
               (this.state.uploadedFileCloudinaryId[index] !== undefined) && 
-              <figure className="column"  className="image is-128x128" style={{padding: 6}} key={index} >
-                <div className="imghvr-flip-horiz" style={{border: 2, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
-                  <img style={{width:'100%', height: '100%', objectFit: 'cover'}} src={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}></img>
+              <figure className="image is-128x128" style={{padding: 6}} key={index} >
+                <div className="imghvr-flip-horiz" style={{border: 2,borderRadius:8, borderColor: '#423B57', borderStyle: 'solid', height: '100%'}} >
+                  <img alt="uploaded" style={{width:'100%', height: '100%', objectFit: 'cover'}} src={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}></img>
                   <figcaption style={styles.vcenter}>
                   <CopyToClipboard text={`https://res.cloudinary.com/azizcloud/image/upload/${this.state.uploadedFileCloudinaryId[index]}`}>
                     <button className="button is-primary" onClick={() => {this.setState({ buttonUrl: "Copied"})}} onMouseOut={() => {this.setState({ buttonUrl: "Copy URL"})}} style={styles.bttn}>{this.state.buttonUrl}</button>
                   </CopyToClipboard> 
-                  <button className="button is-danger" onClick={() => {this.deleteImage(index)}}>Delete</button>
+                  <br/>
+                  <button className="button is-danger" style={styles.bttn} onClick={() => {this.deleteImage(index)}}>Delete</button>
                   </figcaption> 
                 </div>
               </figure>
@@ -352,25 +356,25 @@ editHtml = () => {
               <input className="input" type="text" onChange={(e) => this.setState({stag: e.target.value})} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
               <div>
                 <article className="panel is-primary" >
-                  <p className="panel-heading">
+                  <p className="panel-heading" style={{backgroundColor: '#80bfe2'}}>
                     Manage content
                   </p>
-                  <div class="tabs is-centered is-boxed" style={{backgroundColor: '#fff',paddingTop: 10,marginBottom: 0}}>
-                  <ul>
-                    <li style={styles.li} class={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
-                      <a>
+                  <div className="tabs is-centered is-boxed" style={{backgroundColor: '#fff',paddingTop: 10,marginBottom: 0}}>
+                  <ul style={{borderBottomWidth: 1, borderBottomColor: '#dbdbdb',borderStyle: 'solid'}}>
+                    <li style={styles.li} className={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
+                      <a href="# " onClick={(e) => this.prevent(e)}>
                         <FontAwesomeIcon icon={faEdit}  size="1x"/>&nbsp;
                         <span>Editor</span>
                       </a>
                     </li>
-                    <li style={styles.li} class={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
-                      <a>
+                    <li style={styles.li} className={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
+                      <a href="# " onClick={(e) => this.prevent(e)} >
                         <FontAwesomeIcon icon={faEye}  size="1x"/>&nbsp;
                         <span>Preview</span>
                       </a>
                     </li>
-                    <li style={styles.li} class={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
-                      <a>
+                    <li style={styles.li} className={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
+                      <a href="# " onClick={(e) => this.prevent(e)}>
                         <FontAwesomeIcon icon={faCode}  size="1x"/>&nbsp;
                         <span>Edit HTML</span>
                       </a>
@@ -401,6 +405,7 @@ editHtml = () => {
                     <div>
                       <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}}>
                       </textarea >
+                      <br/><br/>
                       <center><button className="button is-primary" type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
                     </div>
                   }
@@ -423,29 +428,20 @@ editHtml = () => {
                 <footer className="card-footer">
                   <p className="card-footer-item">
                     <span>
-                      <a onClick = {this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>Confirm</a>
+                      <a href='# ' onClick = {this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>Confirm</a>
                     </span>
                   </p>
                   <p className="card-footer-item">
                     <span>
-                      <a onClick = {() => {this.toggleModal()}} >Cancel</a>
+                      <a href="# " onClick = {(e) => {this.toggleModal(e)}} >Cancel</a>
                     </span>
                   </p>
                 </footer>
               </div>
               </div>
+
               <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
             </div>
-
-        <footer className="footer" style={{backgroundColor: '#222227',color: '#ffffff', padding: '3%'}}>
-        <div className="columns">
-        <div className="column has-text-centered">
-          <p style={{fontFamily: 'Noto Sans', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
-            Content & Graphics © 2020 Aziz Stark
-          </p>
-        </div>
-        </div>
-        </footer>
       </div>
     );
   }
