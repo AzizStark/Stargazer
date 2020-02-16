@@ -1,5 +1,20 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #222227 inset;
+  box-shadow: 0 0 0px 1000px #222227 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .rdw-option-wrapper {
-  border: 1px solid #F1F1F1;
+  border: 1px solid rgb(66, 87, 66);
   padding: 5px;
   min-width: 25px;
   height: 20px;
@@ -9,7 +24,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background: white;
+  background:#a9aaa7;
   text-transform: capitalize;
 }
 .rdw-option-wrapper:hover {
@@ -849,7 +864,7 @@
   color: black;
   display: flex;
   justify-content: flex-start;
-  background: white;
+  background: #3C3940;
   flex-wrap: wrap;
   font-size: 15px;
   margin-bottom: 5px;

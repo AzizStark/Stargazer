@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navba from './Navba';
+import Navba from './navbar';
 import './bulma.css';
 import './imagehover.min.css';
 import cstyles from './home.module.css';

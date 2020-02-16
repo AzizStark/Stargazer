@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import axios from "axios";
 import loading from "./loading.gif";
+import dstyles from '../blog/blog.module.css';
+import forest from './forest.jpg';
+import Footer from '../blog/footer'
 
 class Dashboard extends Component{
 
@@ -9,11 +12,13 @@ constructor(props) {
     this.state = {
       id: "",
       ctitle: "",
-      scontent: ["loading"],
+      scontent: [],
       modalstate: "",
       modalstate2: "",
       target: "",
-      space: "loading"
+      space: "loading",
+      pivot: 0,
+      active: true,
     }
   }
 
@@ -29,13 +34,30 @@ constructor(props) {
      })   
   }
 
+  loadMore = () => {
+    this.getPosts()
+  }
 
 getPosts = () => {
-  axios.get('/api/postitles')
+  const limit = 6
+  axios.get('/api/postitles',{
+    params: {
+      skip: this.state.pivot,
+      limit: limit
+    }
+  })
     .then(res => {
-      if(res.data){
+      console.log(res.data.length)
+      if(res.data.length !== 0){
         this.setState({
-          scontent: res.data,
+          scontent: this.state.scontent.concat(res.data),
+          pivot: this.state.pivot + limit,
+          active: true,
+        })
+      }
+      else{
+        this.setState({
+          active: false,
         })
       }
     })
@@ -141,56 +163,82 @@ updateTitle = (e) => {
 
 loader = () => {
   return(
-    <center><img src={loading} alt="loading" style={{width: 40}}/></center>
+    <center><img src={loading} alt="loading" style={{width: 40, margin: 15}}/></center>
   )
 }
 
   render() {
     const { scontent } = this.state;
       return (
-      <div>
-        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: '10%', paddingTop: '6%', marginLeft: '16%',  marginRight: '16%', }}>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-            <h2 style={{color: '#ffffff' }} className="title is-2"> Dashboard </h2>
-            <div style={{minWidth: '68vw'}}>
-            <div className="card" style={{ borderRadius: 6, backgroundColor: '#80BFE2'}}>
-                <div className="card-content" style={{display: 'flex', justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center'}}>
-                  { this.state.space !== 'loading' ? (
-                      <div>
-                        <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
-                        <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
-                        <p>CDN service used: {this.state.space.Credits} %</p>
-                      </div>) : this.loader()
-                  }
-                  <button className="button is-info" onClick={()=>{this.getSpace(); this.getPosts()}}>Refresh</button> 
-                  <button style={{backgroundColor:'#3f4257' }} className="button is-dark" onClick={()=>{window.open('editor#new')}}>Create Post</button> 
-                  <button className="button is-danger" onClick={(e)=>{this.toggleModal2(e)}}>Clear Cache</button>
-                  <button className="button is-danger" onClick={(e)=>{this.logout()}}>Log out</button>  
-                </div>
-            </div>
+      <div className={`columns ${dstyles.dashboard}`} style={{paddingBottom: 0}}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <div className="column" >
+              <h2 style={{fontSize: 40,color: 'white', textAlign: 'center', fontWeight: 700, letterSpacing: '0.05em'}} className="title"> Dashboard </h2>
+              <div style={{minWidth: '68vw'}}>
+              <div className="card" style={{ borderRadius: 6, backgroundSize: 'cover', backgroundImage: `url(${forest})`}}>
+                  <div className="card-content columns" style={{borderRadius: 6,margin: 0,backdropFilter: 'blur(5px)',}}>     
+                    <div className="column" style={{ flexDirection: 'column', backgroundColor: '#444449', padding: 10, borderRadius: 8}}>
+                      { this.state.space !== 'loading' ? (
+                          <div style={{color: '#fff'}}>
+                            <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
+                            <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
+                            <p>CDN service used: {this.state.space.Credits} %</p>
+                          </div>) : this.loader()
+                      }<br/>
+                      <div style={{backgroundColor: '#222227',borderRadius: 8, width: '100%'}}>
+                        <button className={dstyles.cbutton} style={{width: '50%'}} onClick={()=>{this.getSpace() || this.getPosts()}}>Refresh</button>   
+                        <button className={dstyles.cbutton} style={{width: '50%'}} onClick={(e)=>{this.toggleModal2(e)}}>Clear Cache</button> 
+                      </div>
+                    </div>
+
+                    <div className="column"></div>
+
+                    <div className="column columns" style={{flexDirection: 'column',backgroundColor: '#444449', padding: 10, borderRadius: 8, margin: 0}}>
+                      <button style={{backgroundColor:'#222227', marginBottom: 10}} className={`${dstyles.cbutton2} column`} onClick={()=>{window.open('editor#new')}}>Create Post</button>                         
+                      <button style={{backgroundColor:'#222227'}} className={`${dstyles.cbutton2} column`} onClick={(e)=>{this.logout()}}>Log out</button>  
+                    </div>
+                  
+                  </div>
+              </div>
             <br/>
-            {this.state.scontent[0] !== 'loading' ? (<table className="table is-hoverable is-striped" style={{borderRadius: 5, width: '100%'}}>
-                <thead>
-                    <tr>
-                        <th>S.No</th><th>Title</th><th>Date</th><th>Tag</th><th>Views</th><th>View Post</th><th>Edit</th><th>Delete</th>
-                    </tr>    
-                </thead>
+            {this.state.pivot !== 0 ? (
+            <div className="columns" style={{marginTop: 20,margin: 0,padding: 8,flexDirection: 'column',borderRadius: 8, width: '100%', backgroundColor: "#3B3B40", color: '#fff'}}>
+
             {scontent.map((post,index)  =>
-                <tbody key={index}>
-                    <tr >
-                        <td>{index}</td>
-                        <td style={{wordBreak: 'break-word'}}>{post.title}</td>
-                        <td>{post.date}</td>
-                        <td>{post.tag}</td>
-                        <td>{post.vcount}</td>
-                        <td><button className="button is-info" onClick={() => {window.open(`/blog/${post.cid}/${post.title}`)}}>View</button></td>
-                        <td><button className="button is-link" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}}>Edit</button></td>
-                        <td><button className="button is-danger" onClick={(e) => {this.setState({target: index}) || this.toggleModal(e)}}>Delete</button></td>
-                    </tr>
-                </tbody>
+                <div className="column" style={{margin: 10, backgroundColor: '#222227', borderRadius: 8}} key={index}>
+                      <nav className="level">
+                
+                        <div className={`level-left ${dstyles.dtitle}`}>
+                          <p style={{fontSize: 20, padding: 10}} >{index + 1}</p>
+                          <div style={{paddingLeft: 15}}>
+                            <p style={{wordBreak: 'break-word', fontSize: 22}}>{post.title}</p>
+                            <p style={{fontSize: 14, color: '#AAAAAA'}}>{post.date}</p> 
+                            <p style={{fontSize: 14, color: '#AAAAAA'}}>{post.tag}</p>
+                          </div>
+                        </div>
+                      
+                        <div className="level-right" >
+                          <p style={{backgroundColor: '#3B3B40', borderRadius: 8, padding: 10, height: 50}} className="level-item">{post.vcount} views</p>
+
+                          <div className="level-item" style={{backgroundColor: '#3B3B40', borderRadius: 8, minWidth: 200}}>
+                            <input type='button' className={dstyles.cbutton} value="View" onClick={() => {window.open(`/blog/${post.cid}/${post.title}`)}} />
+
+                            <input type='button' className={dstyles.cbutton} value="Edit" onClick={() => {window.open(`/admin/editor/${post.cid}/${post.title}?m=edit`)}} />
+
+                            <input type='button' className={dstyles.cbutton} value="Delete" onClick={(e) => {this.setState({target: index}) || this.toggleModal(e)}} />
+                          </div>
+                          
+                        </div>
+
+                      </nav>
+                </div>
             )}
-            </table>): this.loader()}
+            </div>): this.loader()}
+            <div style={{ margin: 25,display: 'flex', flexDirection: 'column',justifyContent: 'center',height: 60}} >
+             {(this.state.pivot > 0 && this.state.active) && <center ><div title="Load more" className={dstyles.loader} onClick={() => this.loadMore()}></div></center>}
             </div>
+            </div>
+           
             <div className={`modal ${this.state.modalstate}`}>
               <div className="modal-background"></div>
               <div className="modal-content">
@@ -254,6 +302,7 @@ loader = () => {
               </div>
               <button className="modal-close is-large" onClick = {(e) => {this.toggleModal2(e)}} aria-label="close"></button>
             </div>
+            <Footer></Footer>
         </div>
       </div>
       );

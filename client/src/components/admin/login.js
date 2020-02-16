@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
-import logo from './Polygon.svg'
+import logo from '../blog/Polygon.svg'
+import bstyles from '../blog/blog.module.css';
+import forest from './forest.jpg'
 
 class login extends Component {
     constructor(props) {
@@ -44,36 +46,33 @@ class login extends Component {
     
     render() {
         return(
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
-                <div className="card" style={{borderRadius: 5}}>
-                    <div className="card-content">
-                        <img src={logo} alt="logo" style={{height: 30}}/>
-                        <br/><br/>
-                        <form>
-                            <div className="field is-grouped-centered">
-                                <p className="control has-icons-left">
-                                    <input onChange={ (e) => {this.setState({ username: e.target.value})}} className="input" type="email" placeholder="Email" required/>
-                                    <span className="icon is-small is-left">
-                                        <FontAwesomeIcon icon={faEnvelope}  size="1x"/>
-                                    </span>
-                                </p>
-                            </div>
-                            <div className="field">
-                                <p className="control has-icons-left">
-                                    <input onChange={ (e) => {this.setState({ password: e.target.value})}} className="input" type="password" placeholder="Password" required/>
-                                    <span className="icon is-small is-left">
-                                        <FontAwesomeIcon icon={faLock}  size="1x"/>
-                                    </span>
-                                </p>
-                            </div>
-                            <div className="field">
-                                <br/>
-                                <center>
-                                    <button className="button is-success" onClick={this.handleSubmit}>
-                                        Login
-                                    </button>
-                                </center>
-                            </div>
+            <div className="columns">
+                <div className="column">
+                    <img className={bstyles.sideimg} style={{width: '50%', height: '100vh',position: 'fixed', objectFit: 'cover'}} src={forest}/>
+                    <img src={logo} alt="logo" style={{width: 80, margin: 20, zIndex: 99, position: 'fixed'}}/>
+                </div>
+                <div className="column" >
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
+                        <form className={bstyles.holder}>
+                            <h1 className='title' style={{fontSize: 50,color: 'white', textAlign: 'center', fontWeight: 700, letterSpacing: '0.1em'}} > Login </h1> <br/>
+                            <p className="control has-icons-left">
+                                <input onChange={ (e) => {this.setState({ username: e.target.value})}} className={bstyles.inputarea}  type="email" placeholder="Email" required/>
+                                <span className="icon is-small is-left">
+                                    <FontAwesomeIcon icon={faEnvelope}  size="1x"/>
+                                </span>
+                            </p><br/><br/>
+                            <p className="control has-icons-left">
+                                <input onChange={ (e) => {this.setState({ password: e.target.value})}} className={bstyles.inputarea}  type="password" placeholder="Password" required/>
+                                <span className="icon is-small is-left">
+                                    <FontAwesomeIcon icon={faLock}  size="1x"/>
+                                </span>
+                            </p>
+                            <br/><br/>
+                            <center>
+                                <button className={bstyles.nbutton} onClick={this.handleSubmit}>
+                                    Login
+                                </button>
+                            </center>
                         </form>
                     </div>
                 </div>
