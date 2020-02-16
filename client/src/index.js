@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Home from './components/home/home';
 import Blog from './components/blog/blog';
 import View from './components/blog/view';
+import Contact from './components/blog/contact';
 import Login from './components/admin/login';
 import Editor from './components/admin/editor';
 import Dashboard from './components/admin/dashboard';
@@ -15,6 +16,7 @@ const routing = (
         <Route exact path="/" component={Home} />
         <Route exact path="/blog" component={Blog} />
 	      <Route path="/blog/:id" component={View}/>
+        <Route path="/contact" component={Contact}/>
         <Route exact path="/admin/editor" component={Editor} />
         <Route exact path="/admin/editor/:cid/:id" component={Editor} />
        	<Route path="/admin/login" component={Login}/>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Navba from './Navba';
+import Navba from './navbar';
+import Footer from './footer'
 import bstyles from './blog.module.css';
 import renderHTML from 'react-render-html';
 
@@ -47,6 +48,7 @@ getPosts = () => {
 }
 
   render() {
+
     return (
       <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
          <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
@@ -54,6 +56,7 @@ getPosts = () => {
         <Navba></Navba>
         <div style={{height: '100%'}}>
           <section className={`hero is-fullheight`}  >
+          <h1 className={bstyles.sidebar}>AZIZSTARK'S BLOG</h1>
             <div className="columns is-desktop" >
               <div className="column" >
                 <img  alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
@@ -71,15 +74,7 @@ getPosts = () => {
             </div>
           </section>  
         </div>
-        <footer className="footer" style={{backgroundColor: '#222227',color: '#ffffff', padding: '3%'}}>
-        <div className="columns">
-        <div className="column has-text-centered">
-          <p style={{fontFamily: 'Noto Sans', fontWeight: 400, fontSize: "calc(12px + 0.4vh)" }}>
-            Content & Graphics © 2020 Aziz Stark
-          </p>
-        </div>
-        </div>
-        </footer>
+        <Footer></Footer>
       </div>
     );
   }

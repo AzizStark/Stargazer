@@ -42,15 +42,11 @@ class Navba extends Component {
           <div
             className="navbar-end" style={{fontWeight: 'bold'}}
           >
-            <a className="navbar-item" id={bstyles.navbarItem} href="/">Home</a>
+            <a className="navbar-item" id={bstyles.navbarItem} href="/blog">Home</a>
 
-            <a className="navbar-item"  id={bstyles.navbarItem} href={"# "} onClick={(e) => this.showIt('portfolio',e)}>Portfolio</a>
-
-            <a className="navbar-item" id={bstyles.navbarItem} href="/blog">Blog</a>
-
-            <a className="navbar-item" id={bstyles.navbarItem} href="# "  onClick={(e) => this.showIt('about',e)}>About</a>
+            <a className="navbar-item" id={bstyles.navbarItem} href="/" >About</a>
             
-            <a className="navbar-item"  id={bstyles.navbarItem} href="# "  onClick={(e) => this.showIt('contact',e)}>Contact</a>
+            <a className="navbar-item"  id={bstyles.navbarItem} href="/contact">Contact</a>
 
           </div>
         </div>

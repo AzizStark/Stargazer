@@ -11,7 +11,7 @@ import bstyles from '../blog/blog.module.css';
 import renderHTML from 'react-render-html';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faEye, faCode } from '@fortawesome/free-solid-svg-icons'
-
+import forest from '../blog/mount.jpg';
 
 class editor extends Component {
   
@@ -64,7 +64,7 @@ componentDidMount() {
      }).catch( err => {
          if(err.response.status === 401){
             console.log('Unauthorized')
-            this.props.history.push('/admin/login');
+            // this.props.history.push('/admin/login');
          } 
      })   
 }
@@ -295,8 +295,9 @@ prevent = (e) => {
     return (
       
       <div className={''} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-         <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
-         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <div className={bstyles.lcontainer}>
           <section className={`hero is-fullheight`} >
           <h1 style={{fontSize: 36, textAlign: 'center'}}>{this.state.editmode}</h1><br/>
@@ -304,22 +305,23 @@ prevent = (e) => {
   
           { 
           //(this.state.uploadStatus === 'NotStarted') &&
-            <div style={{backgroundColor: '#80BFE2', textAlign: 'center',  borderRadius: 10, paddingBottom: 30}}> 
+            <div style={{ backgroundImage: `url(${forest})`,backgroundSize: 'cover', textAlign: 'center',  borderRadius: 10, height: 280}}> 
+              <div style={{width: '100%', height: '100%', backdropFilter: 'blur(5px)',borderRadius: 10}}>
               <ImageUploader
                     buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
                     imgExtension={['.jpg','.jpeg', '.gif', '.png', '.gif']}
-                    maxFileSize={1050000}
+                    maxFileSize={550000}
                     fileTypeError={"Invalid File"}
-                    fileSizeError={"image size is larger than 1 MB"}
-                    label={"Maximum image size: 1 MB"}
-                    fileContainerStyle={{background: "#80BFE2", boxShadow: 'none'}}
+                    fileSizeError={"image size is larger than 500 KB"}
+                    label={"Maximum image size: 500 KB"}
+                    fileContainerStyle={{background: "transparent", boxShadow: 'none',margin: 0, color: '#333'}}
                     withIcon={true}
               />
-              <p style={{fontSize: 12}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
+              <p style={{fontSize: 12,  color: '#333'}}>Files selected for upload:  {this.state.pictures.length - this.state.uindex}</p><br />
               {(this.state.uploadStatus === 'Uploading' && this.state.pictures.length !== this.state.uploadCount) ?
               <div>
-                <p style={{fontSize: 12}}>
+                <p style={{fontSize: 12,  color: '#333'}}>
                 Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} / {this.state.utotal}
                 </p><br/>
                 <center><progress id="progress" style={{width: '70%'}} className="progress is-info" value="0" max="100"></progress></center>
@@ -327,6 +329,7 @@ prevent = (e) => {
               :
               <button onClick={() => (this.state.pictures.length > 0 && this.state.pictures.length !== this.state.uploadCount) && (this.setState({utotal: this.state.pictures.length - this.state.uindex}) | this.handleImageUpload(this.state.uindex))} className="button is-primary" style={styles.bttn}> Upload </button>
               }
+              </div>
            </div> 
           }
           <br />
@@ -351,32 +354,32 @@ prevent = (e) => {
             </div>
 
             <form onSubmit={this.toggleModal}>
-              <input className="input" type="url" onChange={(e) => this.setState({simage: e.target.value})} value={this.state.simage} placeholder="Enter header image URL" maxLength="250" required/><br /><br />
-              <input className="input" pattern={`^[a-zA-Z0-9,! .()"'|]+$`} onChange={(e) => this.setState({stitle: e.target.value})} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
-              <input className="input" type="text" onChange={(e) => this.setState({stag: e.target.value})} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
+              <input className={bstyles.inputarea} type="url" onChange={(e) => this.setState({simage: e.target.value})} value={this.state.simage} placeholder="Enter header image URL" maxLength="250" required/><br /><br />
+              <input className={bstyles.inputarea} pattern={`^[a-zA-Z0-9,! .()"'|]+$`} onChange={(e) => this.setState({stitle: e.target.value})} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
+              <input className={bstyles.inputarea} type="text" onChange={(e) => this.setState({stag: e.target.value})} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
               <div>
                 <article className="panel is-primary" >
                   <p className="panel-heading" style={{backgroundColor: '#80bfe2'}}>
                     Manage content
                   </p>
-                  <div className="tabs is-centered is-boxed" style={{backgroundColor: '#fff',paddingTop: 10,marginBottom: 0}}>
-                  <ul style={{borderBottomWidth: 1, borderBottomColor: '#dbdbdb',borderStyle: 'solid'}}>
+                  <div className="tabs is-centered is-boxed" style={{backgroundColor: '#3C3940',paddingTop: 10,marginBottom: 0}}>
+                  <ul style={{borderBottomWidth: 1, borderBottomColor: '#dbdbdb',borderStyle: 'solid',border: 'none'}}>
                     <li style={styles.li} className={`${this.state.tab[0]}`} onClick={() => {this.switchTab(0)}}>
                       <a href="# " onClick={(e) => this.prevent(e)}>
                         <FontAwesomeIcon icon={faEdit}  size="1x"/>&nbsp;
-                        <span>Editor</span>
+                        <span style={{color: '#ccc'}}>Editor</span>
                       </a>
                     </li>
                     <li style={styles.li} className={`${this.state.tab[1]}`} onClick={() => {this.switchTab(1)}}>
                       <a href="# " onClick={(e) => this.prevent(e)} >
                         <FontAwesomeIcon icon={faEye}  size="1x"/>&nbsp;
-                        <span>Preview</span>
+                        <span style={{color: '#ccc'}}>Preview</span>
                       </a>
                     </li>
                     <li style={styles.li} className={`${this.state.tab[2]}`} onClick={() => {this.switchTab(2)}}>
                       <a href="# " onClick={(e) => this.prevent(e)}>
                         <FontAwesomeIcon icon={faCode}  size="1x"/>&nbsp;
-                        <span>Edit HTML</span>
+                        <span style={{color: '#ccc'}}>Edit HTML</span>
                       </a>
                     </li>
                   </ul>
@@ -388,7 +391,7 @@ prevent = (e) => {
                       onEditorStateChange={this.onEditorStateChange}
                     />
                    <br />
-                    <center><button className="button is-primary" value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
+                    <center><button className={bstyles.nbutton} value='submit' >{this.state.editmode === 'Edit Post' ? 'Save Changes' : 'Create Post'}</button></center>
                   </div>
 
                   {this.state.tab[1] === "is-active" && 
@@ -406,7 +409,7 @@ prevent = (e) => {
                       <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}}>
                       </textarea >
                       <br/><br/>
-                      <center><button className="button is-primary" type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
+                      <center><button className={bstyles.nbutton} type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
                     </div>
                   }
 
@@ -455,6 +458,7 @@ const styles =({
 
   li: {
     width: '100%',
+    color: '#ccc'
   },
 
   bttn : {
