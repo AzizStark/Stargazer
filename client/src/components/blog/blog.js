@@ -4,6 +4,7 @@ import Navba from './navbar';
 import Footer from './footer'
 import bstyles from './blog.module.css';
 import { Link } from 'react-router-dom'
+import {field} from './field.jpg'
 
 class Blog extends Component {
   
@@ -64,7 +65,7 @@ loadMore = () => {
           <section className={`hero is-fullheight`}  >
             <div className="columns is-desktop" >
               <div className="column" >
-                <img alt="header" src={`https://images.pexels.com/photos/831056/pexels-photo-831056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`} className={bstyles.head1} />
+                <img alt="header" src={field} className={bstyles.head1} />
               </div>
               <div className="column">
                 <h1 className={bstyles.title1}>Stars don't disappear they keep blazing!</h1>

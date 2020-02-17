@@ -122,6 +122,16 @@
    }
 }
 
+@media only screen and (max-width: 768px) {
+   .sideimg{
+      display: none;
+   }
+
+   .card{
+      margin: 3%;
+   }
+}
+
 @media only screen and (max-width: 1024px) {
    .title1 {
       overflow-wrap: break-word;
@@ -182,10 +192,6 @@
     .sidebar{
        display: none;
     }
-
-    .sideimg{
-      display: none;
-   }
 
     .holder{
       margin-top: 100px;
@@ -372,7 +378,7 @@
  }
 
  .cbutton2{
-   background-color: transparent;
+   background-color: #222227;
    border: none; 
    border-radius: 8px;
    font-size: 16px;
@@ -382,11 +388,19 @@
    outline: none;
  }
 
+ .cbutton2:hover{
+   background-color: #313136;
+ }
+
+ .cbutton2:active{
+   background-color: #1d1d20;
+ }
+
  .cbutton:hover:nth-child(2){
     background-color: #29282E;
  }
 
  .cbutton:hover:last-child{
-   background-color: #29282E;
+   background-color: rgb(46, 45, 51);
    border-radius: 0px 8px 8px 0px;
  }

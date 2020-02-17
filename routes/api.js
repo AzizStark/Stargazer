@@ -285,7 +285,7 @@ router.delete('/deletepost',requireAuth, (req, res, next) => {
 })
 
 //Mongo, Cloudinary Storage Details
-router.get('/usedspace',requireAuth,(req, res, next) => {
+router.get('/usedspace', requireAuth ,(req, res, next) => {
   mongoose.connection.db.stats({
     scale: 1024
   })

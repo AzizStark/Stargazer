@@ -39,6 +39,7 @@ constructor(props) {
   }
 
 getPosts = () => {
+  console.log("getpost")
   const limit = 6
   axios.get('/api/postitles',{
     params: {
@@ -77,6 +78,7 @@ clearCache = () => {
 }
 
 getSpace = () => {
+  console.log("refresh")
   axios.get('/api/usedspace')
   .then(res => {
     if(res.data){
@@ -102,11 +104,14 @@ deletePost = (e) => {
     }).then(res => {
       if(res.data){
         window.alert("Post has been deleted")
+        const content = this.state.scontent;
+        content.splice(refer.target,1)
+        console.log(content)
         this.setState({
           ctitle : "",
           modalstate: "",
+          scontent: content,
         })
-        this.getPosts()
       }
     })
     ;
@@ -163,7 +168,7 @@ updateTitle = (e) => {
 
 loader = () => {
   return(
-    <center><img src={loading} alt="loading" style={{width: 40, margin: 15}}/></center>
+    <center><img src={loading} alt="loading" style={{width: 40, margin: 18}}/></center>
   )
 }
 
@@ -179,14 +184,14 @@ loader = () => {
                   <div className="card-content columns" style={{borderRadius: 6,margin: 0,backdropFilter: 'blur(5px)',}}>     
                     <div className="column" style={{ flexDirection: 'column', backgroundColor: '#444449', padding: 10, borderRadius: 8}}>
                       { this.state.space !== 'loading' ? (
-                          <div style={{color: '#fff'}}>
+                          <div style={{color: '#fff', paddingBottom: 12}}>
                             <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
                             <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
                             <p>CDN service used: {this.state.space.Credits} %</p>
                           </div>) : this.loader()
-                      }<br/>
+                      }
                       <div style={{backgroundColor: '#222227',borderRadius: 8, width: '100%'}}>
-                        <button className={dstyles.cbutton} style={{width: '50%'}} onClick={()=>{this.getSpace() || this.getPosts()}}>Refresh</button>   
+                        <button className={dstyles.cbutton} style={{width: '50%'}} onClick={()=>{this.setState({space: 'loading'}) || this.getSpace()}}>Refresh</button>   
                         <button className={dstyles.cbutton} style={{width: '50%'}} onClick={(e)=>{this.toggleModal2(e)}}>Clear Cache</button> 
                       </div>
                     </div>
@@ -194,8 +199,8 @@ loader = () => {
                     <div className="column"></div>
 
                     <div className="column columns" style={{flexDirection: 'column',backgroundColor: '#444449', padding: 10, borderRadius: 8, margin: 0}}>
-                      <button style={{backgroundColor:'#222227', marginBottom: 10}} className={`${dstyles.cbutton2} column`} onClick={()=>{window.open('editor#new')}}>Create Post</button>                         
-                      <button style={{backgroundColor:'#222227'}} className={`${dstyles.cbutton2} column`} onClick={(e)=>{this.logout()}}>Log out</button>  
+                      <button style={{marginBottom: 10}} className={`${dstyles.cbutton2} column`} onClick={()=>{window.open('editor#new')}}>Create Post</button>                         
+                      <button className={`${dstyles.cbutton2} column`} onClick={(e)=>{this.logout()}}>Log out</button>  
                     </div>
                   
                   </div>
@@ -242,28 +247,19 @@ loader = () => {
             <div className={`modal ${this.state.modalstate}`}>
               <div className="modal-background"></div>
               <div className="modal-content">
-              <div className="card" style={{borderRadius: 6}}>
-                <div className="card-content">
-                  <p className="title">
+              <div className={`card ${dstyles.card}`} style={{borderRadius: 6, backgroundColor: '#222227'}}>
+                <div className="card-content" > 
+                  <p className="title" style={{color: '#fff'}}>
                     Are you sure you want to permanently delete this post?
                   </p>
                   <br/>
-                  <p className="subtitle">
-                    Type the title of the post to confirm.
-                  </p>
-                  <input className="input is-danger" onChange={this.updateTitle} type="text" value={this.state.ctitle} placeholder="Enter Title" />
+                  <input className={dstyles.inputarea} onChange={this.updateTitle} type="text" value={this.state.ctitle} placeholder="Enter title to confirm" />
                 </div>
-                <footer className="card-footer">
-                  <p className="card-footer-item">
-                    <span>
-                      <a href="# " style={{color: 'red'}} onClick = {(e) => {this.deletePost(e)}} >Delete Post</a>
-                    </span>
-                  </p>
-                  <p className="card-footer-item">
-                    <span>
-                      <a onClick = {(e) => {this.toggleModal(e)}} href="# ">Cancel</a>
-                    </span>
-                  </p>
+                <footer className="card-footer" style={{borderColor: '#574b4b'}}>
+                  <div style={{backgroundColor: '#222227',borderRadius: 8, width: '100%'}}>
+                    <button className={dstyles.cbutton} style={{width: '50%'}} onClick = {(e) => {this.deletePost(e)}}>Delete Post</button>   
+                    <button className={dstyles.cbutton} style={{width: '50%'}} onClick = {(e) => {this.toggleModal(e)}}>Cancel</button> 
+                  </div>
                 </footer>
               </div>
               </div>
@@ -274,29 +270,23 @@ loader = () => {
             <div className={`modal ${this.state.modalstate2}`}>
               <div className="modal-background"></div>
               <div className="modal-content">
-              <div className="card" style={{borderRadius: 6}}>
+              <div className={`card ${dstyles.card}`} style={{borderRadius: 6, backgroundColor: '#222227'}}>
                 <div className="card-content">
-                  <p className="subtitle">
-                    <span style={{color: 'red'}}>Warning</span>: Clearing the cache while writting a post will cause data loss.
+                  <p className="subtitle" style={{color: '#fff'}}>
+                    <span style={{color: 'red'}}>Warning:</span> Clearing the cache while writting a post will cause data loss.
                     Make sure there is no pending posts to submit.
                   </p>
                   <br/>
-                  <p className="subtitle">
+                  <p className="subtitle" style={{color: '#fff'}}>
                     Are you sure you want to clear cache?
                   </p>
                   <br/>
                 </div>
-                <footer className="card-footer">
-                  <p className="card-footer-item">
-                    <span>
-                      <a style={{color: 'red'}} href="# " onClick = {(e) => {this.clearCache(e)}} >Clear cache</a>
-                    </span>
-                  </p>
-                  <p className="card-footer-item">
-                    <span>
-                      <a onClick = {(e) => {this.toggleModal2(e)}} href="# " >Cancel</a>
-                    </span>
-                  </p>
+                <footer className="card-footer" style={{borderColor: '#574b4b'}}>
+                  <div style={{backgroundColor: '#222227',borderRadius: 8, width: '100%'}}>
+                    <button className={dstyles.cbutton} style={{width: '50%'}} onClick = {(e) => {this.clearCache(e)}}>Clear cache</button>   
+                    <button className={dstyles.cbutton} style={{width: '50%'}} onClick = {(e) => {this.toggleModal2(e)}} >Cancel</button> 
+                  </div>
                 </footer>
               </div>
               </div>
