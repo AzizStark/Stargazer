@@ -4,12 +4,14 @@ import Navba from './navbar';
 import Footer from './footer'
 import bstyles from './blog.module.css';
 import renderHTML from 'react-render-html';
+import ReactDisqusComments from 'react-disqus-comments';
 
 class view extends Component {
   
 constructor(props) {
   super(props);
   this.state = {
+    uid: "",
     title : "",
     date: "",
     tag: "",
@@ -35,6 +37,7 @@ getPosts = () => {
     .then(res => {
       if(res.data){
         this.setState({
+          uid: res.data._id, 
           title: res.data.title,
           date: res.data.date,
           tag: res.data.tag,
@@ -45,6 +48,10 @@ getPosts = () => {
       }
     })
     .catch(err => console.log(err))
+}
+
+handleNewComment(comment) {
+  console.log(comment.text);
 }
 
   render() {
@@ -71,6 +78,13 @@ getPosts = () => {
                     {renderHTML(`${this.state.content}`)}
                   </div>
                 </div>
+                <ReactDisqusComments
+                  shortname="azizstark"
+                  identifier={this.state.uid}
+                  title={this.state.title}
+                  url={this.props.location.pathname}
+                  category_id={this.state.cid}
+                  onNewComment={this.handleNewComment}/>
             </div>
           </section>  
         </div>
