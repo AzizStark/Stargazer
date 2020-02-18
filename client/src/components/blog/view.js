@@ -82,7 +82,7 @@ handleNewComment(comment) {
                   shortname="azizstark"
                   identifier={this.state.uid}
                   title={this.state.title}
-                  url={"https://azizstark.unubo.app/blog/0/flex-test"}
+                  url={this.props.location.href}
                   category_id={this.state.cid}
                   onNewComment={this.handleNewComment}/>
             </div>
