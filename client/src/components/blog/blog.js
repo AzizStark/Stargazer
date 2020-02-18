@@ -4,7 +4,7 @@ import Navba from './navbar';
 import Footer from './footer'
 import bstyles from './blog.module.css';
 import { Link } from 'react-router-dom'
-import {field} from './field.jpg'
+import field from './field.jpg'
 
 class Blog extends Component {
   
