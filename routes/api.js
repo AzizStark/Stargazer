@@ -1,6 +1,7 @@
 import express from 'express';
 import Blog from '../models/Post';
 import uimage from '../models/Images';
+import mailgun from 'mailgun-js';
 import { uploader, cloudinaryConfig, v2 } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
 const mongoose = require('mongoose');
@@ -8,6 +9,12 @@ const router = express.Router();
 const crypto = require('crypto');
 
 router.use("*", cloudinaryConfig);
+
+
+const DOMAIN = process.env.MAILDOMAIN;
+const mg = mailgun({ apiKey: process.env.MAILAPI, domain: DOMAIN });
+
+
 
 //Authentication Function to secure APIs
 const requireAuth = (req, res, next) => {
@@ -387,6 +394,86 @@ router.delete('/deleteimage',requireAuth, (req,res,next) => {
                 message: "An error occured while clearing cache"
           })})
     })
+})
+
+
+router.post('/subscribe', (req,res,next) => {
+
+  var list = mg.lists(`subscribers@${DOMAIN}`);
+
+  console.log(req.body.mail)
+  var bob = {
+    subscribed: true,
+    address: req.body.mail,
+  };
+
+  list.members().create(bob, function (error, data) {
+    if(data){
+      res.status(200).json({ message: "Subscribed successfully"})
+    }
+    else{
+      res.status(400).json({
+        message: "Unable to subscribe"
+      })
+    }
+  });
+})
+
+
+router.post('/sendmail', (req,res,next) => {
+
+  const data = {
+    from: "theazizstark@gmail.com",
+    to: "thesuperaziz@gmail.com",
+    subject: "Hello",
+    template: "contact",
+    "v:user_name": req.body.user_name,
+    "v:user_email": req.body.user_email,
+    "v:message": req.body.message,
+  };
+
+  mg.messages().send(data, function (error, body) {
+    if(body){
+      res.status(200).json({
+        message: "Mail sent"
+      })
+    }
+    else{
+      res.status(400).json({
+        message: "Sending failed"
+      })
+    }
+  })
+
+})
+
+
+
+router.post('/sendtosubs', (req,res,next) => {
+
+  const data = {
+    from: "theazizstark@gmail.com",
+    to: "subscribers@sandbox96af4eac640d4216be7811bd4eddfc82.mailgun.org",
+    subject: "Hello",
+    template: "contact",
+    "v:user_name": "req.body.user_name",
+    "v:user_email": "req.body.user_email",
+    "v:message": "req.body.message",
+  };
+
+  mg.messages().send(data, function (error, body) {
+    if(body){
+      res.status(200).json({
+        message: "Mail sent"
+      })
+    }
+    else{
+      res.status(400).json({
+        message: "Sending failed"
+      })
+    }
+  })
+
 })
 
 module.exports = router;
