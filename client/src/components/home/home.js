@@ -7,7 +7,7 @@ import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
 import ReactCompareImage from 'react-compare-image';
-import emailjs from 'emailjs-com';
+import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
@@ -18,8 +18,22 @@ class Home extends Component {
   state = {
     capvalue: null,
     sendinfo: "Send Message",
-    butStyle: `${cstyles.custombtn}`
+    butStyle: `${cstyles.custombtn}`,
+    emaildata: {
+      "user_name": "",
+      "user_email": "",
+      "message": ""
+    }
   };
+
+  formChanger = (event) => {
+    let nam = event.target.name;
+    let val = event.target.value;
+    var data = this.state.emaildata;
+    console.log(data)
+    data[nam] = val
+    this.setState({emaildata: data});
+  }
 
   onChange = (value) => {
     this.setState({
@@ -41,22 +55,22 @@ class Home extends Component {
       this.setState({
         sendinfo: "Sending Message"
       });
-      emailjs.sendForm('gmail', 'contact', e.target, 'user_yYmXLFgei1Nw3P3rJBMaS')
-        .then((result) => {
-            this.setState({
-              sendinfo: "Message Sent Successfully",
-              capvalue: "sent",
-              butStyle: `${cstyles.custombtnS}`
-            });
-        }, (error) => {
-            console.log(error.text);
-            if(this.state.capvalue !== "sent"){
-              this.setState({
-                sendinfo: "Sending Failed!",
-                butStyle: `${cstyles.custombtnW}`
-              });
-          }
+
+      axios.post('/api/sendmail',this.state.emaildata)
+      .then( res => {
+        this.setState({
+          sendinfo: "Message Sent",
+          capvalue: "sent",
+          butStyle: `${cstyles.custombtnS}`
         });
+      })
+      .catch( err => {
+        this.setState({
+          sendinfo: "Sending Failed!",
+          butStyle: `${cstyles.custombtnW}`
+        });
+      })
+
     }
     else{
       console.log("captcha not verified")
@@ -216,19 +230,19 @@ class Home extends Component {
             <div class="field">
 							<label>Name</label>
 							<div class="control">
-								<input class="input is-medium" name="user_name"  type="text" style={styles.input} required/>
+								<input onChange={this.formChanger} class="input is-medium" name="user_name"  type="text" style={styles.input} required/>
 							</div>
 						</div>
 						<div class="field">
 							<label>Email</label>
 							<div class="control">
-								<input class="input is-medium" type="email" name="user_email" style={styles.input}  required/>
+								<input onChange={this.formChanger} class="input is-medium" type="email" name="user_email" style={styles.input}  required/>
 							</div>
 						</div>
 						<div class="field">
 							<label >Message</label>
 							<div class="control">
-								<textarea class="textarea is-medium" name="message" style={styles.input}  required></textarea>
+								<textarea onChange={this.formChanger} class="textarea is-medium" name="message" style={styles.input}  required></textarea>
 							</div>
 						</div>
             <div style={{display: 'flex', justifyContent: 'center'}}>

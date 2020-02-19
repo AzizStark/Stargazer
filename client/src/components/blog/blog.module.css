@@ -29,9 +29,10 @@
       height: 100%;
       object-fit: cover;
    }   
+   
    .postbox{
       position: relative;
-      background-color: #2222279a;
+      background-color: #222227b7;
       backdrop-filter: blur(25px);
       border-radius: 25px;
       margin: -10px 7vw 0px 7vw;

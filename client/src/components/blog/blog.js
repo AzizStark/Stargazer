@@ -14,6 +14,7 @@ constructor(props) {
     posts: [],
     pivot: 0,
     active: true,
+    email: ""
   };
 }
   showIt = (elementId) => {
@@ -53,6 +54,42 @@ getPosts = () => {
 loadMore = () => {
   this.getPosts()
 }
+
+
+subscribe = (e) => {
+  e.preventDefault()
+  console.log(this.state.email)
+  axios.post("/api/subscribe", 
+  {
+      mail: this.state.email,
+  }
+  )
+  .then(res => {
+    if (res.data) {
+     window.alert("Subscribed!")
+    }
+    else{
+      window.alert("Unable to subscribe")
+    }
+  })
+  .catch(err => console.log(err));
+}
+
+shouldComponentUpdate(nextProps, nextState) { 
+  console.log(nextState.active)
+  if (nextState.posts.length === this.state.posts.length) { 
+    if(this.state.active === false){
+      return false;
+    }
+    if(nextState.active === false){
+      return true
+    }
+    return false;
+  }
+  return true;
+}
+
+
   render() {
 
     return (
@@ -82,9 +119,9 @@ loadMore = () => {
              {(this.state.pivot > 0 && this.state.active) && <center ><div title="Load more" className={bstyles.loader} onClick={() => this.loadMore()}></div></center>}
             </div>
             <div className={`container ${bstyles.holder}`}>
-              <form>
+              <form onSubmit={ (e) => this.subscribe(e)}>
                 <h1 className='title' style={{color: 'white', textAlign: 'center'}} >Join my blog</h1><br/>
-                <center><input className={`${bstyles.inputarea} ${bstyles.inputx}`} name="user_email" placeholder="Your email address" type='email' required /></center><br/>
+                <center><input className={`${bstyles.inputarea} ${bstyles.inputx}`} onChange={(e) => this.setState({email: e.target.value})} name="user_email" placeholder="Your email address" type='email' required /></center><br/>
                 <br/>
                 <center><input className={bstyles.nbutton} type='submit' value="Subscribe"/></center>
               </form>

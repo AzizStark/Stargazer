@@ -185,7 +185,7 @@ loader = () => {
                     <div className="column" style={{ flexDirection: 'column', backgroundColor: '#444449', padding: 10, borderRadius: 8}}>
                       { this.state.space !== 'loading' ? (
                           <div style={{color: '#fff', paddingBottom: 12}}>
-                            <p>Database storage used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
+                            <p>Database used: {(this.state.space.MStorage/1024).toFixed(2)}/500 MB</p>
                             <p>CDN storage used: {(this.state.space.CStorage/1048576).toFixed(2)} MB</p>
                             <p>CDN service used: {this.state.space.Credits} %</p>
                           </div>) : this.loader()
