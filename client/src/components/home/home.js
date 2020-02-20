@@ -90,7 +90,7 @@ class Home extends Component {
           <meta charSet="utf-8"></meta>
           <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700|Nunito:200,300,400,400i,600,700&display=swap" rel="stylesheet"></link>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-          
+          <meta name="description" content="Hello,I am Aziz Stark. An aspiring developer and designer."/>
           <section className={`hero is-fullheight ${cstyles.svgg}`}>
           <Navba></Navba>
             <div className="hero-body" >
