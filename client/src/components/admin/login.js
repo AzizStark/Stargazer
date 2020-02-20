@@ -5,6 +5,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import logo from '../blog/Polygon.svg'
 import bstyles from '../blog/blog.module.css';
 import forest from './forest.jpg'
+import Footer from '../blog/footer';
 
 class login extends Component {
     constructor(props) {
@@ -75,6 +76,7 @@ class login extends Component {
                             </center>
                         </form>
                     </div>
+                    <Footer></Footer>
                 </div>
             </div>
         )

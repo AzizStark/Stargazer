@@ -4,12 +4,28 @@ import polygon from './Polygon.svg'
 
 class Navba extends Component {
 
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      burger: ""
+      }
+    }
+
   showIt = (elementId,e) =>{
     e.preventDefault()
     var el = document.getElementById(elementId);
     el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   }
 
+  toggle = () => {
+    if(this.state.burger === ""){
+      this.setState({burger: "is-active"})
+    }
+    else{
+      this.setState({burger: ""})
+    }
+  }
 
   render() {
     return (
@@ -26,11 +42,12 @@ class Navba extends Component {
 
           <a
             role="button"
-            className="navbar-burger burger"
+            className={`navbar-burger burger ${this.state.burger}`}
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
             href='# '
+            onClick = {this.toggle}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -38,7 +55,7 @@ class Navba extends Component {
           </a>
         </div>
 
-        <div id="navbarBasicExample" className="navbar-menu">
+        <div id="navbarBasicExample" className={`navbar-menu ${this.state.burger}`}>
           <div
             className="navbar-end" style={{fontWeight: 'bold'}}
           >

@@ -452,27 +452,14 @@ router.post('/sendmail', (req,res,next) => {
 router.post('/sendtosubs', (req,res,next) => {
 
   const data = {
-    from: "theazizstark@gmail.com",
-    to: "subscribers@sandbox96af4eac640d4216be7811bd4eddfc82.mailgun.org",
-    subject: "Hello",
-    template: "contact",
-    "v:user_name": "req.body.user_name",
-    "v:user_email": "req.body.user_email",
-    "v:message": "req.body.message",
+    from: 'theazizstark@gmail.com',
+    to: 'pixivia@gmail.com',
+    subject: 'Hello',
+    text: 'Testing some Mailgun awesomness!'
   };
-
   mg.messages().send(data, function (error, body) {
-    if(body){
-      res.status(200).json({
-        message: "Mail sent"
-      })
-    }
-    else{
-      res.status(400).json({
-        message: "Sending failed"
-      })
-    }
-  })
+    console.log(body);
+  });
 
 })
 

@@ -4,6 +4,7 @@ import loading from "./loading.gif";
 import dstyles from '../blog/blog.module.css';
 import forest from './forest.jpg';
 import Footer from '../blog/footer'
+import logo from '../blog/Polygon.svg'
 
 class Dashboard extends Component{
 
@@ -196,7 +197,9 @@ loader = () => {
                       </div>
                     </div>
 
-                    <div className="column"></div>
+                    <div className="column" style={{display: 'flex', flexDirection: 'column',justifyContent: 'center'}}>
+                    <center><img src={logo} alt="logo" style={{width: 100}}/></center>
+                    </div>
 
                     <div className="column columns" style={{flexDirection: 'column',backgroundColor: '#444449', padding: 10, borderRadius: 8, margin: 0}}>
                       <button style={{marginBottom: 10}} className={`${dstyles.cbutton2} column`} onClick={()=>{window.open('editor#new')}}>Create Post</button>                         
