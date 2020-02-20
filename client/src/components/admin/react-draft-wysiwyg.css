@@ -24,7 +24,7 @@ select:-webkit-autofill:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background:#a9aaa7;
+  background:#ddd;
   text-transform: capitalize;
 }
 .rdw-option-wrapper:hover {
@@ -43,20 +43,19 @@ select:-webkit-autofill:focus {
 
 .rdw-dropdown-wrapper {
   height: 30px;
-  background: white;
+  background: #ddd;
   cursor: pointer;
   border: 1px solid #F1F1F1;
   border-radius: 2px;
   margin: 0 3px;
   text-transform: capitalize;
-  background: white;
 }
 .rdw-dropdown-wrapper:focus {
   outline: none;
 }
 .rdw-dropdown-wrapper:hover {
   box-shadow: 1px 1px 0px #BFBDBD;
-  background-color: #FFFFFF;
+  background-color: #ddd);
 }
 .rdw-dropdown-wrapper:active {
   box-shadow: 1px 1px 0px #BFBDBD inset;
@@ -93,7 +92,7 @@ select:-webkit-autofill:focus {
   position: relative;
   border: 1px solid #F1F1F1;
   width: 98%;
-  background: white;
+  background: #ddd;
   border-radius: 2px;
   margin: 0;
   padding: 0;
@@ -102,7 +101,7 @@ select:-webkit-autofill:focus {
 }
 .rdw-dropdown-optionwrapper:hover {
   box-shadow: 1px 1px 0px #BFBDBD;
-  background-color: #FFFFFF;
+  background-color: #ddd;
 }
 
 .rdw-dropdownoption-default {
@@ -864,7 +863,10 @@ select:-webkit-autofill:focus {
   color: black;
   display: flex;
   justify-content: flex-start;
-  background: #3C3940;
+  border-bottom-color: #3b4248 !important;
+  border: 0px;
+  border-bottom: 1px;
+  border-style: solid;
   flex-wrap: wrap;
   font-size: 15px;
   margin-bottom: 5px;

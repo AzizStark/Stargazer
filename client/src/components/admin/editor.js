@@ -12,6 +12,8 @@ import renderHTML from 'react-render-html';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faEye, faCode } from '@fortawesome/free-solid-svg-icons'
 import forest from '../blog/mount.jpg';
+import loading from "./loading.gif";
+import Footer from '../blog/footer'
 
 class editor extends Component {
   
@@ -36,7 +38,8 @@ constructor(props) {
     uindex: 0,
     utotal: 0,
     udone: 0,
-    tab: ["is-active","",""]
+    tab: ["is-active","",""],
+    space: ''
   }
 }
 
@@ -70,6 +73,7 @@ componentDidMount() {
 }
 
 putPost = () => { 
+  this.setState({space: "loading"})
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.post('/api/posts',{
@@ -140,6 +144,7 @@ getPost = () => {
 }
 
 setPost = () => {
+  this.setState({space: "loading"})
   console.log("Post will update");
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
@@ -289,6 +294,12 @@ prevent = (e) => {
   e.preventDefault()
 }
 
+loader = () => {
+  return(
+    <center><img src={loading} alt="loading" style={{width: 40, margin: 18}}/></center>
+  )
+}
+
   render() {
     const { editorState } = this.state;
 
@@ -304,17 +315,17 @@ prevent = (e) => {
         
   
           { 
-          //(this.state.uploadStatus === 'NotStarted') &&
-            <div style={{ backgroundImage: `url(${forest})`,backgroundSize: 'cover', textAlign: 'center',  borderRadius: 10, height: 280}}> 
-              <div style={{width: '100%', height: '100%', backdropFilter: 'blur(5px)',borderRadius: 10}}>
+
+            <div style={{ backgroundImage: `url(${forest})`,backgroundSize: 'cover', textAlign: 'center',  borderRadius: 10}}> 
+              <div style={{width: '100%',height: '100%', backdropFilter: 'blur(5px)',borderRadius: 10, paddingBottom: 20}}>
               <ImageUploader
                     buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
                     imgExtension={['.jpg','.jpeg', '.gif', '.png', '.gif']}
-                    maxFileSize={550000}
+                    maxFileSize={720000}
                     fileTypeError={"Invalid File"}
-                    fileSizeError={"image size is larger than 500 KB"}
-                    label={"Maximum image size: 500 KB"}
+                    fileSizeError={"image size is larger than 700 KB"}
+                    label={"Maximum image size: 700 KB"}
                     fileContainerStyle={{background: "transparent", boxShadow: 'none',margin: 0, color: '#333'}}
                     withIcon={true}
               />
@@ -324,7 +335,7 @@ prevent = (e) => {
                 <p style={{fontSize: 12,  color: '#333'}}>
                 Uploading image {this.state.utotal - (this.state.pictures.length - this.state.uindex) + 1} / {this.state.utotal}
                 </p><br/>
-                <center><progress id="progress" style={{width: '70%'}} className="progress is-info" value="0" max="100"></progress></center>
+                <center><progress id="progress" style={{width: '70%', textAlign: 'left'}} className="progress is-dark" value="0" max="100"></progress></center>
               </div>
               :
               <button onClick={() => (this.state.pictures.length > 0 && this.state.pictures.length !== this.state.uploadCount) && (this.setState({utotal: this.state.pictures.length - this.state.uindex}) | this.handleImageUpload(this.state.uindex))} className="button is-primary" style={styles.bttn}> Upload </button>
@@ -358,8 +369,8 @@ prevent = (e) => {
               <input className={bstyles.inputarea} pattern={`^[a-zA-Z0-9,! .()"'|]+$`} onChange={(e) => this.setState({stitle: e.target.value})} value={this.state.stitle} placeholder="Enter post title without special characters" maxLength='77' required/><br /><br />
               <input className={bstyles.inputarea} type="text" onChange={(e) => this.setState({stag: e.target.value})} value={this.state.stag} placeholder="Enter tag" maxLength='14' required/><br/><br />
               <div>
-                <article className="panel is-primary" >
-                  <p className="panel-heading" style={{backgroundColor: '#80bfe2'}}>
+                <article>
+                  <p className="panel-heading" style={{color: '#ddd',backgroundColor: '#767778'}}>
                     Manage content
                   </p>
                   <div className="tabs is-centered is-boxed" style={{backgroundColor: '#3C3940',paddingTop: 10,marginBottom: 0}}>
@@ -395,7 +406,7 @@ prevent = (e) => {
                   </div>
 
                   {this.state.tab[1] === "is-active" && 
-                    <div style={{padding: '4%', minHeight: '60vh', backgroundColor: 'rgb(29, 28, 31)'}}>
+                    <div style={{padding: '4%', minHeight: '60vh', backgroundColor: '#19181b'}}>
                       <div className="container">
                         <div className={bstyles.contentArea} >
                           {renderHTML(draftToHtml(convertToRaw(editorState.getCurrentContent())))}
@@ -406,7 +417,7 @@ prevent = (e) => {
 
                   {this.state.tab[2] === "is-active" && 
                     <div>
-                      <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#1A171B",width: '100%', minHeight: '60vh',color: '#fff'}}>
+                      <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#19181b",width: '100%', minHeight: '60vh',color: '#fff', border: 0}}>
                       </textarea >
                       <br/><br/>
                       <center><button className={bstyles.nbutton} type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
@@ -421,30 +432,26 @@ prevent = (e) => {
         
         <div className={`modal ${this.state.modalstate}`}>
               <div className="modal-background"></div>
-              <div className="modal-content">
-              <div className="card" style={{borderRadius: 6}}>
-                <div className="card-content">
-                  <p className="title">
-                     {this.state.editmode === "Create Post" ? 'Are you sure you want to create a new post?' : 'Are you sure you want to update the changes to the post?' }
-                  </p>
+                <div className="modal-content">
+                { this.state.space !== 'loading' ? (
+                  <div className={`card ${bstyles.card}`} style={{borderRadius: 6, backgroundColor: '#222227'}}>
+                    <div className="card-content">
+                      <p className="title" style={{color: '#fff'}}>
+                        {this.state.editmode === "Create Post" ? 'Are you sure you want to create a new post?' : 'Are you sure you want to update the changes to the post?' }
+                      </p>
+                    </div>
+                    <footer className="card-footer" style={{borderColor: '#574b4b'}}>
+                      <div style={{backgroundColor: '#222227',borderRadius: 8, width: '100%'}}>
+                        <button className={bstyles.cbutton} style={{width: '50%'}}  onClick = {(this.state.editmode === 'Create Post' ? this.putPost : this.setPost)}>Confirm</button>   
+                        <button className={bstyles.cbutton} style={{width: '50%'}} onClick = {(e) => {this.toggleModal(e)}}>Cancel</button> 
+                      </div>
+                    </footer>
+                  </div>
+                ) : this.loader()}
                 </div>
-                <footer className="card-footer">
-                  <p className="card-footer-item">
-                    <span>
-                      <a href='# ' onClick = {this.state.editmode === 'Create Post' ? this.putPost : this.setPost}>Confirm</a>
-                    </span>
-                  </p>
-                  <p className="card-footer-item">
-                    <span>
-                      <a href="# " onClick = {(e) => {this.toggleModal(e)}} >Cancel</a>
-                    </span>
-                  </p>
-                </footer>
-              </div>
-              </div>
-
-              <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
-            </div>
+            <button className="modal-close is-large" onClick = {() => {this.toggleModal()}} aria-label="close"></button>
+          </div>
+          <Footer></Footer>
       </div>
     );
   }
@@ -467,6 +474,7 @@ const styles =({
     border: 'none',
     borderRadius: 15,
     width: 100,
+    marginBottom: 30,
     padding:0,
     backgroundColor:'#3f4257' 
   },

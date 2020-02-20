@@ -3,7 +3,6 @@ import Navba from './navbar';
 import './bulma.css';
 import './imagehover.min.css';
 import cstyles from './home.module.css';
-import './toggle.js';
 import leaf1 from './plato.svg';
 import leaf2 from './plate.svg';
 import ReactCompareImage from 'react-compare-image';

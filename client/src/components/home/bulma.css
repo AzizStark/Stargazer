@@ -7887,7 +7887,7 @@ label.panel-block:hover {
   border-bottom-color: #dbdbdb;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  color: #4a4a4a;
+  color: #9e9e9e;
   display: flex;
   justify-content: center;
   margin-bottom: -1px;
@@ -7897,7 +7897,6 @@ label.panel-block:hover {
 
 .tabs a:hover {
   border-bottom-color: #363636;
-  color: #363636;
 }
 
 .tabs li {
@@ -7906,7 +7905,7 @@ label.panel-block:hover {
 
 .tabs li.is-active a {
   border-bottom-color: #3273dc;
-  color: #3273dc;
+  color: #dddddf;
 }
 
 .tabs ul {
@@ -7958,13 +7957,12 @@ label.panel-block:hover {
 }
 
 .tabs.is-boxed a:hover {
-  background-color: whitesmoke;
+  background-color: rgb(73, 68, 75);
   border-bottom-color: #dbdbdb;
 }
 
 .tabs.is-boxed li.is-active a {
-  background-color: white;
-  border-color: #dbdbdb;
+  background-color: #19181b;
   border-bottom-color: transparent !important;
 }
 
