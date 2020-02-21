@@ -69,7 +69,10 @@ handleNewComment(comment) {
                 <img  alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
               </div>
               <div className="column" style={{maxWidth: '50%'}}>
-              <h1 className={bstyles.title1}>{this.state.title}</h1>
+                <div className={bstyles.adapt}>
+                  <h1 className={bstyles.title1}>{this.state.title}</h1>
+    <p className={bstyles.title1} style={{fontSize: 'calc(0.3vw + 12px)', paddingTop: 30, fontWeight: 300}}>Posted on {this.state.date}</p>
+              </div>
               </div>
             </div>
             <div className={`column ${bstyles.postbox}`}>
@@ -78,6 +81,7 @@ handleNewComment(comment) {
                     {renderHTML(`${this.state.content}`)}
                   </div>
                 </div>
+                <br/><br/><br/>
                 <ReactDisqusComments
                   shortname="azizstark"
                   identifier={this.state.uid}
