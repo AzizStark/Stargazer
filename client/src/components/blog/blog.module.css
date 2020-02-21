@@ -139,11 +139,16 @@
       max-width: 90%;
       font-size: 8vw;
       font-weight: bold;
-      position: absolute;
       line-height: 1.2;
+   }
+
+   .adapt{
+      position: absolute;
       top: 45%;
       left: 16px;
+      z-index: 99;
    }
+
    .head1{
       height: 100vh;
       width: 100vw;
@@ -155,8 +160,8 @@
       background-color: #222227a4;
       backdrop-filter: blur(25px);
       border-radius: 25px;
-      margin: -105px 4vw 0px 4vw;
-      padding: 40px 7vw 40px 7vw;
+      margin: -105px 2vw 0px 2vw;
+      padding: 30px 5vw 40px 5vw;
       filter: none;
       z-index: 0;
    }

@@ -322,10 +322,10 @@ loader = () => {
                     buttonText={`Choose images`}
                     onChange={this.imageStack.bind(this)}
                     imgExtension={['.jpg','.jpeg', '.gif', '.png', '.gif']}
-                    maxFileSize={720000}
+                    maxFileSize={1020000}
                     fileTypeError={"Invalid File"}
-                    fileSizeError={"image size is larger than 700 KB"}
-                    label={"Maximum image size: 700 KB"}
+                    fileSizeError={"image size is larger than 1 MB"}
+                    label={"Maximum image size: 1 MB"}
                     fileContainerStyle={{background: "transparent", boxShadow: 'none',margin: 0, color: '#333'}}
                     withIcon={true}
               />
@@ -474,7 +474,6 @@ const styles =({
     border: 'none',
     borderRadius: 15,
     width: 100,
-    marginBottom: 30,
     padding:0,
     backgroundColor:'#3f4257' 
   },
