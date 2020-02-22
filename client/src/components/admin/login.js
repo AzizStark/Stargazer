@@ -19,10 +19,7 @@ class login extends Component {
 
 
   requireAuth = () => {
-    axios.get('/api/isLogged')
-    .then(res => {
-        console.log("Logged")
-    }).catch( err => {
+    axios.get('/api/isLogged').catch( err => {
         if(err.response.status === 401){
             this.props.history.push('/admin/login');
         }

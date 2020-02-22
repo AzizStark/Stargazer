@@ -40,7 +40,6 @@ constructor(props) {
   }
 
 getPosts = () => {
-  console.log("getpost")
   const limit = 6
   axios.get('/api/postitles',{
     params: {
@@ -49,7 +48,6 @@ getPosts = () => {
     }
   })
     .then(res => {
-      console.log(res.data.length)
       if(res.data.length !== 0){
         this.setState({
           scontent: this.state.scontent.concat(res.data),
@@ -79,7 +77,6 @@ clearCache = () => {
 }
 
 getSpace = () => {
-  console.log("refresh")
   axios.get('/api/usedspace')
   .then(res => {
     if(res.data){
@@ -107,7 +104,6 @@ deletePost = (e) => {
         window.alert("Post has been deleted")
         const content = this.state.scontent;
         content.splice(refer.target,1)
-        console.log(content)
         this.setState({
           ctitle : "",
           modalstate: "",
@@ -155,7 +151,6 @@ toggleModal2 = (e) => {
 logout = () => {
   axios.get('/api/logout')
   .then(res => {
-      console.log("out")
       this.props.history.push("login")
   })
   .catch(err => console.log(err))

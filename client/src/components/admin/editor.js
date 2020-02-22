@@ -66,8 +66,7 @@ componentDidMount() {
       }
      }).catch( err => {
          if(err.response.status === 401){
-            console.log('Unauthorized')
-            // this.props.history.push('/admin/login');
+            this.props.history.push('/admin/login');
          } 
      })   
 }
@@ -93,8 +92,6 @@ putPost = () => {
             data: {
               imgids: this.state.uploadedFileCloudinaryId
             }  
-          }).then((res) => {
-            console.log("Stack Cleared")
           }).catch( err => console.log(err))
 
           if(res){
@@ -145,7 +142,6 @@ getPost = () => {
 
 setPost = () => {
   this.setState({space: "loading"})
-  console.log("Post will update");
   const content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
     if(this.state.stitle.length && this.state.stag.length && this.state.simage.length && content.length > 0){
       axios.put('/api/updatepost',{
@@ -166,7 +162,6 @@ setPost = () => {
               imgids: this.state.uploadedFileCloudinaryId
             }  
           }).then((res) => {
-            console.log("Stack Cleared")
             if(res.data){
               window.alert("Success: Post Updated!")
               this.setState({

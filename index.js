@@ -30,10 +30,10 @@ app.use((req, res, next) => {
 app.use(helmet())
 app.use(bodyParser.json());
 app.use(session({
-  'secret': '343ji43j4n3jn4jk3n',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
-  maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  maxAge: 8 * 60 * 60 * 1000, // 8 hours
 }))
 app.use('/api', routes);
 app.use(express.static("client/build"));
@@ -43,7 +43,7 @@ app.get("*", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.log(err); 
   next();
 });
 
