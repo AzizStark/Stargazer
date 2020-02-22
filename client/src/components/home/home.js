@@ -29,7 +29,6 @@ class Home extends Component {
     let nam = event.target.name;
     let val = event.target.value;
     var data = this.state.emaildata;
-    console.log(data)
     data[nam] = val
     this.setState({emaildata: data});
   }
@@ -40,7 +39,6 @@ class Home extends Component {
       sendinfo: "Send Message",
       butStyle: `${cstyles.custombtn}`
     });
-    console.log("Captcha value:", this.state.capvalue);
   }
 
   showIt = (elementId) => {
@@ -72,7 +70,6 @@ class Home extends Component {
 
     }
     else{
-      console.log("captcha not verified")
       if( this.state.capvalue !== "sent"){
         this.setState({
           sendinfo: "Please Verify Captcha",

@@ -7,90 +7,85 @@ import renderHTML from 'react-render-html';
 import ReactDisqusComments from 'react-disqus-comments';
 
 class view extends Component {
-  
-constructor(props) {
-  super(props);
-  this.state = {
-    uid: "",
-    title : "",
-    date: "",
-    tag: "",
-    content: "",
-    image: ""
-  };
-}
 
-componentDidMount() {
-  window.scrollTo(0, 0)
-  this.getPosts()
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: "",
+      title: "",
+      date: "",
+      tag: "",
+      content: "",
+      image: ""
+    };
+  }
 
-getPosts = () => {
-  const path = this.props.location.pathname
-  var cid = path.slice(6,path.lastIndexOf('/'))
-  axios.get('/api/viewpost',{
-    params: {
-      title: path.slice(7 + cid.length).replace(/-/g,' '),
-      cid: cid
-    }
-  })
-    .then(res => {
-      if(res.data){
-        this.setState({
-          uid: res.data._id, 
-          title: res.data.title,
-          date: res.data.date,
-          tag: res.data.tag,
-          content: res.data.content,
-          image: res.data.imageurl
-        })
-        console.log("From View: "+ this.state.image)
+  componentDidMount() {
+    window.scrollTo(0, 0)
+    this.getPosts()
+  }
+
+  getPosts = () => {
+    const path = this.props.location.pathname
+    var cid = path.slice(6, path.lastIndexOf('/'))
+    axios.get('/api/viewpost', {
+      params: {
+        title: path.slice(7 + cid.length).replace(/-/g, ' '),
+        cid: cid
       }
     })
-    .catch(err => console.log(err))
-}
-
-handleNewComment(comment) {
-  console.log(comment.text);
-}
+      .then(res => {
+        if (res.data) {
+          this.setState({
+            uid: res.data._id,
+            title: res.data.title,
+            date: res.data.date,
+            tag: res.data.tag,
+            content: res.data.content,
+            image: res.data.imageurl
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
 
   render() {
 
     return (
-      <div className={bstyles.blog} style={{overflow: 'Hidden'}}>
-         <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet"/>
-         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <div className={bstyles.blog} style={{ overflow: 'Hidden' }}>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <Navba></Navba>
-        <div style={{height: '100%'}}>
+        <div style={{ height: '100%' }}>
           <section className={`hero is-fullheight`}  >
-          <h1 className={bstyles.sidebar}>AZIZSTARK'S BLOG</h1>
+            <h1 className={bstyles.sidebar}>AZIZSTARK'S BLOG</h1>
             <div className="columns is-desktop" >
               <div className="column" >
-                <img  alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
+                <img alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
               </div>
-              <div className="column" style={{maxWidth: '50%'}}>
+              <div className="column" style={{ maxWidth: '50%' }}>
                 <div className={bstyles.adapt}>
                   <h1 className={bstyles.title1}>{this.state.title}</h1>
-    <p className={bstyles.title1} style={{fontSize: 'calc(0.3vw + 12px)', paddingTop: 30, fontWeight: 300}}>Posted on {this.state.date}</p>
-              </div>
+                  <p className={bstyles.title1} style={{ fontSize: 'calc(0.3vw + 12px)', paddingTop: 30, fontWeight: 300 }}>Posted on {this.state.date}</p>
+                </div>
               </div>
             </div>
             <div className={`column ${bstyles.postbox}`}>
-                <div className="container" style={{minHeight: 400}}>
-                  <div className={bstyles.contentArea} style={{backgroundColor: "#00000000"}}>
-                    {renderHTML(`${this.state.content}`)}
-                  </div>
+              <div className="container" style={{ minHeight: 400 }}>
+                <div className={bstyles.contentArea} style={{ backgroundColor: "#00000000" }}>
+                  {renderHTML(`${this.state.content}`)}
                 </div>
-                <br/><br/><br/>
-                <ReactDisqusComments
-                  shortname="azizstark"
-                  identifier={this.state.uid}
-                  title={this.state.title}
-                  url={this.props.location.href}
-                  category_id={this.state.cid}
-                  onNewComment={this.handleNewComment}/>
+              </div>
+              <br /><br /><br />
+              <ReactDisqusComments
+                shortname="azizstark"
+                identifier={this.state.uid}
+                title={this.state.title}
+                url={this.props.location.href}
+                category_id={this.state.cid}
+              />
             </div>
-          </section>  
+          </section>
         </div>
         <Footer></Footer>
       </div>

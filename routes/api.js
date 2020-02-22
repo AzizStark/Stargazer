@@ -4,12 +4,12 @@ import uimage from '../models/Images';
 import mailgun from 'mailgun-js';
 import { uploader, cloudinaryConfig, v2 } from '../config/cloudinaryConfig'
 import { multerUploads, dataUri } from '../middlewares/multerUpload';
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+
+
 const router = express.Router();
-const crypto = require('crypto');
-
 router.use("*", cloudinaryConfig);
-
 
 const DOMAIN = process.env.MAILDOMAIN;
 const mg = mailgun({ apiKey: process.env.MAILAPI, domain: DOMAIN });
@@ -49,15 +49,14 @@ router.post('/login',(req,res,next) => {
     res.send("Logged In");
   }
   else{
-    console.log("Incorrect Credentials")
+    res.send("Incorrect credentials")
   }
 })
 
 
-//Logout
+//Logout by deleting seesion
 router.get('/logout', (req, res, next) => {
   if (req.session) {
-    // delete session object
     req.session.destroy( (err) => {
       if(err) {
         return next(err);
@@ -85,9 +84,6 @@ router.post('/upload', requireAuth, multerUploads, (req, res) => {
                 } 
               },
               {upsert: true})
-              .then(data => {
-                console.log("Image added to stack")
-              })
               .catch( err =>
                 res.status(400).json({
                   message: "Something went wrong while processing your request",
@@ -120,6 +116,12 @@ router.get('/viewpost', (req, res, next) => {
   Blog.findOne({title: req.query.title, cid: req.query.cid})
     .then(data => {
       res.status(200).json(data)
+      Blog.findOneAndUpdate(
+        { "title" : req.query.title, "cid" : req.query.cid },
+        { $inc: 
+          { "vcount" : 1} 
+        },
+      )
     })
     .catch(err =>
       res.status(400).json({
@@ -128,15 +130,6 @@ router.get('/viewpost', (req, res, next) => {
           err
         }
     }))
-
-    Blog.findOneAndUpdate(
-      { "title" : req.query.title, "cid" : req.query.cid },
-      { $inc: 
-        { "vcount" : 1} 
-      },
-    ).then(res => console.log('visited'))
-    .catch( err => console.log(err))
-
 });
 
 //Update the post
@@ -184,7 +177,6 @@ router.put('/updatepost', requireAuth, (req, res, next) => {
           },{ returnOriginal: false }
         )
         .then(data2 => { 
-            console.log(data2)
            res.json(data2)})
         .catch(err =>
           res.status(400).json({
@@ -255,7 +247,7 @@ router.post('/posts', requireAuth, (req, res, next) => {
           console.log(err)})
         }
       }else {
-        res.json({
+        res.status(400).json({
           error: "The input field is empty"
         })
       }
@@ -347,7 +339,6 @@ router.delete('/clear',requireAuth, (req,res,next) => {
       data => {
         v2.api.delete_resources(data.images)
         .then( data => {
-          console.log("Clearing")
           collection.findOneAndUpdate({},
             { $set: 
               { 
@@ -355,13 +346,11 @@ router.delete('/clear',requireAuth, (req,res,next) => {
               },
             })
             .then(data => {
-              console.log("Cleared")
               res.status(200).json({
                 message: "Cache cleared"
               })
             })
             .catch( err => {
-              console.log(err)
               res.status(400).json({
                 message: "An error occured while clearing cache"
           })})
@@ -375,7 +364,6 @@ router.delete('/clear',requireAuth, (req,res,next) => {
 router.delete('/deleteimage',requireAuth, (req,res,next) => {
       v2.api.delete_resources([req.body.imageid])
         .then( data => {
-          console.log("Deleted and deleting from database")
           Blog.findOneAndUpdate({ "title" : req.body.title, "cid" : req.body.cid },
             { $pull: 
               { 
@@ -383,13 +371,11 @@ router.delete('/deleteimage',requireAuth, (req,res,next) => {
               },
             },{ multi: true })
             .then(data => {
-              console.log("Image deleted Successfully")
               res.status(200).json({
                 message: "Image deleted Successfully"
               })
             })
             .catch( err => {
-              console.log(err)
               res.status(400).json({
                 message: "An error occured while clearing cache"
           })})
@@ -401,7 +387,6 @@ router.post('/subscribe', (req,res,next) => {
 
   var list = mg.lists(`subscribers@${DOMAIN}`);
 
-  console.log(req.body.mail)
   var bob = {
     subscribed: true,
     address: req.body.mail,
