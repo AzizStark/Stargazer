@@ -408,3 +408,7 @@
    background-color: rgb(46, 45, 51);
    border-radius: 0px 8px 8px 0px;
  }
+
+ iframe{
+    min-height: calc(20vw + 20vh);
+ }
