@@ -100,7 +100,7 @@ class Blog extends Component {
           <section className={`hero is-fullheight`}  >
             <div className="columns is-desktop" >
               <div className="column" >
-                <img alt="header" src={field} className={bstyles.head1} />
+                <img alt="header" src={field} className={`${bstyles.head1}`} />
               </div>
               <div className="column">
                 <div className={bstyles.adapt}>

@@ -70,7 +70,7 @@ class view extends Component {
                 </div>
               </div>
             </div>
-            <div className={`column ${bstyles.postbox}`}>
+            <div className={`column ${bstyles.postbox} ${bstyles.slider}`}>
               <div className="container" style={{ minHeight: 400 }}>
                 <div className={bstyles.contentArea} style={{ backgroundColor: "#00000000" }}>
                   {renderHTML(`${this.state.content}`)}
