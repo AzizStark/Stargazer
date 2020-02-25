@@ -77,7 +77,7 @@ class contact extends Component {
       <div>
         <div className="columns">
           <div className="column" >
-            <img className={bstyles.sideimg} style={{ width: '50%', height: '100vh', position: 'fixed', objectFit: 'cover' }} src={mount} />
+            <img alt="header" className={bstyles.sideimg} style={{ width: '50%', height: '100vh', position: 'fixed', objectFit: 'cover' }} src={mount} />
           </div>
           <div className="column" style={{ paddingTop: 18 }}>
             <a className='title' style={{ color: 'white', fontSize: 18, margin: 20, fontWeight: 700, letterSpacing: '0.08em' }} href="/blog" ><FontAwesomeIcon style={{ color: '#888888', paddingTop: 15 }} icon={faChevronLeft} size="2x" />Back to blog</a>

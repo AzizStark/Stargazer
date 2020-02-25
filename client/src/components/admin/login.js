@@ -11,61 +11,62 @@ class login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        username: "",
-        password: ""
+            username: "",
+            password: ""
         }
     }
 
 
 
-  requireAuth = () => {
-    axios.get('/api/isLogged').catch( err => {
-        if(err.response.status === 401){
-            this.props.history.push('/admin/login');
-        }
-    })
-  }
+    requireAuth = () => {
+        axios.get('/api/isLogged').catch(err => {
+            if (err.response.status === 401) {
+                this.props.history.push('/admin/login');
+            }
+        })
+    }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("/api/login", {} , 
-        {auth: {
-            username: this.state.username,
-            password: this.state.password
-            }
-        })
-        .then(res => {
-          if (res.data) {
-            this.props.history.push('/admin/dashboard');
-          }
-        })
-        .catch(err => console.log(err));
+        axios.post("/api/login", {},
+            {
+                auth: {
+                    username: this.state.username,
+                    password: this.state.password
+                }
+            })
+            .then(res => {
+                if (res.data) {
+                    this.props.history.push('/admin/dashboard');
+                }
+            })
+            .catch(err => console.log(err));
     }
-    
+
     render() {
-        return(
+        return (
             <div className="columns">
                 <div className="column">
-                    <img className={bstyles.sideimg} style={{width: '50%', height: '100vh',position: 'fixed', objectFit: 'cover'}} src={forest}/>
-                    <img src={logo} alt="logo" style={{width: 80, margin: 20, zIndex: 99, position: 'fixed'}}/>
+                    <img alt="header" className={bstyles.sideimg} style={{ width: '50%', height: '100vh', position: 'fixed', objectFit: 'cover' }} src={forest} />
+                    <img src={logo} alt="logo" style={{ width: 80, margin: 20, zIndex: 99, position: 'fixed' }} />
                 </div>
                 <div className="column" >
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh'}} >
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: 0, minHeight: '100vh' }} >
                         <form className={bstyles.holder}>
-                            <h1 className='title' style={{fontSize: 50,color: 'white', textAlign: 'center', fontWeight: 700, letterSpacing: '0.1em'}} > Login </h1> <br/>
+                            <h1 className='title' style={{ fontSize: 50, color: 'white', textAlign: 'center', fontWeight: 700, letterSpacing: '0.1em' }} > Login </h1> <br />
                             <p className="control has-icons-left">
-                                <input onChange={ (e) => {this.setState({ username: e.target.value})}} className={bstyles.inputarea}  type="email" placeholder="Email" required/>
+                                <input onChange={(e) => { this.setState({ username: e.target.value }) }} className={bstyles.inputarea} type="email" placeholder="Email" required />
                                 <span className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faEnvelope}  size="1x"/>
+                                    <FontAwesomeIcon icon={faEnvelope} size="1x" />
                                 </span>
-                            </p><br/><br/>
+                            </p><br /><br />
                             <p className="control has-icons-left">
-                                <input onChange={ (e) => {this.setState({ password: e.target.value})}} className={bstyles.inputarea}  type="password" placeholder="Password" required/>
+                                <input onChange={(e) => { this.setState({ password: e.target.value }) }} className={bstyles.inputarea} type="password" placeholder="Password" required />
                                 <span className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faLock}  size="1x"/>
+                                    <FontAwesomeIcon icon={faLock} size="1x" />
                                 </span>
                             </p>
-                            <br/><br/>
+                            <br /><br />
                             <center>
                                 <button className={bstyles.nbutton} onClick={this.handleSubmit}>
                                     Login
