@@ -282,8 +282,6 @@
    background-color: #707070;
    font-size: 18px;
    font-weight: 700;
-   outline: none;
-   cursor: pointer;
 }
 
 .nbutton:hover{
@@ -409,6 +407,6 @@
    border-radius: 0px 8px 8px 0px;
  }
 
- iframe{
+.contentArea iframe{
     min-height: calc(20vw + 20vh);
  }
