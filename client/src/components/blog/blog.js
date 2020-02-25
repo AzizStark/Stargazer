@@ -5,7 +5,7 @@ import Footer from './footer'
 import bstyles from './blog.module.css';
 import { Link } from 'react-router-dom'
 import field from './field.jpg'
-import { LazyLoadImage, LazyLoadComponent } from 'react-lazy-load-image-component';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 class Blog extends Component {
 
@@ -101,9 +101,9 @@ class Blog extends Component {
           <section className={`hero is-fullheight`}  >
             <div className="columns is-desktop" >
               <div className="column" >
-                <img alt="header" src={field} className={`${bstyles.head1}`} />
+                <img  effect="blur" alt="header" src={field} className={`${bstyles.head1}`} />
               </div>
-              <div className="column">
+              <div className={`column ${bstyles.htitle}`}>
                 <div className={bstyles.adapt}>
                   <h1 className={bstyles.title1}>Stars don't disappear they keep blazing!</h1>
                 </div>
@@ -138,12 +138,14 @@ class Blog extends Component {
 function box(wtype, title, cid, date, index, image, tag) {
   return (<div className={`column is-full-touch ${bstyles.wrapper} ${wtype} ${bstyles.slider}`} key={index}>
     <Link to={{ pathname: `blog/${cid}/${title.replace(/ /g, "-")}` }} style={{ color: 'inherit' }}>
+    <LazyLoadComponent>
       <div className={`${bstyles.box}`} style={{ backgroundImage: `linear-gradient(42.51deg, rgba(3, 3, 3, 0.55) -3.51%, rgba(86, 85, 85, 0.51) 97.42%),url(https://res.cloudinary.com/azizcloud/image/upload/t_tiles/${image.slice(50)})` }}>
         <h1 className={bstyles.htext}>{title}</h1>
         <br />
         <h1 className={bstyles.stext}>{date}</h1>
         <h1 className={bstyles.tag}>{tag}</h1>
       </div>
+    </LazyLoadComponent>
     </Link>
   </div>)
 }

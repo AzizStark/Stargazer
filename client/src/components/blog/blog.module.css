@@ -154,6 +154,11 @@
     object-fit: cover;
     filter: brightness(65%);
   }
+
+  .htitle{
+     padding: 0;
+  }
+
   .postbox {
     position: relative;
     background-color: #222227a4;
