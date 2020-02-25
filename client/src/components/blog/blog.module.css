@@ -411,4 +411,10 @@
 
 .contentArea iframe {
   min-height: calc(20vw + 20vh);
+  border-radius: 6px;
 }
+
+.contentArea img {
+   border-radius: 6px;
+ }
+ 
