@@ -23,6 +23,8 @@ class view extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
     this.getPosts()
+
+    console.log(window.location.href)
   }
 
   getPosts = () => {
@@ -78,10 +80,10 @@ class view extends Component {
               </div>
               <br /><br /><br />
               <ReactDisqusComments
-                shortname="azizstark"
+                shortname="AzizStark"
                 identifier={this.state.uid}
                 title={this.state.title}
-                url={this.props.location.href}
+                url={window.location.href}   
                 category_id={this.state.cid}
               />
             </div>
