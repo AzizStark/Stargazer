@@ -44,7 +44,7 @@ class view extends Component {
             content: res.data.content,
             image: res.data.imageurl
           })
-          console.log(this.state.title)
+          console.log(this.state.uid)
         }
       })
       .catch(err => console.log(err))
