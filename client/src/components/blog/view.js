@@ -23,8 +23,6 @@ class view extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
     this.getPosts()
-
-    console.log(window.location.href)
   }
 
   getPosts = () => {
