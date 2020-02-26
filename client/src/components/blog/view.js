@@ -44,6 +44,7 @@ class view extends Component {
             content: res.data.content,
             image: res.data.imageurl
           })
+          console.log(this.state.title)
         }
       })
       .catch(err => console.log(err))
@@ -79,7 +80,7 @@ class view extends Component {
               <br /><br /><br />
               <ReactDisqusComments
                 shortname="AzizStark"
-                identifier={this.state.uid}
+                identifier={this.state.title + this.state.cid}
                 title={this.state.title}
                 url={window.location.href}   
                 category_id={this.state.cid}
