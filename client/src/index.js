@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import Home from './components/home/home';
-import Blog from './components/blog/blog';
-import View from './components/blog/view';
-import Contact from './components/blog/contact';
-import Login from './components/admin/login';
-import Editor from './components/admin/editor';
-import Dashboard from './components/admin/dashboard';
+import Home from './views/home/home';
+import Blog from './views/blog/blog';
+import View from './views/blog/view';
+import Contact from './views/blog/contact';
+import Login from './views/admin/login';
+import Editor from './views/admin/editor';
+import Dashboard from './views/admin/dashboard';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (

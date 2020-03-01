@@ -26,9 +26,7 @@ class contact extends Component {
     this.setState({
       capvalue: value,
       sendinfo: "Send",
-      // butStyle: `${cstyles.custombtn}`
     });
-    console.log("Captcha value:", this.state.capvalue);
   }
 
   sendEmail = (e) => {
@@ -52,10 +50,9 @@ class contact extends Component {
         })
     }
     else {
-      console.log("captcha not verified")
       if (this.state.capvalue !== "sent") {
         this.setState({
-          sendinfo: "Please Verify Captcha",
+          sendinfo: "Please verify captcha",
         });
       }
     }

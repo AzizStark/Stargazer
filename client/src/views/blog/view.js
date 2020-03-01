@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Navba from './navbar';
+import Navbar from './navbar';
 import Footer from './footer'
 import bstyles from './blog.module.css';
 import renderHTML from 'react-render-html';
@@ -44,7 +44,6 @@ class view extends Component {
             content: res.data.content,
             image: res.data.imageurl
           })
-          console.log(this.state.uid)
         }
       })
       .catch(err => console.log(err))
@@ -52,17 +51,19 @@ class view extends Component {
 
   render() {
 
+    const transformation = ['t_equla/']
+
     return (
       <div className={bstyles.blog} style={{ overflow: 'Hidden' }}>
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-        <Navba></Navba>
+        <Navbar></Navbar>
         <div style={{ height: '100%' }}>
           <section className={`hero is-fullheight`}  >
             <h1 className={bstyles.sidebar}>AZIZSTARK'S BLOG</h1>
             <div className="columns is-desktop" >
               <div className="column" >
-                <img alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/t_equla/${(this.state.image).slice(50)}`} className={bstyles.head1} />
+                <img alt="header" src={`https://res.cloudinary.com/azizcloud/image/upload/${transformation}${(this.state.image).slice(50)}`} className={bstyles.head1} />
               </div>
               <div className="column" style={{ maxWidth: '50%' }}>
                 <div className={bstyles.adapt}>
@@ -93,7 +94,5 @@ class view extends Component {
     );
   }
 }
-
-
 
 export default view;

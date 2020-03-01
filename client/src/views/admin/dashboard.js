@@ -149,6 +149,7 @@ toggleModal2 = (e) => {
 }
 
 logout = () => {
+  localStorage.removeItem('content')
   axios.get('/api/logout')
   .then(res => {
       this.props.history.push("login")

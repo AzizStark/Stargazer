@@ -33,7 +33,7 @@ app.use(session({
   secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
-  maxAge: 8 * 60 * 60 * 1000, // 8 hours
+  maxAge: 5 * 60 * 60 * 1000, // 8 hours
 }))
 app.use('/api', routes);
 app.use(express.static("client/build"));
