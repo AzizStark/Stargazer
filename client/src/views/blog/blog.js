@@ -28,17 +28,18 @@ class Blog extends Component {
   }
 
   getPosts = () => {
+    const limit = 6
     axios.get('/api/postitles', {
       params: {
         skip: this.state.pivot,
-        limit: 3
+        limit: limit
       }
     })
       .then(res => {
         if (res.data.length !== 0) {
           this.setState({
             posts: this.state.posts.concat(res.data),
-            pivot: this.state.pivot + 3,
+            pivot: this.state.pivot + limit,
             active: true,
           })
         }

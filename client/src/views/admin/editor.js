@@ -43,6 +43,38 @@ constructor(props) {
   }
 }
 
+componentDidMount() {
+  axios.get('/api/isLogged')
+     .then(res => {
+       var searchParams = new URLSearchParams(this.props.location.search).get("m");
+       const content = localStorage.getItem('content');
+
+       if(searchParams === 'edit'){
+        this.setState({
+          editmode: 'Edit Post',
+        })
+        this.getPost()
+      }else{
+        this.editHtml(content)
+        this.interval = setInterval(() => this.local(), 60000);
+      }
+
+     }).catch( err => {
+         if(err.response.status === 401){
+            this.props.history.push('/admin/login');
+         } 
+     })   
+}
+
+componentWillUnmount() {
+  clearInterval(this.interval);
+}
+
+local = () => {
+  localStorage.setItem('content', draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())));
+}
+
+
 onEditorStateChange: Function = (editorState) => {
   if(editorState.getCurrentContent().getPlainText('').length < 500001){
     this.setState({
@@ -54,22 +86,6 @@ onEditorStateChange: Function = (editorState) => {
   }
 };
 
-componentDidMount() {
-  axios.get('/api/isLogged')
-     .then(res => {
-       var searchParams = new URLSearchParams(this.props.location.search).get("m");
-       if(searchParams === 'edit'){
-        this.setState({
-          editmode: 'Edit Post'
-        })
-        this.getPost()
-      }
-     }).catch( err => {
-         if(err.response.status === 401){
-            this.props.history.push('/admin/login');
-         } 
-     })   
-}
 
 putPost = () => { 
   this.setState({space: "loading"})
@@ -120,10 +136,12 @@ getPost = () => {
   })
     .then(res => {
       if(res.data){
+
         const blocksFromHtml = htmlToDraft(res.data.content);
         const { contentBlocks, entityMap } = blocksFromHtml;
         const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
         const editorState = EditorState.createWithContent(contentState);
+
         this.setState({
           otitle: title,
           ocid: cid,
@@ -228,7 +246,7 @@ deleteImage = (index) => {
     }
   }).then(res => {
     if(res.data){
-      window.alert("Imagehas been deleted")
+      window.alert("Image deleted successfully")
       const ids = this.state.uploadedFileCloudinaryId;
       ids.splice(index,1)
       this.setState({
@@ -275,14 +293,17 @@ switchTab = (index) =>{
   })
 }
 
-editHtml = () => {
-    const blocksFromHtml = htmlToDraft(this.state.htmlcontent);
+editHtml = (data) => {
+  let editorState = ""
+  if(data !== null){
+    const blocksFromHtml = htmlToDraft(data);
     const { contentBlocks, entityMap } = blocksFromHtml;
     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-    const editorState = EditorState.createWithContent(contentState);
-    this.setState({
-      editorState: editorState
-    })
+    editorState = EditorState.createWithContent(contentState);
+  }
+  this.setState({
+    editorState: editorState
+  })
 }
 
 prevent = (e) => {
@@ -415,13 +436,14 @@ loader = () => {
                       <textarea id="htmlcontent" defaultValue={draftToHtml(convertToRaw(editorState.getCurrentContent()))} onChange={(e) => this.setState({htmlcontent: e.target.value})} style={{backgroundColor: "#19181b",width: '100%', minHeight: '60vh',color: '#fff', border: 0}}>
                       </textarea >
                       <br/><br/>
-                      <center><button className={bstyles.nbutton} type="button" onClick = {() => this.editHtml()} >Initialize</button></center>
+                      <center><button className={bstyles.nbutton} type="button" onClick = {() => this.editHtml(this.state.htmlcontent)} >Initialize</button></center>
                     </div>
                   }
 
                 </article> 
               </div>
             </form>
+            <button onClick = { this.local }> Local store </button>
           </section>  
         </div>
         

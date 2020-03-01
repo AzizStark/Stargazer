@@ -32,9 +32,9 @@ class Navba extends Component {
         role="navigation"
         aria-label="main navigation"
       >
-        <div className="navbar-brand">
+        <div className="navbar-brand" >
           <a className="navbar-item" id={cstyles.navbarItem} href="# " >
-            <img src={"https://res.cloudinary.com/azizcloud/image/upload/v1581064953/portfolio/x6fzis0xbyyodmd8sq7p.svg"} width="90" height="60" alt="logo" />
+            <img style={{width:36}} src={"https://res.cloudinary.com/azizcloud/image/upload/v1583066010/portfolio/jsmm5qaojmmdzqgplnzr.png"} width="90" height="60" alt="logo" />
           </a>
 
           <a
