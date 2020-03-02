@@ -30,7 +30,7 @@ class view extends Component {
     var cid = path.slice(6, path.lastIndexOf('/'))
     axios.get('/api/viewpost', {
       params: {
-        title: path.slice(7 + cid.length).replace(/-/g, ' '),
+        title: path.slice(7 + cid.length).replace(/-/g,' '),
         cid: cid
       }
     })
@@ -55,6 +55,14 @@ class view extends Component {
 
     return (
       <div className={bstyles.blog} style={{ overflow: 'Hidden' }}>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145139004-1"></script>
+        <script>{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-145139004-1');`}
+        </script>
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <Navbar></Navbar>

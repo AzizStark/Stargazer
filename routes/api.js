@@ -121,9 +121,9 @@ router.get('/viewpost', (req, res, next) => {
         { $inc: 
           { "vcount" : 1} 
         },
-      )
-    })
-    .catch(err =>
+      ).then( res => {
+      })
+    }).catch(err =>
       res.status(400).json({
         message: "Something went wrong while processing your request",
         data: {
@@ -311,8 +311,8 @@ router.get('/usedspace', requireAuth ,(req, res, next) => {
   }))
 })
 
-//clear unused stack
-router.delete('/deleteunused',requireAuth, (req,res,next) => {
+//clear image from unused stack
+router.delete('/deleteused',requireAuth, (req,res,next) => {
     uimage.findOneAndUpdate({},
       { $pull: 
         { 
@@ -339,21 +339,16 @@ router.delete('/clear',requireAuth, (req,res,next) => {
       data => {
         v2.api.delete_resources(data.images)
         .then( data => {
-          collection.findOneAndUpdate({},
+          uimage.findOneAndUpdate({},
             { $set: 
               { 
                 images : []
               },
-            })
-            .then(data => {
+            }).then( data =>{
               res.status(200).json({
-                message: "Cache cleared"
+                message: "Images cleared",
               })
             })
-            .catch( err => {
-              res.status(400).json({
-                message: "An error occured while clearing cache"
-          })})
         })
         .catch( err => res.send(err))
       }
