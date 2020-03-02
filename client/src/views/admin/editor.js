@@ -101,7 +101,7 @@ putPost = () => {
         .then(res => {
           
           //Remove ids from unused stack
-          axios.delete('/api/deleteunused',{
+          axios.delete('/api/deleteused',{
             headers: {
               Authorization: 'authorizationToken'
             },
@@ -112,6 +112,7 @@ putPost = () => {
 
           if(res){
             window.alert("Posted Successfully!")
+            localStorage.removeItem('content')
             this.setState({
               modalstate: "",
             })
@@ -172,7 +173,7 @@ setPost = () => {
           content: content        
       })
         .then(res => {
-          axios.delete('/api/deleteunused',{
+          axios.delete('/api/deleteused',{
             headers: {
               Authorization: 'authorizationToken'
             },
@@ -443,7 +444,6 @@ loader = () => {
                 </article> 
               </div>
             </form>
-            <button onClick = { this.local }> Local store </button>
           </section>  
         </div>
         
