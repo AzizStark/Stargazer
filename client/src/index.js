@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Home from './views/home/home';
 import Blog from './views/blog/blog';
 import View from './views/blog/view';
+import NotFound from './views/blog/404';
 import Contact from './views/blog/contact';
 import Login from './views/admin/login';
 import Editor from './views/admin/editor';
@@ -20,6 +21,7 @@ const routing = (
         <Route exact path="/admin/editor" component={Editor} />
         <Route exact path="/admin/editor/:cid/:id" component={Editor} />
        	<Route path="/admin/login" component={Login}/>
+         <Route path="/404" component={NotFound}/>
         <Route path="/admin/dashboard" component={Dashboard}/>
       </div>
     </Router>
