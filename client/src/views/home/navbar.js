@@ -33,9 +33,6 @@ class Navba extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand" >
-          <a className="navbar-item" id={cstyles.navbarItem} href="# " >
-            <img style={{width:36}} src={"https://res.cloudinary.com/azizcloud/image/upload/v1583066010/portfolio/jsmm5qaojmmdzqgplnzr.png"} width="90" height="60" alt="logo" />
-          </a>
 
           <a
             role="button"

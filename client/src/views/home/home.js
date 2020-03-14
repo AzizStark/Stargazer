@@ -101,7 +101,7 @@ class Home extends Component {
                 </p>
               <p className={cstyles.subheading}>An aspiring developer and designer.</p>
               <br />
-              <button onClick={() => this.showIt('explore')} className="button is-rounded" id={cstyles.custombtn} >Explore</button>
+              <button onClick={() => this.showIt('explore')} className="button" id={cstyles.custombtn} >Explore</button>
             </div>
 
             <div className={cstyles.cardss}>
@@ -119,7 +119,7 @@ class Home extends Component {
               <div className="imghvr-blur" style={{ display: 'block', borderRadius: 30 }}>
                 <img alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/v1581060654/portfolio/eyrwgd7vlqdwtvptwt52.jpg'} style={{ width: '100%' }} title="hover text" />
                 <figcaption>
-                  <p className="subheading" style={{ fontSize: "calc(12px + 0.5vw)", fontWeight: "500" }}> An Android application designed and developed using React Native. It is a fancy text generator application that works based on the different Unicode characters and glyphs</p>
+                  <p className="subheading" style={{ fontSize: "calc(12px + 0.5vw)", fontWeight: "500", fontFamily: 'nunito' }}> An Android application designed and developed using React Native. It is a fancy text generator application that works based on the different Unicode characters and glyphs.</p>
                 </figcaption>
               </div>
             </div>
@@ -141,13 +141,13 @@ class Home extends Component {
               </div>
               <div style={{ marginTop: "1%" }}>
                 <div className="imghvr-blur" style={{ marginRight: '1%', width: '49%', borderRadius: 30 }}>
-                  <img alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060650/portfolio/azr4fshuzsn4ltbnvoqg.jpg'} />
+                  <img alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1584195516/portfolio/zdxn5vpyan3zklntqcla.jpg'} />
                   <figcaption style={{ padding: 20, fontSize: 'calc(10px + 0.6vw)', fontFamily: 'nunito' }}>
                     <p className="subheading" style={{ fontSize: "calc(12px + 0.5vw)", fontWeight: "500" }}>A Dark themed windows 10 UI that fetched 3rd Prize from deviantart!</p>
                   </figcaption>
                 </div>
                 <div className="imghvr-blur" style={{ marginLeft: '1%', width: '49%', borderRadius: 30 }} >
-                  <img alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1581060644/portfolio/k8hxkuipmshqkvvosd0y.jpg'} />
+                  <img alt="project" src={'https://res.cloudinary.com/azizcloud/image/upload/t_equla/v1584195448/portfolio/uscuqihqn5rsxfpaqxhx.jpg'} />
                   <figcaption style={{ padding: 20, fontSize: 'calc(10px + 0.6vw)', fontFamily: 'nunito' }}>
                     <p className="subheading" style={{ fontSize: "calc(12px + 0.5vw)", fontWeight: "500" }}>Designed and created two E-Magazines that consists of articles and other creations from my college students.</p>
                   </figcaption>
@@ -180,7 +180,7 @@ class Home extends Component {
                 <ReactCompareImage leftImage={'https://res.cloudinary.com/azizcloud/image/upload/v1581061483/portfolio/j6pqcavpcvsbzk4g8xnc.png'} rightImage={'https://res.cloudinary.com/azizcloud/image/upload/v1581064288/portfolio/dgusm9nn5s7frnig0sdn.svg'} handle={<FontAwesomeIcon icon={faArrowsAltH} style={{ backgroundColor: '#2EA7FF', borderRadius: 30, padding: 10, border: 0 }} size="3x" />} sliderLineColor={'#2EA7FF'} sliderLineWidth={8} sliderPositionPercentage={0.515} />      <br />
               </div> 
               <div style={styles.flexcenter} >
-                <button onClick={'https://drive.google.com/open?id=13ChPvEZ31vPNt8LajWoVamre0_Bc-JHC'} id={cstyles.custombtn} className="button is-rounded " >Download Resume</button> 
+                <button onClick={'https://drive.google.com/open?id=13ChPvEZ31vPNt8LajWoVamre0_Bc-JHC'} id={cstyles.custombtn} className="button" >Download Resume</button> 
               </div>
             </div>
             <div className="column">
@@ -258,7 +258,7 @@ class Home extends Component {
                   />
                 </div><br />
                 <div class="control">
-                  <button type="submit" value="Send" id={this.state.butStyle} className="button is-rounded is-fullwidth has-text-weight-medium is-medium">{this.state.sendinfo}</button>
+                  <button type="submit" value="Send" id={this.state.butStyle} className="button is-fullwidth has-text-weight-medium is-medium">{this.state.sendinfo}</button>
                 </div>
               </form>
             </div>
