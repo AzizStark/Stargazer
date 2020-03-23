@@ -23,7 +23,7 @@
     "draft-js": "^0.11.4",
     "draftjs-to-html": "^0.9.1",
     "express": "^4.17.1",
-    "express-form-data": "^2.0.11",
+    "express-form-data": "^2.0.12",
     "express-session": "^1.17.0",
     "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
