@@ -35,7 +35,7 @@
     "passport-local": "^1.0.0",
     "react-disqus-comments": "^1.4.0",
     "react-draft-wysiwyg": "^1.14.4",
-    "react-lazy-load-image-component": "^1.4.1",
+    "react-lazy-load-image-component": "^1.4.3",
     "react-render-html": "^0.6.0"
   },
   "devDependencies": {
