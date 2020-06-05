@@ -20,7 +20,7 @@
     "datauri": "^2.0.0",
     "disqus-react": "^1.0.7",
     "dotenv": "^8.2.0",
-    "draft-js": "^0.11.4",
+    "draft-js": "^0.11.6",
     "draftjs-to-html": "^0.9.1",
     "express": "^4.17.1",
     "express-form-data": "^2.0.13",
